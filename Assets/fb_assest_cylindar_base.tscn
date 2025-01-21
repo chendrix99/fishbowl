@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://db8lov7pylaku"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_im3kt"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hq06w"]
+height = 0.1
+radius = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xximr"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
+
+[node name="FBAssestCylindarBase" type="Node3D"]
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
+script = ExtResource("1_im3kt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+shape = SubResource("CylinderShape3D_hq06w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+mesh = SubResource("CylinderMesh_xximr")

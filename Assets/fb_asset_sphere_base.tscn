@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv3pt16daftgl"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_i7tfe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kst4m"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_i304h"]
+radius = 0.1
+height = 0.2
+
+[node name="FBAssetSphereBase" type="Node3D"]
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
+script = ExtResource("1_i7tfe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+shape = SubResource("SphereShape3D_kst4m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+mesh = SubResource("SphereMesh_i304h")
