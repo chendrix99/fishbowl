@@ -13,16 +13,19 @@
 [node name="FBBaseScene" instance=ExtResource("1_7efx5")]
 
 [node name="LeftHand" parent="XROrigin3D" index="1"]
-pose = &"grip"
+pose = &"default"
 
 [node name="LeftPhysicsHand" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_05jan")]
+
+[node name="LeftHandTracker" type="RemoteTransform3D" parent="XROrigin3D/LeftHand/LeftPhysicsHand" index="2"]
+transform = Transform3D(-1.09278e-08, -0.25, -1.09278e-08, 0, -1.09278e-08, 0.25, -0.25, 1.09278e-08, 4.77671e-16, -0.35, -0.075, 0.05)
 
 [node name="FunctionPickup" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("3_nfmug")]
 
 [node name="MovementDirect" parent="XROrigin3D/LeftHand" index="2" instance=ExtResource("4_l76j8")]
 
 [node name="RightHand" parent="XROrigin3D" index="2"]
-pose = &"grip"
+pose = &"default"
 
 [node name="RightPhysicsHand" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("5_8fgqi")]
 

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://3imvp6ftf05f"]
+[gd_scene load_steps=8 format=3 uid="uid://3imvp6ftf05f"]
 
 [ext_resource type="PackedScene" uid="uid://r2ln0r4bt2a7" path="res://Scenes/fb_base_scene.tscn" id="1_2xwia"]
 [ext_resource type="PackedScene" uid="uid://cxj4y8508xr1x" path="res://Scenes/fb_base_proto_room.tscn" id="2_opo1t"]
+[ext_resource type="Script" path="res://Scenes/fb_proto_scene.gd" id="2_qb23b"]
+[ext_resource type="PackedScene" uid="uid://cfu0yr1aapso8" path="res://UI/Nodes/fb_wrist_menu.tscn" id="3_egvhc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vjmyw"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,6 +18,7 @@ sky = SubResource("Sky_3kdu1")
 tonemap_mode = 2
 
 [node name="FBProtoScene" instance=ExtResource("1_2xwia")]
+script = ExtResource("2_qb23b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
 environment = SubResource("Environment_gfy4q")
@@ -24,4 +27,12 @@ environment = SubResource("Environment_gfy4q")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
+[node name="LeftHandTracker" parent="XROrigin3D/LeftHand/LeftPhysicsHand" index="2"]
+remote_path = NodePath("../../../../FBWristMenu")
+
 [node name="FBBaseProtoRoom" parent="." index="3" instance=ExtResource("2_opo1t")]
+
+[node name="FBWristMenu" parent="." index="4" instance=ExtResource("3_egvhc")]
+transform = Transform3D(-1.09278e-08, -0.25, -1.09278e-08, 0, -1.09278e-08, 0.25, -0.25, 1.09278e-08, 4.77671e-16, -0.85, 0.925, -0.45)
+
+[connection signal="button_released" from="XROrigin3D/LeftHand" to="." method="hide_wrist_menu"]

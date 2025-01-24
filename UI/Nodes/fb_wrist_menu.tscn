@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfu0yr1aapso8"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_cye3q"]
+[ext_resource type="Script" path="res://UI/Nodes/fb_wrist_menu.gd" id="1_iwycu"]
+[ext_resource type="PackedScene" uid="uid://cwy6ib5n1uml3" path="res://UI/Controls/fb_wrist_menu_content.tscn" id="3_2u1wu"]
+
+[node name="FBWristMenu" type="Node3D"]
+script = ExtResource("1_iwycu")
+
+[node name="Menu" parent="." instance=ExtResource("1_cye3q")]
+collision_layer = 5242880
+scene = ExtResource("3_2u1wu")
+viewport_size = Vector2(1152, 648)
+scene_properties_keys = PackedStringArray("fb_wrist_menu_content.gd")
