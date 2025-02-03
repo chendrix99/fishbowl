@@ -1,4 +1,4 @@
-# Need to consider making this functionality part of some base creator scene class
+# Copied from fb_proto_scene.gd - consider refactoring to be shared code
 
 @tool
 extends XRToolsSceneBase

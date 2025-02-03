@@ -10,5 +10,8 @@ func set_button_text(text: String) -> void:
 func set_button_icon(icon: Texture2D) -> void:
 	$AssetButton.icon = icon
 
+func set_asset_file_name(file: String) -> void:
+	$AssetButton.asset_file_name = file
+
 func set_button_callback(callback: Callable):
-	$AssetButton.pressed.connect(callback)
+	$AssetButton.asset_button_pressed.connect(callback)
