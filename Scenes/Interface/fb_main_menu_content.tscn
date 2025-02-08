@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl1kc5qoj5dqo"]
+
+[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
+
+[node name="FB_MainMenuContent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ehb0n")
+
+[node name="MainMenuHBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="CreatorButton" type="Button" parent="MainMenuHBox"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "CREATOR
+
+(Opens the Default
+Scene as a Creator)"
+
+[node name="PlayerButton" type="Button" parent="MainMenuHBox"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "PLAYER
+
+(Opens the Default
+Scene as a Player)"
+
+[node name="QuitButton" type="Button" parent="MainMenuHBox"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "Quit
+
+(Exit to
+Desktop)
+"

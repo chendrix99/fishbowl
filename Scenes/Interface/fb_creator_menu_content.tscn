@@ -1,0 +1,179 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfj8q52ayfova"]
+
+[ext_resource type="Texture2D" uid="uid://dno3xpkfugouk" path="res://Textures/zone_icon.png" id="1_7qm2r"]
+[ext_resource type="Script" path="res://Scripts/Interface/fb_creator_menu_content.gd" id="1_rt25t"]
+[ext_resource type="Texture2D" uid="uid://c45ye5coybsaw" path="res://Textures/zone_disabled_icon.png" id="2_ux8np"]
+
+[node name="FB_CreatorMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rt25t")
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TooltipLabel" type="Label" parent="Tooltip"]
+layout_mode = 2
+text = "  Press X to show/hide the menu.  "
+
+[node name="CreatorMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CreatorMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MenuTitle" type="Label" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Creation Menu
+(Press X to show/hide this menu.)"
+
+[node name="QuitToMainMenuButton" type="Button" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+text = "Quit to Main Menu
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Category
+
+"
+
+[node name="ObjectsButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "Objects
+"
+
+[node name="ZonesButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "Zones"
+
+[node name="Body" type="CenterContainer" parent="CreatorMenu/MarginContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ObjectsMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
+layout_mode = 2
+columns = 4
+
+[node name="ZonesMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
+visible = false
+layout_mode = 2
+columns = 4
+
+[node name="Zone0" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone1" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone2" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone3" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone4" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone5" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone6" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Zone7" type="TextureButton" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_7qm2r")
+texture_disabled = ExtResource("2_ux8np")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="pressed" from="CreatorMenu/MarginContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ObjectsButton" to="." method="_on_objects_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ZonesButton" to="." method="_on_zones_button_pressed"]

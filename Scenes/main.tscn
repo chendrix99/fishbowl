@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ebc6dgec8bce"]
 
 [ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1_ycm8g"]
-[ext_resource type="Texture2D" uid="uid://rwdqmksdliqa" path="res://icon.svg" id="2_pv3iq"]
+[ext_resource type="Texture2D" uid="uid://rwdqmksdliqa" path="res://Textures/icon.svg" id="2_pv3iq"]
 
 [node name="Main" instance=ExtResource("1_ycm8g")]
-main_scene = "res://Scenes/fb_proto_scene.tscn"
+main_scene = "res://Scenes/Level/fb_main_menu.tscn"
 prompt_for_continue = false
 
 [node name="LoadingScreen" parent="." index="2"]

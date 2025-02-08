@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://oan6gqimgiys"]
+
+[ext_resource type="Script" path="res://Scripts/User/fb_user_manager.gd" id="1_dmfci"]
+
+[node name="FB_PlayerManager" type="Node3D"]
+script = ExtResource("1_dmfci")

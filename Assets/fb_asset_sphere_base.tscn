@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://bv3pt16daftgl"]
+[gd_scene load_steps=17 format=3 uid="uid://bv3pt16daftgl"]
 
+[ext_resource type="Script" path="res://Scripts/Behavior/fb_asset_base.gd" id="1_3d5v1"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_b6so2"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="2_qixwr"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_fqu1i"]
@@ -37,7 +38,9 @@ script = ExtResource("6_tuu72")
 open_pose = ExtResource("9_g52se")
 closed_pose = ExtResource("8_584uq")
 
-[node name="FBAssetSphereBase" type="Node3D"]
+[node name="FBAssetSphereBase" type="Node3D" node_paths=PackedStringArray("pickable_object")]
+script = ExtResource("1_3d5v1")
+pickable_object = NodePath("PickableObject")
 
 [node name="PickableObject" parent="." instance=ExtResource("1_b6so2")]
 
