@@ -1,9 +1,7 @@
 class_name FB_Killbox extends Area3D
 
-
 # This class simply moves the player to a pre-defined location if they enter the
 # attached collision shape. Should be used to prevent them from falling infinitely.
-
 
 @export var respawn_point : Vector3
 

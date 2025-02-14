@@ -1,10 +1,8 @@
 class_name FB_CreatorMenuContent extends Control
 
-
 # This node will be instantiated by a "Viewport 2D in 3D" node.
 # This script should contain internal logic for the UI and expose certain
 # buttons/signals that can be connected to from the owning 3D scene.
-
 
 signal object_selected
 signal zone_selected
@@ -17,9 +15,10 @@ signal quit_to_main_menu
 @onready var _zones_menu := $CreatorMenu/MarginContainer/Body/ZonesMenu
 
 const DEFAULT_TOOLTIP = "  (Press X to show/hide the menu.)  "
-const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place.  \n  Press B to cancel.  \n"
-const ZONE_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to add vertices.  \n  Press R. GRIP to finish.  \n  Press B to cancel.  \n"
-
+const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place object.  \n  Press B to cancel.  \n"
+const OBJECT_HOVERED_TOOLTIP = "  Press B to delete object.  \n" + DEFAULT_TOOLTIP
+const ZONE_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to add zone vertices.  \n  Press R. GRIP to finish zone.  \n  Press B to cancel.  \n"
+const ZONE_HOVERED_TOOLTIP = "  Press and hold R. TRIGGER to extrude zone.  \n  Press B to delete zone.  \n" + DEFAULT_TOOLTIP
 
 const ZONE_INDEX_TO_COLOR = {
 	0: Color.WHITE,

@@ -14,19 +14,19 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1qujr"]
 margin = 0.01
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvoyf"]
 albedo_color = Color(0.523296, 0.339447, 0.886719, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ov7sx"]
 material = SubResource("StandardMaterial3D_dvoyf")
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5v844"]
 material = ExtResource("4_sufv6")
 flip_faces = true
-size = Vector3(0.11, 0.11, 0.11)
+size = Vector3(0.22, 0.22, 0.22)
 
 [sub_resource type="Resource" id="Resource_t7hw1"]
 script = ExtResource("6_xt0sx")
@@ -58,11 +58,11 @@ script = ExtResource("2_vsfkq")
 mesh = SubResource("BoxMesh_5v844")
 
 [node name="GrabPointHandLeft" parent="PickableObject" instance=ExtResource("3_u5dm6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0554527, 0.0669044, -0.109203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.120157, 0.0669044, -0.158073)
 visible = true
 hand_pose = SubResource("Resource_t7hw1")
 
 [node name="GrabPointHandRight" parent="PickableObject" instance=ExtResource("7_8fmxa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0507638, 0.0695828, -0.107025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120446, 0.0695828, -0.158133)
 visible = true
 hand_pose = SubResource("Resource_npina")

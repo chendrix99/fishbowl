@@ -1,45 +1,114 @@
-class_name FB_Zone extends MeshInstance3D
+@tool class_name FB_Zone extends MeshInstance3D
+
+var zone_height := 0.25
+var _zone_vertices := PackedVector2Array()
+var _zone_y_level := 0.00
+var _zone_is_committed := false
+var _zone_color := Color.WHITE
+var _static_body: StaticBody3D = null
+var _zone_material := StandardMaterial3D.new()
 
 
-var _is_valid := false
+func _init(zone_color: Color) -> void:
+	_zone_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
+	_zone_material.albedo_color = zone_color
+	_zone_material.albedo_color.a = 0.4
+	_zone_material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
+	_zone_material.specular_mode = BaseMaterial3D.SPECULAR_TOON
+	_zone_material.cull_mode = BaseMaterial3D.CULL_DISABLED
 
 
 func _process(_delta: float) -> void:
-	_update_zone()
+	if not _zone_is_committed:
+		update_zone(false)
 
 
 func check_zone() -> bool:
-	_update_zone()
-	return _is_valid
+	if not _zone_is_committed:
+		update_zone(false)
+	return mesh != null
 
 
-func _update_zone() -> void:
-	# Reset the mesh and zone validity.
-	_is_valid = false
+func commit_zone() -> void:
+	# (Get rid of placeholder meshes for the vertex markers.)
+	for child in get_children():
+		if child is MeshInstance3D:
+			child.mesh = null
+	
+	update_zone(true)
+	if mesh == null:
+		push_error("Committed an invalid zone!")
+	
+	_zone_is_committed = true
+
+
+func update_zone(refresh_collider: bool) -> void:
 	mesh = null
 	
-	# Zones must have a minimum of three points.
-	if get_child_count() < 3:
+	var got_y_level := false
+	
+	_zone_vertices.clear()
+	for zone_child in get_children():
+		if zone_child is not StaticBody3D:
+			if not got_y_level:
+				_zone_y_level = zone_child.position.y
+				got_y_level = true
+			
+			_zone_vertices.push_back(Vector2(zone_child.position.x, zone_child.position.z))
+	
+	if _zone_vertices.size() < 3:
 		return
 	
-	var zone_points := PackedVector2Array()
-	for zone_marker in get_children():
-		zone_points.push_back(Vector2(zone_marker.position.x, zone_marker.position.z))
+	var is_clockwise := Geometry2D.is_polygon_clockwise(_zone_vertices)
+	if is_clockwise:
+		_zone_vertices.reverse()
 	
-	# Check if the triangulation failed.
-	var triangle_indices := Geometry2D.triangulate_polygon(zone_points)
-	if triangle_indices.is_empty():
+	var triangle_vertex_indices := Geometry2D.triangulate_polygon(_zone_vertices)
+	if triangle_vertex_indices.is_empty():
 		return
 	
 	var vertex_positions := PackedVector3Array()
 	var vertex_normals := PackedVector3Array()
-	for i in range(0, triangle_indices.size(), 3):
-		var v0 = get_child(triangle_indices[i]).position + Vector3.UP * 0.2
-		var v1 = get_child(triangle_indices[i + 1]).position + Vector3.UP * 0.2
-		var v2 = get_child(triangle_indices[i + 2]).position + Vector3.UP * 0.2
+	
+	# Add bottom and top faces.
+	for i in range(0, triangle_vertex_indices.size(), 3):
+		var v0 = _zone_vertices[triangle_vertex_indices[i]]
+		var v1 = _zone_vertices[triangle_vertex_indices[i + 1]]
+		var v2 = _zone_vertices[triangle_vertex_indices[i + 2]]
 		
-		vertex_positions.append_array([ v0, v1, v2 ])
+		var v0_bottom = Vector3(v0.x, _zone_y_level, v0.y)
+		var v1_bottom = Vector3(v1.x, _zone_y_level, v1.y)
+		var v2_bottom = Vector3(v2.x, _zone_y_level, v2.y)
+		
+		var v0_top = Vector3(v0.x, _zone_y_level + zone_height, v0.y)
+		var v1_top = Vector3(v1.x, _zone_y_level + zone_height, v1.y)
+		var v2_top = Vector3(v2.x, _zone_y_level + zone_height, v2.y)
+		
+		vertex_positions.append_array([ v0_bottom, v2_bottom, v1_bottom ])
+		vertex_normals.append_array([ Vector3.DOWN, Vector3.DOWN, Vector3.DOWN ])
+		
+		vertex_positions.append_array([ v0_top, v1_top, v2_top ])
 		vertex_normals.append_array([ Vector3.UP, Vector3.UP, Vector3.UP ])
+	
+	# Add side faces.
+	for cur_i in _zone_vertices.size():
+		var next_i = cur_i + 1
+		if next_i == _zone_vertices.size():
+			next_i = 0
+		
+		var a = Vector3(_zone_vertices[cur_i].x, _zone_y_level + zone_height, _zone_vertices[cur_i].y)
+		var b = Vector3(_zone_vertices[next_i].x, _zone_y_level + zone_height, _zone_vertices[next_i].y)
+		var c = Vector3(_zone_vertices[next_i].x, _zone_y_level, _zone_vertices[next_i].y)
+		var d = Vector3(_zone_vertices[cur_i].x, _zone_y_level, _zone_vertices[cur_i].y)
+		
+		var n1 := ((b - c).cross(a - c)).normalized()
+		var n2 := ((a - c).cross(d - c)).normalized()
+		
+		vertex_positions.append_array([ c, b, a ])
+		vertex_normals.append_array([ n1, n1, n1 ])
+		
+		vertex_positions.append_array([ c, a, d ])
+		vertex_normals.append_array([ n2, n2, n2 ])
 	
 	var mesh_arrays := Array()
 	mesh_arrays.resize(Mesh.ARRAY_MAX)
@@ -48,6 +117,19 @@ func _update_zone() -> void:
 	
 	mesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh_arrays)
-	mesh.surface_set_material(0, StandardMaterial3D.new())
+	mesh.surface_set_material(0, _zone_material)
 	
-	_is_valid = true
+	if refresh_collider and mesh:
+		if not _static_body:
+			_static_body = StaticBody3D.new()
+			_static_body.collision_layer = 1 << 20
+			_static_body.collision_mask = 0
+			add_child(_static_body)
+		
+		for doomed_collision_shape in _static_body.get_children():
+			doomed_collision_shape.queue_free()
+		
+		var shape_from_mesh = mesh.create_convex_shape(true)
+		var collision_shape := CollisionShape3D.new()
+		collision_shape.shape = shape_from_mesh
+		_static_body.add_child(collision_shape)

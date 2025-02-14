@@ -1,6 +1,5 @@
 class_name FB_MainMenuHolder extends Node3D
 
-
 @onready var _main_menu_content := $MainMenuViewportIn3D.get_scene_instance() as FB_MainMenuContent
 
 

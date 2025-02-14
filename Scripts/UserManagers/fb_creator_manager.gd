@@ -1,24 +1,30 @@
 class_name FB_CreatorManager extends Node3D
 
+# The FB Creator Manager class contains the logic needed to edit a scene as a Creator.
+# This currently includes utilities to place/remove objects and place/extrude/remove zones.
 
 @onready var _user := get_parent().get_node("XROrigin3D") as XROrigin3D
+@onready var _pointer := _user.get_node("RightHand/FunctionPointer") as XRToolsFunctionPointer
+@onready var _pointer_raycast := _user.get_node("RightHand/FunctionPointer/RayCast") as RayCast3D
 
 @onready var _creator_menu_holder := $CreatorMenuHolder
 @onready var _creator_menu_viewport_in_3D := $CreatorMenuHolder/CreatorMenuViewportIn3D
 @onready var _creator_menu_content := _creator_menu_viewport_in_3D.get_scene_instance() as FB_CreatorMenuContent
 
-@onready var _pointer := _user.get_node("RightHand/FunctionPointer") as XRToolsFunctionPointer
-@onready var _pointer_raycast := _user.get_node("RightHand/FunctionPointer/RayCast") as RayCast3D
-
 var _placement_object: FB_AssetBase = null
 var _placement_zone: FB_Zone = null
+var _hovered_object: FB_AssetBase = null
+var _hovered_zone: FB_Zone = null
+var _hovered_zone_extrusion_data = null
 
 
 func _ready() -> void:
 	if not _user == null:
 		# Connect to signals from the controllers.
 		_user.get_node("LeftHand").button_pressed.connect(_on_left_hand_button_pressed)
+		_user.get_node("LeftHand").button_released.connect(_on_left_hand_button_released)
 		_user.get_node("RightHand").button_pressed.connect(_on_right_hand_button_pressed)
+		_user.get_node("RightHand").button_released.connect(_on_right_hand_button_released)
 	
 	if not _creator_menu_content == null:
 		# By default, hide the creator menu.
@@ -44,6 +50,8 @@ func _process(delta: float) -> void:
 		_update_placing_object()
 	elif not _placement_zone == null:
 		_update_placing_zone()
+	else:
+		_update_hovered_objects_and_zones()
 
 
 func _on_left_hand_button_pressed(name: String) -> void:
@@ -56,19 +64,27 @@ func _on_left_hand_button_pressed(name: String) -> void:
 			_creator_menu_viewport_in_3D.enabled = not is_visible
 
 
+func _on_left_hand_button_released(name: String) -> void:
+	return # (Does nothing for now.)
+
+
 func _on_right_hand_button_pressed(name: String) -> void:
-	# Finalize placement of the current object.
+	# Finalize placement of the current object or of the current zone marker.
+	# If a zone is being hovered, press the trigger to extrude.
 	if name == "trigger_click":
 		if _placement_object:
 			_try_placing_object()
 		elif _placement_zone:
 			_try_placing_zone_marker()
+		elif _hovered_zone:
+			_hovered_zone_extrusion_data = Vector2(_pointer_raycast.global_position.y, _hovered_zone.zone_height)
 	
+	# Finalize placement of the zone.
 	if name == "grip_click":
 		if _placement_zone:
 			_try_placing_zone()
 	
-	# Cancel the placement of the current object or zone.
+	# Cancel the placement of the object/zone or remove the hovered object/zone.
 	if name == "by_button":
 		if _placement_object:
 			_placement_object.queue_free()
@@ -78,6 +94,20 @@ func _on_right_hand_button_pressed(name: String) -> void:
 			_placement_zone.queue_free()
 			_placement_zone = null
 			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+		elif _hovered_object:
+			_hovered_object.queue_free()
+			_hovered_object = null
+			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+		elif _hovered_zone:
+			_hovered_zone.queue_free()
+			_hovered_zone = null
+			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+
+
+func _on_right_hand_button_released(name: String) -> void:
+	# If a zone is being extruded, release the trigger to finish.
+	if name == "trigger_click":
+		_hovered_zone_extrusion_data = null
 
 
 func _begin_placing_object(object_file_path: String) -> void:
@@ -129,7 +159,7 @@ func _begin_placing_zone(zone_index: int) -> void:
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.ZONE_PLACEMENT_TOOLTIP)
 	
 	# Add the placement zone and the first marker.
-	_placement_zone = FB_Zone.new()
+	_placement_zone = FB_Zone.new(FB_CreatorMenuContent.ZONE_INDEX_TO_COLOR[zone_index])
 	var initial_zone_marker := FB_CreatorManager.make_zone_marker(
 		FB_CreatorMenuContent.ZONE_INDEX_TO_COLOR[zone_index])
 	initial_zone_marker.visible = false
@@ -140,12 +170,25 @@ func _begin_placing_zone(zone_index: int) -> void:
 func _update_placing_zone() -> void:
 	var cur_zone_marker = _placement_zone.get_child(_placement_zone.get_child_count() - 1)
 	
-	if _pointer_raycast.is_colliding() and not _pointer.last_collided_at == null:
-		cur_zone_marker.visible = true
-		cur_zone_marker.position = _pointer.last_collided_at
+	# For the first zone marker, we collide directly with the level geometry.
+	if _placement_zone.get_child_count() == 1:
+		if _pointer_raycast.is_colliding() and not _pointer.last_collided_at == null:
+			cur_zone_marker.visible = true
+			cur_zone_marker.position = _pointer.last_collided_at
+		else:
+			cur_zone_marker.visible = false
 	
+	# For the next zone markers, we restrict placement to an XZ plane aligned with the first marker.
 	else:
-		cur_zone_marker.visible = false
+		var zone_plane := Plane(Vector3.UP, _placement_zone.get_child(0).position)
+		var collision = zone_plane.intersects_ray(
+			_pointer_raycast.global_position,
+			_pointer_raycast.global_basis.z * -1)
+		if not collision == null:
+			cur_zone_marker.visible = true
+			cur_zone_marker.position = collision
+		else:
+			cur_zone_marker.visible = false
 
 
 func _try_placing_zone_marker() -> void:
@@ -163,15 +206,47 @@ func _try_placing_zone_marker() -> void:
 func _try_placing_zone() -> void:
 	if _placement_zone:
 		var doomed_zone_marker = _placement_zone.get_child(_placement_zone.get_child_count() - 1)
+		_placement_zone.remove_child(doomed_zone_marker)
 		doomed_zone_marker.queue_free()
 		
 		var zone_is_valid := _placement_zone.check_zone()
-		if not zone_is_valid:
+		if zone_is_valid:
+			_placement_zone.commit_zone()
+			_placement_zone = null
+		else:
 			_placement_zone.queue_free()
-		_placement_zone = null
+			_placement_zone = null
 		
 		# Set default tooltip.
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+
+
+func _update_hovered_objects_and_zones() -> void:
+	_hovered_object = null
+	_hovered_zone = null
+	
+	# Set default tooltip.
+	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+	
+	if _pointer_raycast.is_colliding() and not _pointer.last_collided_at == null:
+		var collider := _pointer_raycast.get_collider()
+		
+		if collider and (collider.get_parent() and collider.get_parent() is FB_AssetBase):
+			_hovered_object = collider.get_parent() as FB_AssetBase
+		
+		elif collider and (collider.get_parent() and collider.get_parent() is FB_Zone):
+			_hovered_zone = collider.get_parent() as FB_Zone
+	
+	if _hovered_object:
+		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.OBJECT_HOVERED_TOOLTIP)
+	elif _hovered_zone:
+		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.ZONE_HOVERED_TOOLTIP)
+		
+		# Handle zone height extrusion.
+		if _hovered_zone_extrusion_data != null:
+			_hovered_zone.zone_height = _hovered_zone_extrusion_data.y + 2 * (
+				_pointer_raycast.global_position.y - _hovered_zone_extrusion_data.x)
+			_hovered_zone.update_zone(true)
 
 
 func _quit_to_main_menu() -> void:
