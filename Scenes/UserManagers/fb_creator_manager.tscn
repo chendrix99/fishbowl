@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2x63vtbwh20o"]
 
-[ext_resource type="Script" path="res://Scripts/User/fb_creator_manager.gd" id="1_22wps"]
+[ext_resource type="Script" path="res://Scripts/UserManagers/fb_creator_manager.gd" id="1_22wps"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_3ogxl"]
 [ext_resource type="PackedScene" uid="uid://dfj8q52ayfova" path="res://Scenes/Interface/fb_creator_menu_content.tscn" id="3_n2654"]
 

@@ -17,8 +17,20 @@ signal quit_to_main_menu
 @onready var _zones_menu := $CreatorMenu/MarginContainer/Body/ZonesMenu
 
 const DEFAULT_TOOLTIP = "  (Press X to show/hide the menu.)  "
-const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place.  \n  Press R. GRIP to cancel.  \n" + DEFAULT_TOOLTIP
-const ZONE_PLACEMENT_TOOLTIP = DEFAULT_TOOLTIP
+const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place.  \n  Press B to cancel.  \n"
+const ZONE_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to add vertices.  \n  Press R. GRIP to finish.  \n  Press B to cancel.  \n"
+
+
+const ZONE_INDEX_TO_COLOR = {
+	0: Color.WHITE,
+	1: Color.LIGHT_SLATE_GRAY,
+	2: Color.LIGHT_SKY_BLUE,
+	3: Color.LIGHT_GREEN,
+	4: Color.ORANGE,
+	5: Color.ORANGE_RED,
+	6: Color.MEDIUM_PURPLE,
+	7: Color.SLATE_GRAY
+}
 
 
 func set_menu_visibility(is_visible: bool) -> void:
@@ -55,6 +67,9 @@ func _ready() -> void:
 		new_object_button.text = object_file_name.trim_suffix(".tscn").capitalize()
 		new_object_button.pressed.connect(_on_object_button_pressed.bind("res://Assets/" + object_file_name))
 		_objects_menu.add_child(new_object_button)
+	
+	for zone_button_idx in _zones_menu.get_child_count():
+		_zones_menu.get_child(zone_button_idx).modulate = ZONE_INDEX_TO_COLOR[zone_button_idx]
 
 
 func _on_objects_button_pressed():

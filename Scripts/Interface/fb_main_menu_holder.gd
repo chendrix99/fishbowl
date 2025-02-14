@@ -16,8 +16,8 @@ func _on_creator_button_pressed() -> void:
 	# This scene includes all functionality that allows Creators to create &
 	# edit the level, and to set up steps and procedures.
 	
-	var default_scene = load("res://Scenes/Level/fb_default_level.tscn").instantiate()
-	var creator_manager = load("res://Scenes/User/fb_creator_manager.tscn").instantiate()
+	var default_scene = load("res://Scenes/Levels/fb_default_level.tscn").instantiate()
+	var creator_manager = load("res://Scenes/UserManagers/fb_creator_manager.tscn").instantiate()
 	
 	default_scene.add_child(creator_manager)
 	creator_manager.owner = default_scene
@@ -30,8 +30,8 @@ func _on_creator_button_pressed() -> void:
 func _on_player_button_pressed() -> void:
 	# Same thing here: We add "Player Manager" to the level we want to load.
 	
-	var default_scene = load("res://Scenes/Level/fb_default_space.tscn").instantiate()
-	var player_manager = load("res://Scenes/User/fb_player_manager.tscn").instantiate()
+	var default_scene = load("res://Scenes/Levels/fb_default_level.tscn").instantiate()
+	var player_manager = load("res://Scenes/UserManagers/fb_player_manager.tscn").instantiate()
 	
 	default_scene.add_child(player_manager)
 	player_manager.owner = default_scene

@@ -1,18 +1,18 @@
 [gd_scene load_steps=24 format=3 uid="uid://dpn0xbqquai6c"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_1fym0"]
-[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_gjndv"]
-[ext_resource type="PackedScene" uid="uid://dl1kc5qoj5dqo" path="res://Scenes/Interface/fb_main_menu_content.tscn" id="4_50oey"]
-[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="4_nt1k7"]
-[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="5_63wk6"]
-[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="6_5314f"]
-[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="7_e8igx"]
-[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="8_r4he8"]
-[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="9_gm4p6"]
-[ext_resource type="Script" path="res://Scripts/Behavior/fb_killbox.gd" id="10_m4mvn"]
-[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="10_s3kax"]
-[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_holder.gd" id="11_kh1dh"]
-[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="11_qstvj"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_lgyu6"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ld6jy"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_xrag8"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_0gmrk"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_64k6m"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_glch7"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_lpix4"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_px70l"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_p5kgj"]
+[ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_hnh1g"]
+[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_holder.gd" id="11_kb0wu"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_cq2mb"]
+[ext_resource type="PackedScene" uid="uid://dl1kc5qoj5dqo" path="res://Scenes/Interface/fb_main_menu_content.tscn" id="13_n4wdy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x56l6"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -55,7 +55,7 @@ background_color = Color(0.34375, 0.34375, 0.34375, 1)
 size = Vector3(30, 4, 30)
 
 [node name="FB_MainMenu" type="Node3D"]
-script = ExtResource("1_1fym0")
+script = ExtResource("1_lgyu6")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
@@ -67,22 +67,22 @@ far = 300.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
-[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("4_nt1k7")]
+[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("2_ld6jy")]
 
-[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("5_63wk6")]
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("3_xrag8")]
 strafe = true
 
-[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("6_5314f")]
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("4_0gmrk")]
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("7_e8igx")]
+[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("5_64k6m")]
 
-[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("6_5314f")]
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("4_0gmrk")]
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("8_r4he8")]
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("6_glch7")]
 laser_length = 1
 laser_material = SubResource("StandardMaterial3D_x56l6")
 show_target = true
@@ -90,13 +90,13 @@ target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_5s26a")
 collision_mask = 5242881
 
-[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("9_gm4p6")]
+[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("7_lpix4")]
 turn_mode = 2
 
-[node name="MovementJump" parent="XROrigin3D/RightHand" instance=ExtResource("10_s3kax")]
+[node name="MovementJump" parent="XROrigin3D/RightHand" instance=ExtResource("8_px70l")]
 jump_button_action = "ax_button"
 
-[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("11_qstvj")]
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("9_p5kgj")]
 push_rigid_bodies = false
 
 [node name="MainMenuLevel" type="Node3D" parent="."]
@@ -132,18 +132,18 @@ environment = SubResource("Environment_cq43f")
 
 [node name="Killbox" type="Area3D" parent="MainMenuLevel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
-script = ExtResource("10_m4mvn")
+script = ExtResource("10_hnh1g")
 
 [node name="KillboxShape" type="CollisionShape3D" parent="MainMenuLevel/Killbox"]
 shape = SubResource("BoxShape3D_v2ad2")
 
 [node name="MainMenuHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
-script = ExtResource("11_kh1dh")
+script = ExtResource("11_kb0wu")
 
-[node name="MainMenuViewportIn3D" parent="MainMenuHolder" instance=ExtResource("3_gjndv")]
+[node name="MainMenuViewportIn3D" parent="MainMenuHolder" instance=ExtResource("12_cq2mb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 screen_size = Vector2(4.5, 3)
-scene = ExtResource("4_50oey")
+scene = ExtResource("13_n4wdy")
 viewport_size = Vector2(1200, 800)
 scene_properties_keys = PackedStringArray("fb_main_menu_content.gd")

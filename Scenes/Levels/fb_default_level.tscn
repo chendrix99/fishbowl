@@ -1,15 +1,15 @@
 [gd_scene load_steps=29 format=4 uid="uid://drlungud6du37"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_o76xm"]
-[ext_resource type="Script" path="res://Scripts/Behavior/fb_killbox.gd" id="2_5kinx"]
-[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_trc0r"]
-[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_8yev0"]
-[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_hvs7t"]
-[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_w6drc"]
-[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_bxl0i"]
-[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_8gmcp"]
-[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_n2kd1"]
-[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_fcrps"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_t265l"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_pcqeh"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_6aqxg"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_63c0e"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_mov74"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_18bpq"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_uybve"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_di63j"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_uwt58"]
+[ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_l07x6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcyk8"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -107,7 +107,7 @@ size = Vector3(6.695, 0.15, 1.1)
 size = Vector3(200, 20, 200)
 
 [node name="FB_DefaultSpace" type="Node3D"]
-script = ExtResource("1_o76xm")
+script = ExtResource("1_t265l")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
@@ -119,22 +119,22 @@ far = 300.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
-[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("2_trc0r")]
+[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("2_pcqeh")]
 
-[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("3_8yev0")]
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("3_6aqxg")]
 strafe = true
 
-[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("4_hvs7t")]
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("4_63c0e")]
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("5_w6drc")]
+[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("5_mov74")]
 
-[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("4_hvs7t")]
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("4_63c0e")]
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("6_bxl0i")]
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("6_18bpq")]
 laser_length = 1
 laser_material = SubResource("StandardMaterial3D_wcyk8")
 show_target = true
@@ -142,13 +142,13 @@ target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_4s041")
 collision_mask = 5242881
 
-[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("7_8gmcp")]
+[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("7_uybve")]
 turn_mode = 2
 
-[node name="MovementJump" parent="XROrigin3D/RightHand" instance=ExtResource("8_n2kd1")]
+[node name="MovementJump" parent="XROrigin3D/RightHand" instance=ExtResource("8_di63j")]
 jump_button_action = "ax_button"
 
-[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("9_fcrps")]
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("9_uwt58")]
 push_rigid_bodies = false
 
 [node name="Effects" type="Node3D" parent="."]
@@ -238,7 +238,7 @@ mesh = SubResource("BoxMesh_10mk5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -49.7856, 0)
 collision_layer = 256
 collision_mask = 524288
-script = ExtResource("2_5kinx")
+script = ExtResource("10_l07x6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Killbox"]
 shape = SubResource("BoxShape3D_j2jc4")
