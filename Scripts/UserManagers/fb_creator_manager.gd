@@ -38,6 +38,9 @@ func _ready() -> void:
 		
 		# Set default tooltip.
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+	# Reset the zone and object ids for this session
+	FB_Globals.ZONE_ID = 0
+	FB_Globals.OBJECT_ID = 1
 
 
 func _process(delta: float) -> void:
@@ -164,6 +167,7 @@ func _begin_placing_zone(zone_index: int) -> void:
 		FB_CreatorMenuContent.ZONE_INDEX_TO_COLOR[zone_index])
 	initial_zone_marker.visible = false
 	_placement_zone.add_child(initial_zone_marker)
+	_placement_zone.zone_entered_or_exited.connect(_on_zone_entered_or_exited)
 	add_child(_placement_zone)
 
 
@@ -251,6 +255,13 @@ func _update_hovered_objects_and_zones() -> void:
 
 func _quit_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/fb_main_menu.tscn")
+
+
+func _on_zone_entered_or_exited(step: FB_Step):
+	#TODO This is where we interact with the active procedure that is being
+	# recorded. I think all we would do is add the step to it.
+	var procedure: FB_Procedure = FB_Procedure.new()
+	procedure.AddStep(step)
 
 
 static func align_with_normal(xform: Transform3D, normal: Vector3) -> Transform3D:

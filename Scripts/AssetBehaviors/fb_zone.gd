@@ -1,11 +1,15 @@
 @tool class_name FB_Zone extends MeshInstance3D
 
+signal zone_entered_or_exited(step)
+
 var zone_height := 0.25
+var zone_id: int
 var _zone_vertices := PackedVector2Array()
 var _zone_y_level := 0.00
 var _zone_is_committed := false
 var _zone_color := Color.WHITE
-var _static_body: StaticBody3D = null
+# Using an Area3D here now so that objects entering/exiting are tracked
+var _area_3d: Area3D = null
 var _zone_material := StandardMaterial3D.new()
 
 
@@ -16,6 +20,9 @@ func _init(zone_color: Color) -> void:
 	_zone_material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
 	_zone_material.specular_mode = BaseMaterial3D.SPECULAR_TOON
 	_zone_material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	# Increment the zone id and use that as this zones id
+	FB_Globals.ZONE_ID += 1
+	zone_id = FB_Globals.ZONE_ID
 
 
 func _process(_delta: float) -> void:
@@ -49,7 +56,7 @@ func update_zone(refresh_collider: bool) -> void:
 	
 	_zone_vertices.clear()
 	for zone_child in get_children():
-		if zone_child is not StaticBody3D:
+		if zone_child is not Area3D:
 			if not got_y_level:
 				_zone_y_level = zone_child.position.y
 				got_y_level = true
@@ -120,16 +127,40 @@ func update_zone(refresh_collider: bool) -> void:
 	mesh.surface_set_material(0, _zone_material)
 	
 	if refresh_collider and mesh:
-		if not _static_body:
-			_static_body = StaticBody3D.new()
-			_static_body.collision_layer = 1 << 20
-			_static_body.collision_mask = 0
-			add_child(_static_body)
+		if not _area_3d:
+			_area_3d = Area3D.new()
+			# Track pickable objects and player body
+			_area_3d.collision_mask = 0x80004
+			_area_3d.body_entered.connect(_on_body_entered_zone)
+			_area_3d.body_exited.connect(_on_body_exited_zone)
+			add_child(_area_3d)
 		
-		for doomed_collision_shape in _static_body.get_children():
+		for doomed_collision_shape in _area_3d.get_children():
 			doomed_collision_shape.queue_free()
 		
 		var shape_from_mesh = mesh.create_convex_shape(true)
 		var collision_shape := CollisionShape3D.new()
 		collision_shape.shape = shape_from_mesh
-		_static_body.add_child(collision_shape)
+		_area_3d.add_child(collision_shape) 
+
+# Handle an object/body entering this zone
+func _on_body_entered_zone(body: Node3D):
+	var object_id: int
+	if (body is XRToolsPlayerBody):
+		object_id = 1
+	elif (body is FB_AssetBase):
+		object_id = body.object_id
+	zone_entered_or_exited.emit(
+		FB_Step.new(object_id, zone_id, FB_Globals.StepType.ZONE_ENTERED)
+	)
+
+# Handle an object/body exiting this zone
+func _on_body_exited_zone(body: Node3D):
+	var object_id: int
+	if (body is XRToolsPlayerBody):
+		object_id = 1
+	elif (body is FB_AssetBase):
+		object_id = body.object_id
+	zone_entered_or_exited.emit(
+		FB_Step.new(object_id, zone_id, FB_Globals.StepType.ZONE_EXITED)
+	)

@@ -5,8 +5,12 @@ class_name FB_AssetBase extends Node3D
 
 @export var pickable_object: XRToolsPickable
 
+var object_id: int
 
 func _ready() -> void:
+	# Increment the objects ids and give this object the next id
+	FB_Globals.OBJECT_ID += 1
+	object_id = FB_Globals.OBJECT_ID
 	if not pickable_object == get_child(0):
 		push_error("Asset configuration is invalid! Child #0 must be an XRToolsPickable node.")
 
