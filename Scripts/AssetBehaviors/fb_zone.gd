@@ -14,8 +14,9 @@ var _zone_material := StandardMaterial3D.new()
 
 
 func _init(zone_color: Color) -> void:
+	_zone_color = zone_color
 	_zone_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
-	_zone_material.albedo_color = zone_color
+	_zone_material.albedo_color = _zone_color
 	_zone_material.albedo_color.a = 0.4
 	_zone_material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
 	_zone_material.specular_mode = BaseMaterial3D.SPECULAR_TOON

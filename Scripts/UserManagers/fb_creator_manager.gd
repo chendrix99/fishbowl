@@ -43,7 +43,7 @@ func _ready() -> void:
 	FB_Globals.OBJECT_ID = 1
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not _user == null:
 		# Position the creator menu in front of the user.
 		_creator_menu_holder.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
@@ -57,24 +57,24 @@ func _process(delta: float) -> void:
 		_update_hovered_objects_and_zones()
 
 
-func _on_left_hand_button_pressed(name: String) -> void:
+func _on_left_hand_button_pressed(button_name: String) -> void:
 	# Toggle visibility of the creator menu.
 	# (Cannot enter the menu while placing an object or a zone.)
-	if name == "ax_button":
+	if button_name == "ax_button":
 		if not _creator_menu_content == null and _placement_object == null and _placement_zone == null:
-			var is_visible = _creator_menu_viewport_in_3D.enabled
-			_creator_menu_content.set_menu_visibility(not is_visible)
-			_creator_menu_viewport_in_3D.enabled = not is_visible
+			var menu_is_visible = _creator_menu_viewport_in_3D.enabled
+			_creator_menu_content.set_menu_visibility(not menu_is_visible)
+			_creator_menu_viewport_in_3D.enabled = not menu_is_visible
 
 
-func _on_left_hand_button_released(name: String) -> void:
+func _on_left_hand_button_released(button_name: String) -> void:
 	return # (Does nothing for now.)
 
 
-func _on_right_hand_button_pressed(name: String) -> void:
+func _on_right_hand_button_pressed(button_name: String) -> void:
 	# Finalize placement of the current object or of the current zone marker.
 	# If a zone is being hovered, press the trigger to extrude.
-	if name == "trigger_click":
+	if button_name == "trigger_click":
 		if _placement_object:
 			_try_placing_object()
 		elif _placement_zone:
@@ -83,12 +83,12 @@ func _on_right_hand_button_pressed(name: String) -> void:
 			_hovered_zone_extrusion_data = Vector2(_pointer_raycast.global_position.y, _hovered_zone.zone_height)
 	
 	# Finalize placement of the zone.
-	if name == "grip_click":
+	if button_name == "grip_click":
 		if _placement_zone:
 			_try_placing_zone()
 	
 	# Cancel the placement of the object/zone or remove the hovered object/zone.
-	if name == "by_button":
+	if button_name == "by_button":
 		if _placement_object:
 			_placement_object.queue_free()
 			_placement_object = null
@@ -107,9 +107,9 @@ func _on_right_hand_button_pressed(name: String) -> void:
 			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 
 
-func _on_right_hand_button_released(name: String) -> void:
+func _on_right_hand_button_released(button_name: String) -> void:
 	# If a zone is being extruded, release the trigger to finish.
-	if name == "trigger_click":
+	if button_name == "trigger_click":
 		_hovered_zone_extrusion_data = null
 
 

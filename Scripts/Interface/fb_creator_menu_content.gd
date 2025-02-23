@@ -32,6 +32,18 @@ const ZONE_INDEX_TO_COLOR = {
 }
 
 
+func _ready() -> void:
+	const OBJECT_BUTTON := preload("res://Scenes/Interface/fb_creator_menu_object_button.tscn")
+	for object_file_name in DirAccess.get_files_at("res://Assets"):
+		var new_object_button := OBJECT_BUTTON.instantiate() as Button
+		new_object_button.text = object_file_name.trim_prefix("fb_").trim_suffix(".tscn").capitalize()
+		new_object_button.pressed.connect(_on_object_button_pressed.bind("res://Assets/" + object_file_name))
+		_objects_menu.add_child(new_object_button)
+	
+	for zone_button_idx in _zones_menu.get_child_count():
+		_zones_menu.get_child(zone_button_idx).modulate = ZONE_INDEX_TO_COLOR[zone_button_idx]
+
+
 func set_menu_visibility(is_visible: bool) -> void:
 	_tooltip.visible = not is_visible
 	_creator_menu.visible = is_visible
@@ -59,18 +71,6 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 	print("<debug> Quitting to main menu.")
 
 
-func _ready() -> void:
-	const object_button := preload("res://Scenes/Interface/fb_creator_menu_object_button.tscn")
-	for object_file_name in DirAccess.get_files_at("res://Assets"):
-		var new_object_button := object_button.instantiate() as Button
-		new_object_button.text = object_file_name.trim_suffix(".tscn").capitalize()
-		new_object_button.pressed.connect(_on_object_button_pressed.bind("res://Assets/" + object_file_name))
-		_objects_menu.add_child(new_object_button)
-	
-	for zone_button_idx in _zones_menu.get_child_count():
-		_zones_menu.get_child(zone_button_idx).modulate = ZONE_INDEX_TO_COLOR[zone_button_idx]
-
-
 func _on_objects_button_pressed():
 	_objects_menu.visible = true
 	_zones_menu.visible = false
@@ -79,3 +79,7 @@ func _on_objects_button_pressed():
 func _on_zones_button_pressed():
 	_objects_menu.visible = false
 	_zones_menu.visible = true
+
+
+func _on_save_level_button_pressed():
+	FB_LevelManagerInstance.save_level()

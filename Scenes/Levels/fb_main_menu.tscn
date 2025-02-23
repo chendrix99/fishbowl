@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dpn0xbqquai6c"]
+[gd_scene load_steps=23 format=3 uid="uid://dpn0xbqquai6c"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_lgyu6"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ld6jy"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_px70l"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_p5kgj"]
 [ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_hnh1g"]
-[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_holder.gd" id="11_kb0wu"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_cq2mb"]
 [ext_resource type="PackedScene" uid="uid://dl1kc5qoj5dqo" path="res://Scenes/Interface/fb_main_menu_content.tscn" id="13_n4wdy"]
 
@@ -139,7 +138,6 @@ shape = SubResource("BoxShape3D_v2ad2")
 
 [node name="MainMenuHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
-script = ExtResource("11_kb0wu")
 
 [node name="MainMenuViewportIn3D" parent="MainMenuHolder" instance=ExtResource("12_cq2mb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

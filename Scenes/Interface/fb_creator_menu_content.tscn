@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfj8q52ayfova"]
+[gd_scene load_steps=4 format=3 uid="uid://dfj8q52ayfova"]
 
 [ext_resource type="Texture2D" uid="uid://dno3xpkfugouk" path="res://Textures/zone_icon.png" id="1_7qm2r"]
 [ext_resource type="Script" path="res://Scripts/Interface/fb_creator_menu_content.gd" id="1_rt25t"]
+
+[sub_resource type="Theme" id="Theme_ipehk"]
 
 [node name="FB_CreatorMenu" type="Control"]
 layout_mode = 3
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_ipehk")
 script = ExtResource("1_rt25t")
 
 [node name="Tooltip" type="PanelContainer" parent="."]
@@ -59,6 +62,14 @@ size_flags_vertical = 0
 focus_mode = 0
 text = "Quit to Main Menu
 "
+
+[node name="SaveLevelButton" type="Button" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.96875, 1, 0, 1)
+text = "Save Level"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
 layout_mode = 2
@@ -181,6 +192,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [connection signal="pressed" from="CreatorMenu/MarginContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/SaveLevelButton" to="." method="_on_save_level_button_pressed"]
 [connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ObjectsButton" to="." method="_on_objects_button_pressed"]
 [connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ZonesButton" to="." method="_on_zones_button_pressed"]
 [connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton0" to="." method="_on_zone_button_pressed" binds= [0]]

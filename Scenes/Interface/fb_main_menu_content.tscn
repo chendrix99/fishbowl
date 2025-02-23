@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl1kc5qoj5dqo"]
+[gd_scene load_steps=3 format=3 uid="uid://dl1kc5qoj5dqo"]
 
 [ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4jkw2"]
+font_size = 22
 
 [node name="FB_MainMenuContent" type="Control"]
 layout_mode = 3
@@ -11,43 +14,191 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ehb0n")
 
-[node name="MainMenuHBox" type="HBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.5
+offset_top = -169.0
+offset_right = 155.5
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="CreateNewLevelButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "< CREATOR >
+Create a New Level"
+
+[node name="EditExistingLevelButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "< CREATOR >
+Edit an Existing Level"
+
+[node name="PlayLevelButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "< PLAYER >
+Play a Level"
+
+[node name="QuitButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Quit to Desktop"
+
+[node name="CreateLevelMenu" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 32
-alignment = 1
 
-[node name="CreatorButton" type="Button" parent="MainMenuHBox"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
+[node name="CreateLevelLabel" type="Label" parent="CreateLevelMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "
+Select a Template to Create a New Level."
+label_settings = SubResource("LabelSettings_4jkw2")
+
+[node name="LevelSection" type="ScrollContainer" parent="CreateLevelMenu"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="CreateLevelMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 24
-text = "CREATOR
+theme_override_font_sizes/font_size = 30
+text = "< Back"
 
-(Opens the Default
-Scene as a Creator)"
+[node name="EditLevelMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PlayerButton" type="Button" parent="MainMenuHBox"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
+[node name="EditLevelLabel" type="Label" parent="EditLevelMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "
+Select an Existing Level to Edit."
+label_settings = SubResource("LabelSettings_4jkw2")
+
+[node name="LevelSection" type="ScrollContainer" parent="EditLevelMenu"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="EditLevelMenu"]
+layout_mode = 0
+offset_right = 102.0
+offset_bottom = 50.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 24
-text = "PLAYER
+theme_override_font_sizes/font_size = 30
+text = "< Back"
 
-(Opens the Default
-Scene as a Player)"
+[node name="PlayLevelMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="QuitButton" type="Button" parent="MainMenuHBox"]
-custom_minimum_size = Vector2(140, 0)
-layout_mode = 2
+[node name="PlayLevelLabel" type="Label" parent="PlayLevelMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "
+Select a Level to Play."
+label_settings = SubResource("LabelSettings_4jkw2")
+
+[node name="LevelSection" type="ScrollContainer" parent="PlayLevelMenu"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="PlayLevelMenu"]
+layout_mode = 0
+offset_right = 102.0
+offset_bottom = 50.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 24
-text = "Quit
+theme_override_font_sizes/font_size = 30
+text = "< Back"
 
-(Exit to
-Desktop)
-"
+[connection signal="pressed" from="MainMenu/CreateNewLevelButton" to="." method="_on_create_level_button_pressed"]
+[connection signal="pressed" from="MainMenu/EditExistingLevelButton" to="." method="_on_edit_level_button_pressed"]
+[connection signal="pressed" from="MainMenu/PlayLevelButton" to="." method="_on_play_level_button_pressed"]
+[connection signal="pressed" from="MainMenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CreateLevelMenu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="EditLevelMenu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="PlayLevelMenu/BackButton" to="." method="_on_back_button_pressed"]

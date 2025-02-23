@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dugh7icviwfqf"]
+
+[node name="FB_MainMenuLevelButton" type="Button"]
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Test Text"

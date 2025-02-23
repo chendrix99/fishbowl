@@ -4,6 +4,87 @@ class_name FB_MainMenuContent extends Control
 # This script should contain internal logic for the UI and expose certain
 # buttons/signals that can be connected to from the owning 3D scene.
 
-@onready var creator_button := $MainMenuHBox/CreatorButton as Button
-@onready var player_button := $MainMenuHBox/PlayerButton as Button
-@onready var quit_button := $MainMenuHBox/QuitButton as Button
+const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.tscn")
+ 
+@onready var main_menu := $MainMenu
+@onready var create_level_menu := $CreateLevelMenu
+@onready var create_level_section := $CreateLevelMenu/LevelSection
+@onready var edit_level_menu := $EditLevelMenu
+@onready var edit_level_section := $EditLevelMenu/LevelSection
+@onready var play_level_menu := $PlayLevelMenu
+@onready var play_level_section := $PlayLevelMenu/LevelSection
+
+
+func _ready() -> void:
+	main_menu.visible = true
+	create_level_menu.visible = false
+	edit_level_menu.visible = false
+	play_level_menu.visible = false
+
+
+func _on_create_level_button_pressed():
+	main_menu.visible = false
+	create_level_menu.visible = true
+	edit_level_menu.visible = false
+	play_level_menu.visible = false
+	
+	for doomed_child in create_level_section.get_children():
+		doomed_child.queue_free()
+	
+	for level_template_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY):
+		var level_button := LEVEL_BUTTON.instantiate() as Button
+		level_button.text = level_template_file_name.trim_prefix("fb_").trim_suffix(".tscn").capitalize()
+		level_button.pressed.connect(
+			FB_LevelManagerInstance.create_level.bind(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY + level_template_file_name))
+		create_level_section.add_child(level_button)
+
+
+func _on_edit_level_button_pressed():
+	main_menu.visible = false
+	create_level_menu.visible = false
+	edit_level_menu.visible = true
+	play_level_menu.visible = false
+	
+	for doomed_child in edit_level_section.get_children():
+		doomed_child.queue_free()
+	
+	# (Ensure that the user level directory exists before opening.)
+	DirAccess.make_dir_recursive_absolute(FB_LevelManager.LEVEL_SAVES_DIRECTORY)
+	
+	for level_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_SAVES_DIRECTORY):
+		var level_button := LEVEL_BUTTON.instantiate() as Button
+		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".tres").capitalize()
+		level_button.pressed.connect(
+			FB_LevelManagerInstance.edit_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name))
+		edit_level_section.add_child(level_button)
+
+
+func _on_play_level_button_pressed():
+	main_menu.visible = false
+	create_level_menu.visible = false
+	edit_level_menu.visible = false
+	play_level_menu.visible = true
+	
+	for doomed_child in play_level_section.get_children():
+		doomed_child.queue_free()
+	
+	# (Ensure that the user level directory exists before opening.)
+	DirAccess.make_dir_recursive_absolute(FB_LevelManager.LEVEL_SAVES_DIRECTORY)
+	
+	for level_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_SAVES_DIRECTORY):
+		var level_button := LEVEL_BUTTON.instantiate() as Button
+		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".tres").capitalize()
+		level_button.pressed.connect(
+			FB_LevelManagerInstance.play_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name))
+		play_level_section.add_child(level_button)
+
+
+func _on_quit_button_pressed():
+	get_tree().quit()
+
+
+func _on_back_button_pressed():
+	main_menu.visible = true
+	create_level_menu.visible = false
+	edit_level_menu.visible = false
+	play_level_menu.visible = false
