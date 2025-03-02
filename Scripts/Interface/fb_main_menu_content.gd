@@ -8,11 +8,11 @@ const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.
  
 @onready var main_menu := $MainMenu
 @onready var create_level_menu := $CreateLevelMenu
-@onready var create_level_section := $CreateLevelMenu/LevelSection
+@onready var create_level_section := $CreateLevelMenu/LevelSection/VBoxContainer
 @onready var edit_level_menu := $EditLevelMenu
-@onready var edit_level_section := $EditLevelMenu/LevelSection
+@onready var edit_level_section := $EditLevelMenu/LevelSection/VBoxContainer
 @onready var play_level_menu := $PlayLevelMenu
-@onready var play_level_section := $PlayLevelMenu/LevelSection
+@onready var play_level_section := $PlayLevelMenu/LevelSection/VBoxContainer
 
 
 func _ready() -> void:

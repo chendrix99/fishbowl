@@ -41,6 +41,10 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 3d_physics/layer_22="Hand Pose Area"
 3d_physics/layer_23="UI Objects"
 
+[physics]
+
+3d/solver/contact_max_allowed_penetration=0.001
+
 [rendering]
 
 renderer/rendering_method="mobile"

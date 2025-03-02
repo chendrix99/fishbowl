@@ -1,0 +1,51 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://uwhqkwp8f86g"
+path="res://.godot/imported/screw.glb-899ba7c56613afb58e5807bfca7db801.scn"
+
+[deps]
+
+source_file="res://Models/screw.glb"
+dest_files=["res://.godot/imported/screw.glb-899ba7c56613afb58e5807bfca7db801.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=0.02
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"nodes": {
+"PATH:Sketchfab_model/9f1408b635ca46fa85cd65ed57c3a806_fbx/RootNode/Vert_002/Vert_002_AluminiumBlack_0": {
+"mesh_instance/layers": 6,
+"physics/body_type": 1,
+"physics/layer": 4,
+"physics/mask": 3,
+"physics/physics_material_override": Object(PhysicsMaterial,"resource_local_to_scene":false,"resource_name":"","friction":1.0,"rough":false,"bounce":0.0,"absorbent":false,"script":null)
+,
+"physics/shape_type": 3,
+"primitive/position": Vector3(0, 0, 2.3),
+"primitive/radius": 1.5,
+"primitive/size": Vector3(1, 1, 5)
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=2

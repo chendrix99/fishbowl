@@ -1,0 +1,96 @@
+[gd_scene load_steps=17 format=3 uid="uid://uh5y1ua3poss"]
+
+[ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_asset_base.gd" id="1_gfvle"]
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="2_3phn6"]
+[ext_resource type="PackedScene" uid="uid://dkj2h3xg6kbic" path="res://Models/window_ac_unit_freepolyorg.glb" id="3_g6qet"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_6cpac"]
+[ext_resource type="Animation" uid="uid://nq3xh1olqipq" path="res://addons/godot-xr-tools/hands/animations/left/Grip Shaft.res" id="5_evlmu"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_n2bkm"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_6d1nj"]
+[ext_resource type="Animation" uid="uid://c8dghcftg1thx" path="res://addons/godot-xr-tools/hands/animations/right/Grip Shaft.res" id="8_uugss"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="9_6prll"]
+[ext_resource type="Material" uid="uid://b8cu68l1qs31n" path="res://Materials/asset_highlighter.tres" id="10_rvbdh"]
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="11_vv8xo"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="12_7hekj"]
+
+[sub_resource type="Resource" id="Resource_68578"]
+script = ExtResource("6_n2bkm")
+closed_pose = ExtResource("5_evlmu")
+
+[sub_resource type="Resource" id="Resource_iqyf3"]
+script = ExtResource("6_n2bkm")
+closed_pose = ExtResource("8_uugss")
+
+[sub_resource type="BoxMesh" id="BoxMesh_mquxa"]
+material = ExtResource("10_rvbdh")
+flip_faces = true
+size = Vector3(1, 0.7, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4vvwa"]
+size = Vector3(1.05, 0.75, 0.85)
+
+[node name="FB_WindowACUnit" type="Node3D" node_paths=PackedStringArray("pickable_object")]
+script = ExtResource("1_gfvle")
+pickable_object = NodePath("PickableObject")
+
+[node name="PickableObject" parent="." instance=ExtResource("2_3phn6")]
+
+[node name="GrabPointHandLeft" parent="PickableObject" instance=ExtResource("4_6cpac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367304, 0.389867, 0.109639)
+visible = true
+hand_pose = SubResource("Resource_68578")
+
+[node name="GrabPointHandRight" parent="PickableObject" instance=ExtResource("7_6d1nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.549897, 0.39, 0.11)
+visible = true
+hand_pose = SubResource("Resource_iqyf3")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="PickableObject"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+script = ExtResource("9_6prll")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject/XRToolsHighlightVisible"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112986, 0.298841, -0.0614768)
+mesh = SubResource("BoxMesh_mquxa")
+
+[node name="TopLeftSnapZone" parent="PickableObject" instance=ExtResource("11_vv8xo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.320304, 0.511704, 0.130329)
+grab_distance = 0.15
+snap_mode = 1
+snap_require = "ACScrew"
+
+[node name="HighlightRing" parent="PickableObject/TopLeftSnapZone" instance=ExtResource("12_7hekj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00986195, 0, 0.0320206)
+
+[node name="TopRightSnapZone" parent="PickableObject" instance=ExtResource("11_vv8xo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.509062, 0.504969, 0.135697)
+grab_distance = 0.15
+snap_mode = 1
+snap_require = "ACScrew"
+
+[node name="HighlightRing" parent="PickableObject/TopRightSnapZone" instance=ExtResource("12_7hekj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00986195, 0, 0.0320206)
+
+[node name="BottomRightSnapZone" parent="PickableObject" instance=ExtResource("11_vv8xo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.506795, -0.0337144, 0.139539)
+grab_distance = 0.15
+snap_mode = 1
+snap_require = "ACScrew"
+
+[node name="HighlightRing" parent="PickableObject/BottomRightSnapZone" instance=ExtResource("12_7hekj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00986195, 0, 0.0320206)
+
+[node name="BottomLeftSnapZone" parent="PickableObject" instance=ExtResource("11_vv8xo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.320749, -0.0345772, 0.137317)
+grab_distance = 0.15
+snap_mode = 1
+snap_require = "ACScrew"
+
+[node name="HighlightRing" parent="PickableObject/BottomLeftSnapZone" instance=ExtResource("12_7hekj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00986195, 0, 0.0320206)
+
+[node name="Sketchfab_Scene" parent="PickableObject" instance=ExtResource("3_g6qet")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.0853589, 0.244087, -0.0205384)
+shape = SubResource("BoxShape3D_4vvwa")
