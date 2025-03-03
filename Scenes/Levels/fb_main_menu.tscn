@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dpn0xbqquai6c"]
+[gd_scene load_steps=23 format=3 uid="uid://dpn0xbqquai6c"]
 
 [ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_lgyu6"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ld6jy"]
@@ -29,23 +29,6 @@ albedo_color = Color(0.676758, 0.727684, 0.75, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_pc0rv"]
 material = SubResource("StandardMaterial3D_k2p8u")
 size = Vector3(10, 0.1, 12)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08vp3"]
-transparency = 4
-shading_mode = 0
-albedo_color = Color(1, 0.854333, 0.54, 0.588235)
-
-[sub_resource type="SphereMesh" id="SphereMesh_dee2j"]
-material = SubResource("StandardMaterial3D_08vp3")
-radial_segments = 16
-rings = 8
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_gqghk"]
-top_radius = 0.05
-bottom_radius = 0.1
-height = 30.0
-cap_top = false
-cap_bottom = false
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_au4wx"]
 sky_horizon_color = Color(0.432779, 0.656798, 1, 1)
@@ -123,25 +106,6 @@ shape = SubResource("BoxShape3D_dpvka")
 
 [node name="FloorMesh" type="MeshInstance3D" parent="MainMenuLevel/Floor"]
 mesh = SubResource("BoxMesh_pc0rv")
-
-[node name="HangingLamp" type="OmniLight3D" parent="MainMenuLevel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -4)
-visible = false
-light_color = Color(1, 0.957275, 0.890625, 1)
-light_energy = 6.0
-shadow_enabled = true
-omni_range = 20.0
-omni_attenuation = 1.25
-
-[node name="LampBulbMesh" type="MeshInstance3D" parent="MainMenuLevel/HangingLamp"]
-visible = false
-mesh = SubResource("SphereMesh_dee2j")
-
-[node name="LampChainMesh" type="MeshInstance3D" parent="MainMenuLevel/HangingLamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.45, 0)
-visible = false
-mesh = SubResource("CylinderMesh_gqghk")
-skeleton = NodePath("../LampBulbMesh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="MainMenuLevel"]
 environment = SubResource("Environment_cq43f")

@@ -8,6 +8,7 @@ func _ready() -> void:
 		_main_menu_content.creator_button.pressed.connect(_on_creator_button_pressed)
 		_main_menu_content.player_button.pressed.connect(_on_player_button_pressed)
 		_main_menu_content.quit_button.pressed.connect(_on_quit_button_pressed)
+		_main_menu_content.settings_button.pressed.connect(_on_settings_button_pressed)
 
 
 func _on_creator_button_pressed() -> void:
@@ -39,6 +40,8 @@ func _on_player_button_pressed() -> void:
 	packed_scene.pack(default_scene)
 	get_tree().change_scene_to_packed(packed_scene)
 
+func _on_settings_button_pressed() -> void:
+	var _placeholder
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()

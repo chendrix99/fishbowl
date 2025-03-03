@@ -7,3 +7,4 @@ class_name FB_MainMenuContent extends Control
 @onready var creator_button := $MainMenuVBox/MainMenuHSplit/CreatorAspectRatio/CreatorButton as Button
 @onready var player_button := $MainMenuVBox/MainMenuHSplit/PlayerAspectRatio/PlayerButton as Button
 @onready var quit_button := $MainMenuVBox/QuitAspectRatio/QuitButton as Button
+@onready var settings_button := $MainMenuVBox/SettingsAspectRatio/SettingsButton as Button
