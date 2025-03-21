@@ -35,6 +35,7 @@ pickable_object = NodePath("PickableObject")
 
 [node name="PickableObject" parent="." groups=["ACScrew"] instance=ExtResource("2_aqaq8")]
 picked_up_layer = 0
+ranged_grab_method = 0
 second_hand_grab = 1
 
 [node name="GrabPointHandLeft" parent="PickableObject" instance=ExtResource("4_htpi0")]

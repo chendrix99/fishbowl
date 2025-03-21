@@ -68,7 +68,7 @@ func _play_level_internal(level: FB_Level) -> void:
 	get_tree().change_scene_to_packed(packed_scene)
 
 
-func save_level(display_name: StringName = "Untitled Level") -> void:
+func save_level(display_name: StringName = "Untitled_Level") -> void:
 	if _loaded_level == null:
 		push_error("Cannot save level! No level is loaded!")
 		return
@@ -85,5 +85,8 @@ func save_level(display_name: StringName = "Untitled Level") -> void:
 		while FileAccess.file_exists(file_path + file_path_suffix % file_path_idx):
 			file_path_idx += 1
 		file_path = file_path + file_path_suffix % file_path_idx
+	
+	# (Ensure that the user level directory exists before attempting to save.)
+	DirAccess.make_dir_recursive_absolute(LEVEL_SAVES_DIRECTORY)
 	
 	ResourceSaver.save(saved_level, file_path + ".tres")

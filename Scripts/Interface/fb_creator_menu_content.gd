@@ -36,8 +36,8 @@ func _ready() -> void:
 	const OBJECT_BUTTON := preload("res://Scenes/Interface/fb_creator_menu_object_button.tscn")
 	for object_file_name in DirAccess.get_files_at("res://Assets"):
 		var new_object_button := OBJECT_BUTTON.instantiate() as Button
-		new_object_button.text = object_file_name.trim_prefix("fb_").trim_suffix(".tscn").capitalize()
-		new_object_button.pressed.connect(_on_object_button_pressed.bind("res://Assets/" + object_file_name))
+		new_object_button.text = object_file_name.trim_prefix("fb_").trim_suffix(".remap").trim_suffix(".tscn").capitalize()
+		new_object_button.pressed.connect(_on_object_button_pressed.bind("res://Assets/" + object_file_name.trim_suffix(".remap")))
 		_objects_menu.add_child(new_object_button)
 	
 	for zone_button_idx in _zones_menu.get_child_count():

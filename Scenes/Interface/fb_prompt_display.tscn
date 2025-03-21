@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://baiomms41aoey"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_0wmwa"]
+[ext_resource type="PackedScene" uid="uid://biwe8bor8d6qd" path="res://Scenes/Interface/fb_prompt_display_content.tscn" id="2_h7ogi"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_r8csy"]
+resource_local_to_scene = true
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hu6vv"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_neke2"]
+transparency = 1
+cull_mode = 2
+albedo_texture = SubResource("ViewportTexture_hu6vv")
+texture_filter = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7v14l"]
+resource_local_to_scene = true
+size = Vector3(3, 2, 0.02)
+
+[node name="FB_PromptDisplay" instance=ExtResource("1_0wmwa")]
+scene = ExtResource("2_h7ogi")
+viewport_size = Vector2(1200, 800)
+scene_properties_keys = PackedStringArray()
+
+[node name="Viewport" parent="." index="0"]
+size = Vector2i(1200, 800)
+
+[node name="Screen" parent="." index="1"]
+mesh = SubResource("QuadMesh_r8csy")
+surface_material_override/0 = SubResource("StandardMaterial3D_neke2")
+
+[node name="StaticBody3D" parent="." index="2"]
+viewport_size = Vector2(1200, 800)
+
+[node name="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_7v14l")

@@ -11,5 +11,6 @@ var OBJECT_ID: int = 1
 
 enum StepType {
 	ZONE_ENTERED,
-	ZONE_EXITED
+	ZONE_EXITED,
+	OBJECT_INTERACT
 }

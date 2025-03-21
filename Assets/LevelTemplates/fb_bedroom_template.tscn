@@ -15,11 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://b57xfehrlro24" path="res://Models/RoomModels/Shelf.glb" id="14_7k4t0"]
 [ext_resource type="PackedScene" uid="uid://cpxmu14wwwq1x" path="res://Models/RoomModels/WallShelf.glb" id="15_rlkke"]
 [ext_resource type="PackedScene" uid="uid://b2wo6x2d78kn7" path="res://Models/RoomModels/Wardrobe.glb" id="16_8j7qp"]
+[ext_resource type="PackedScene" uid="uid://bdwmserhqai5h" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_physics_hand_low.tscn" id="17_hd1w2"]
 [ext_resource type="PackedScene" uid="uid://s68v0urj5d1e" path="res://Models/RoomModels/WindowStill.glb" id="17_ove7u"]
-[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="18_iiuc4"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="19_ti267"]
+[ext_resource type="PackedScene" uid="uid://btf05hjpw6k05" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_physics_hand_low.tscn" id="20_7u5vr"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="20_pa7nr"]
-[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="21_o5hkv"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="22_vomwa"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="23_l3yyd"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="24_5vir4"]
@@ -295,7 +295,7 @@ far = 300.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
-[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("18_iiuc4")]
+[node name="LeftPhysicsHand" parent="XROrigin3D/LeftHand" instance=ExtResource("17_hd1w2")]
 
 [node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("19_ti267")]
 strafe = true
@@ -306,7 +306,7 @@ strafe = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("21_o5hkv")]
+[node name="RightPhysicsHand" parent="XROrigin3D/RightHand" instance=ExtResource("20_7u5vr")]
 
 [node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("20_pa7nr")]
 

@@ -33,9 +33,9 @@ func _on_create_level_button_pressed():
 	
 	for level_template_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY):
 		var level_button := LEVEL_BUTTON.instantiate() as Button
-		level_button.text = level_template_file_name.trim_prefix("fb_").trim_suffix(".tscn").capitalize()
+		level_button.text = level_template_file_name.trim_prefix("fb_").trim_suffix(".remap").trim_suffix(".tscn").capitalize()
 		level_button.pressed.connect(
-			FB_LevelManagerInstance.create_level.bind(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY + level_template_file_name))
+			FB_LevelManagerInstance.create_level.bind(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY + level_template_file_name.trim_suffix(".remap")))
 		create_level_section.add_child(level_button)
 
 

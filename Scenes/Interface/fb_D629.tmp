@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4dx86hhw07pj"]
+
+[ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="1_cpcd5"]
+[ext_resource type="Script" path="res://Scripts/Interface/fb_prompt_creator.gd" id="1_yx4on"]
+[ext_resource type="PackedScene" uid="uid://baiomms41aoey" path="res://Scenes/Interface/fb_prompt_display.tscn" id="3_qfkmi"]
+
+[node name="FB_PromptCreator" type="Node3D"]
+script = ExtResource("1_yx4on")
+
+[node name="VirtualKeyboard" parent="." instance=ExtResource("1_cpcd5")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
+scene_properties_keys = PackedStringArray("virtual_keyboard_2d.gd")
+
+[node name="FB_PromptDisplay" parent="." instance=ExtResource("3_qfkmi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39056, -0.206607)

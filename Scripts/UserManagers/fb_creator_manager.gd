@@ -90,7 +90,7 @@ func _on_right_hand_button_pressed(button_name: String) -> void:
 	# Cancel the placement of the object/zone or remove the hovered object/zone.
 	if button_name == "by_button":
 		if _placement_object:
-			_placement_object.queue_free()
+			_handle_object_removel(_placement_object)
 			_placement_object = null
 			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 		elif _placement_zone:
@@ -98,7 +98,7 @@ func _on_right_hand_button_pressed(button_name: String) -> void:
 			_placement_zone = null
 			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 		elif _hovered_object:
-			_hovered_object.queue_free()
+			_handle_object_removel(_hovered_object)
 			_hovered_object = null
 			_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 		elif _hovered_zone:
@@ -254,7 +254,7 @@ func _update_hovered_objects_and_zones() -> void:
 
 
 func _quit_to_main_menu() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/fb_main_menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 
 func _on_zone_entered_or_exited(step: FB_Step):
@@ -262,6 +262,16 @@ func _on_zone_entered_or_exited(step: FB_Step):
 	# recorded. I think all we would do is add the step to it.
 	var procedure: FB_Procedure = FB_Procedure.new()
 	procedure.AddStep(step)
+
+
+# Function to fix a bug when freeing objects which have snap zones
+func _handle_object_removel(object: FB_AssetBase):
+	# drop all objects currently in the snap zones
+	for snap_zone in object.pickable_object.get_children():
+		if (snap_zone.has_method("is_xr_class") && snap_zone.is_xr_class("XRToolsSnapZone")):
+			snap_zone.enabled = false
+			snap_zone.drop_object()
+	object.queue_free()
 
 
 static func align_with_normal(xform: Transform3D, normal: Vector3) -> Transform3D:

@@ -34,6 +34,7 @@ script = ExtResource("1_5yue2")
 pickable_object = NodePath("PickableObject")
 
 [node name="PickableObject" parent="." instance=ExtResource("2_q24uv")]
+second_hand_grab = 1
 
 [node name="GrabPointHandLeft" parent="PickableObject" instance=ExtResource("4_53vv6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00325871, 0.12843, -0.0863055)

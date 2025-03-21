@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://biwe8bor8d6qd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dieqb"]
+bg_color = Color(0.0605303, 0.0605304, 0.0605303, 1)
+
+[node name="FB_PromptDisplayContent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dieqb")
+
+[node name="Prompt" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = 117.0
+offset_right = -54.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+wrap_mode = 1
+autowrap_mode = 2
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(50, 100, 1100, 100)
+width = 20.0
+default_color = Color(0.345024, 0.802266, 0.975296, 1)
+
+[node name="Header" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = 27.0
+offset_right = -52.0
+offset_bottom = -567.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+text = "Display the Step here"
+scroll_active = false
+autowrap_mode = 2
