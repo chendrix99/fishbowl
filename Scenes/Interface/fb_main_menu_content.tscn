@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl1kc5qoj5dqo"]
 
-[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
+[ext_resource type="Script" uid="uid://bg0iwv2y44qd" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
 [ext_resource type="StyleBox" uid="uid://1ljfr3j7wuxm" path="res://Scenes/Interface/MainMenuButtonStyleBox.tres" id="2_8lowp"]
 [ext_resource type="StyleBox" uid="uid://c1tlqpbfuvraf" path="res://Scenes/Interface/MainMenuButtonHoverStyleBox.tres" id="2_y0lwf"]
 
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ehb0n")
 
-[node name="MainMenuVBox" type="VBoxContainer" parent="."]
+[node name="MainMenuVBox" type="HBoxContainer" parent="."]
 top_level = true
 layout_mode = 1
 anchors_preset = -1
@@ -27,16 +27,12 @@ grow_vertical = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MainMenuHSplit" type="HSplitContainer" parent="MainMenuVBox"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PlayerAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox/MainMenuHSplit"]
+[node name="PlayerAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 ratio = 0.5
 
-[node name="PlayerButton" type="Button" parent="MainMenuVBox/MainMenuHSplit/PlayerAspectRatio"]
+[node name="PlayerButton" type="Button" parent="MainMenuVBox/PlayerAspectRatio"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -44,12 +40,40 @@ theme_override_styles/hover = ExtResource("2_y0lwf")
 theme_override_styles/normal = ExtResource("2_8lowp")
 text = "PLAYER"
 
-[node name="CreatorAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox/MainMenuHSplit"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="SettingsAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox/VBoxContainer"]
+layout_mode = 2
+ratio = 10.0
+
+[node name="SettingsButton" type="Button" parent="MainMenuVBox/VBoxContainer/SettingsAspectRatio"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = ExtResource("2_y0lwf")
+theme_override_styles/normal = ExtResource("2_8lowp")
+text = "Settings"
+
+[node name="QuitAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox/VBoxContainer"]
+layout_mode = 2
+ratio = 10.0
+
+[node name="QuitButton" type="Button" parent="MainMenuVBox/VBoxContainer/QuitAspectRatio"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = ExtResource("2_y0lwf")
+theme_override_styles/normal = ExtResource("2_8lowp")
+text = "X"
+
+[node name="CreatorAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 ratio = 0.5
 
-[node name="CreatorButton" type="Button" parent="MainMenuVBox/MainMenuHSplit/CreatorAspectRatio"]
+[node name="CreatorButton" type="Button" parent="MainMenuVBox/CreatorAspectRatio"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -58,27 +82,3 @@ theme_override_styles/hover = ExtResource("2_y0lwf")
 theme_override_styles/normal = ExtResource("2_8lowp")
 text = "CREATOR
 "
-
-[node name="SettingsAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox"]
-layout_mode = 2
-ratio = 10.0
-
-[node name="SettingsButton" type="Button" parent="MainMenuVBox/SettingsAspectRatio"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = ExtResource("2_y0lwf")
-theme_override_styles/normal = ExtResource("2_8lowp")
-text = "Settings"
-
-[node name="QuitAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox"]
-layout_mode = 2
-ratio = 10.0
-
-[node name="QuitButton" type="Button" parent="MainMenuVBox/QuitAspectRatio"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = ExtResource("2_y0lwf")
-theme_override_styles/normal = ExtResource("2_8lowp")
-text = "Quit"

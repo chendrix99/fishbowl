@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfj8q52ayfova"]
 
 [ext_resource type="Texture2D" uid="uid://dno3xpkfugouk" path="res://Textures/zone_icon.png" id="1_7qm2r"]
-[ext_resource type="Script" path="res://Scripts/Interface/fb_creator_menu_content.gd" id="1_rt25t"]
+[ext_resource type="Script" uid="uid://b0vgxytqiy5up" path="res://Scripts/Interface/fb_creator_menu_content.gd" id="1_rt25t"]
 
 [node name="FB_CreatorMenu" type="Control"]
 layout_mode = 3

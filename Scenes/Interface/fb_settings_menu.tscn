@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://duc704cpu1chy"]
+
+[node name="FB_SettingsMenuContent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="Container" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ToggleRightHand" type="CheckButton" parent="PanelContainer/Container"]
+layout_mode = 2
+text = "Right Hand"
+
+[node name="Container2" type="Container" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ToggleLeftHand" type="CheckButton" parent="PanelContainer/Container2"]
+layout_mode = 2
+text = "Left Hand"
