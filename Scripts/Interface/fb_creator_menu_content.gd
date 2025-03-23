@@ -7,29 +7,23 @@ class_name FB_CreatorMenuContent extends Control
 signal object_selected
 signal zone_selected
 signal quit_to_main_menu
+signal start_recording
 
 @onready var _tooltip := $Tooltip
 @onready var _tooltip_label := $Tooltip/TooltipLabel
 @onready var _creator_menu := $CreatorMenu
 @onready var _objects_menu := $CreatorMenu/MarginContainer/Body/ObjectsMenu
 @onready var _zones_menu := $CreatorMenu/MarginContainer/Body/ZonesMenu
+@onready var _recording_menu := $RecordingMenu
+@onready var recorded_steps := $RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
+@onready var recorded_steps_icon := $RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer/RecordedStepsIcon
 
 const DEFAULT_TOOLTIP = "  (Press X to show/hide the menu.)  "
 const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place object.  \n  Press B to cancel.  \n"
 const OBJECT_HOVERED_TOOLTIP = "  Press B to delete object.  \n" + DEFAULT_TOOLTIP
 const ZONE_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to add zone vertices.  \n  Press R. GRIP to finish zone.  \n  Press B to cancel.  \n"
 const ZONE_HOVERED_TOOLTIP = "  Press and hold R. TRIGGER to extrude zone.  \n  Press B to delete zone.  \n" + DEFAULT_TOOLTIP
-
-const ZONE_INDEX_TO_COLOR = {
-	0: Color.WHITE,
-	1: Color.LIGHT_SLATE_GRAY,
-	2: Color.LIGHT_SKY_BLUE,
-	3: Color.LIGHT_GREEN,
-	4: Color.ORANGE,
-	5: Color.ORANGE_RED,
-	6: Color.MEDIUM_PURPLE,
-	7: Color.SLATE_GRAY
-}
+const RECORDING_TOOLTIP = "  Currently recording. Press B to finish."
 
 
 func _ready() -> void:
@@ -41,7 +35,7 @@ func _ready() -> void:
 		_objects_menu.add_child(new_object_button)
 	
 	for zone_button_idx in _zones_menu.get_child_count():
-		_zones_menu.get_child(zone_button_idx).modulate = ZONE_INDEX_TO_COLOR[zone_button_idx]
+		_zones_menu.get_child(zone_button_idx).modulate = FB_Globals.ZONE_ID_TO_COLOR[zone_button_idx]
 
 
 func set_menu_visibility(is_visible: bool) -> void:
@@ -71,15 +65,19 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 	print("<debug> Quitting to main menu.")
 
 
-func _on_objects_button_pressed():
+func _on_objects_button_pressed() -> void:
 	_objects_menu.visible = true
 	_zones_menu.visible = false
 
 
-func _on_zones_button_pressed():
+func _on_zones_button_pressed() -> void:
 	_objects_menu.visible = false
 	_zones_menu.visible = true
 
 
-func _on_save_level_button_pressed():
+func _on_save_level_button_pressed() -> void:
 	FB_LevelManagerInstance.save_level()
+
+
+func _on_start_recording_button_pressed():
+	start_recording.emit()

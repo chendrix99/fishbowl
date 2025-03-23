@@ -17,8 +17,17 @@ var _hovered_object: FB_AssetBase = null
 var _hovered_zone: FB_Zone = null
 var _hovered_zone_extrusion_data = null
 
+@export var saved_assets_to_load: Array[FB_SavedAsset] = []
+@export var saved_zones_to_load: Array[FB_SavedZone] = []
+
+var _is_recording := false
+@export var recorded_steps: Array[FB_Step] = []
+var pre_recording_level_snapshot : FB_Level = null
+
 
 func _ready() -> void:
+	add_to_group("FB_CreatorManager_Group")
+	
 	if not _user == null:
 		# Connect to signals from the controllers.
 		_user.get_node("LeftHand").button_pressed.connect(_on_left_hand_button_pressed)
@@ -35,12 +44,29 @@ func _ready() -> void:
 		_creator_menu_content.object_selected.connect(_begin_placing_object)
 		_creator_menu_content.zone_selected.connect(_begin_placing_zone)
 		_creator_menu_content.quit_to_main_menu.connect(_quit_to_main_menu)
+		_creator_menu_content.start_recording.connect(_start_recording)
 		
 		# Set default tooltip.
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
-	# Reset the zone and object ids for this session
-	FB_Globals.ZONE_ID = 0
-	FB_Globals.OBJECT_ID = 1
+	
+	# Reset the object IDs for this session.
+	FB_Globals.reset_next_object_ID()
+	
+	# Load all assets.
+	for saved_asset in saved_assets_to_load:
+		var asset := FB_SavedAsset.deserialize_asset(saved_asset)
+		add_child(asset)
+		FB_Globals.NEXT_OBJECT_ID = maxi(FB_Globals.NEXT_OBJECT_ID, asset.object_ID + 1)
+	
+	# Load all zones.
+	for saved_zone in saved_zones_to_load:
+		var zone := FB_SavedZone.deserialize_zone(saved_zone)
+		add_child(zone)
+	
+	# Update the UI to show all the steps.
+	_creator_menu_content.recorded_steps.text = ""
+	for step in recorded_steps:
+		_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
 
 
 func _process(_delta: float) -> void:
@@ -48,6 +74,9 @@ func _process(_delta: float) -> void:
 		# Position the creator menu in front of the user.
 		_creator_menu_holder.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
 		_creator_menu_holder.basis = Basis.looking_at(-1 * Plane.PLANE_XZ.project(_user.basis.z))
+	
+	if _is_recording:
+		return
 	
 	if not _placement_object == null:
 		_update_placing_object()
@@ -58,6 +87,9 @@ func _process(_delta: float) -> void:
 
 
 func _on_left_hand_button_pressed(button_name: String) -> void:
+	if _is_recording:
+		return
+	
 	# Toggle visibility of the creator menu.
 	# (Cannot enter the menu while placing an object or a zone.)
 	if button_name == "ax_button":
@@ -72,6 +104,12 @@ func _on_left_hand_button_released(button_name: String) -> void:
 
 
 func _on_right_hand_button_pressed(button_name: String) -> void:
+	if _is_recording:
+		# If recording, no other "edit" actions can be done, other than to finish the recording.
+		if button_name == "by_button":
+			_end_recording()
+		return
+	
 	# Finalize placement of the current object or of the current zone marker.
 	# If a zone is being hovered, press the trigger to extrude.
 	if button_name == "trigger_click":
@@ -108,19 +146,23 @@ func _on_right_hand_button_pressed(button_name: String) -> void:
 
 
 func _on_right_hand_button_released(button_name: String) -> void:
+	if _is_recording:
+		return
+	
 	# If a zone is being extruded, release the trigger to finish.
 	if button_name == "trigger_click":
 		_hovered_zone_extrusion_data = null
 
 
-func _begin_placing_object(object_file_path: String) -> void:
+func _begin_placing_object(asset_file_path: String) -> void:
 	# Hide the menu & add object placement tooltip.
 	_creator_menu_content.set_menu_visibility(false)
 	_creator_menu_viewport_in_3D.enabled = false
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.OBJECT_PLACEMENT_TOOLTIP)
 	
-	# Initialize the object.
-	_placement_object = load(object_file_path).instantiate()
+	# Initialize the object & set the file path (for save).
+	_placement_object = load(asset_file_path).instantiate()
+	_placement_object.asset_file_path = asset_file_path
 	
 	if not _placement_object:
 		push_error("Failed to load object! (Does the asset inherit from FB_AssetBase?)")
@@ -162,12 +204,11 @@ func _begin_placing_zone(zone_index: int) -> void:
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.ZONE_PLACEMENT_TOOLTIP)
 	
 	# Add the placement zone and the first marker.
-	_placement_zone = FB_Zone.new(FB_CreatorMenuContent.ZONE_INDEX_TO_COLOR[zone_index])
+	_placement_zone = FB_Zone.new(FB_Globals.ZONE_ID_TO_COLOR[zone_index])
 	var initial_zone_marker := FB_CreatorManager.make_zone_marker(
-		FB_CreatorMenuContent.ZONE_INDEX_TO_COLOR[zone_index])
+		FB_Globals.ZONE_ID_TO_COLOR[zone_index])
 	initial_zone_marker.visible = false
 	_placement_zone.add_child(initial_zone_marker)
-	_placement_zone.zone_entered_or_exited.connect(_on_zone_entered_or_exited)
 	add_child(_placement_zone)
 
 
@@ -252,16 +293,47 @@ func _update_hovered_objects_and_zones() -> void:
 				_pointer_raycast.global_position.y - _hovered_zone_extrusion_data.x)
 			_hovered_zone.update_zone(true)
 
-
+ 
 func _quit_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 
-func _on_zone_entered_or_exited(step: FB_Step):
-	#TODO This is where we interact with the active procedure that is being
-	# recorded. I think all we would do is add the step to it.
-	var procedure: FB_Procedure = FB_Procedure.new()
-	procedure.AddStep(step)
+func _start_recording() -> void:
+	_is_recording = true
+	recorded_steps = []
+	_creator_menu_content.recorded_steps.text = ""
+	_creator_menu_content.recorded_steps_icon.visible = true
+	
+	# Hide the menu & add default tooltip.
+	_creator_menu_content.set_menu_visibility(false)
+	_creator_menu_viewport_in_3D.enabled = false
+	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.RECORDING_TOOLTIP)
+	
+	pre_recording_level_snapshot = FB_LevelManagerInstance.get_level_snapshot()
+
+
+func _end_recording() -> void:
+	_is_recording = false
+	_creator_menu_content.recorded_steps_icon.visible = false
+	
+	# Hide the menu & add default tooltip.
+	_creator_menu_content.set_menu_visibility(false)
+	_creator_menu_viewport_in_3D.enabled = false
+	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+	
+	# We've recorded some steps. Move these over to the level snapshot we
+	# saved before the recording, then reload the level. This ensures that
+	# objects go back to their initial positions/configurations.
+	pre_recording_level_snapshot.steps = recorded_steps.duplicate(true)
+	FB_LevelManagerInstance.edit_level_directly(pre_recording_level_snapshot)
+
+
+func try_recording_step(step: FB_Step) -> void:
+	if not _is_recording:
+		return
+	
+	_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
+	recorded_steps.push_back(step)
 
 
 # Function to fix a bug when freeing objects which have snap zones

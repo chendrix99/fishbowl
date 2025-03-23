@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bd6av41vuwm86"]
 
-[ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_asset_interact.gd" id="1_ce41o"]
+[ext_resource type="Script" uid="uid://dkys6yehorboo" path="res://Scripts/AssetBehaviors/fb_asset_interact.gd" id="1_ce41o"]
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="2_dw5x0"]
 [ext_resource type="PackedScene" uid="uid://mwai0qlis3ir" path="res://Models/push_button.glb" id="3_nnsj2"]
 

@@ -24,7 +24,7 @@ func _on_body_entered_interaction_area(_body: Node3D) -> void:
 		animated_mesh.get_surface_override_material(0).set_emission_energy_multiplier(4.0)
 		animation_player.play(animation_name)
 	object_interacted_with.emit(
-		FB_Step.new(object_id, -1, FB_Globals.StepType.OBJECT_INTERACT)
+		FB_Step.new(object_ID, -1, FB_Globals.StepType.OBJECT_INTERACT, "...")
 	)
 
 func _on_body_exited_interaction_area(_body: Node3D) -> void:

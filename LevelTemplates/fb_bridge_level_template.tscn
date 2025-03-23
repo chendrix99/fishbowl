@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=4 uid="uid://drlungud6du37"]
 
-[ext_resource type="Script" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_t265l"]
+[ext_resource type="Script" uid="uid://ckbr3wulws4wd" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_t265l"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_pcqeh"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_6aqxg"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_63c0e"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_uybve"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_di63j"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_uwt58"]
-[ext_resource type="Script" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_l07x6"]
+[ext_resource type="Script" uid="uid://b5qx2w6uio587" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_l07x6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcyk8"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -106,7 +106,7 @@ size = Vector3(6.695, 0.15, 1.1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_j2jc4"]
 size = Vector3(200, 20, 200)
 
-[node name="FB_DefaultSpace" type="Node3D"]
+[node name="FB_BridgeLevelTemplate" type="Node3D"]
 script = ExtResource("1_t265l")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]

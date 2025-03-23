@@ -3,12 +3,10 @@
 signal zone_entered_or_exited(step)
 
 var zone_height := 0.25
-var zone_id: int
 var _zone_vertices := PackedVector2Array()
 var _zone_y_level := 0.00
 var _zone_is_committed := false
 var _zone_color := Color.WHITE
-# Using an Area3D here now so that objects entering/exiting are tracked
 var _area_3d: Area3D = null
 var _zone_material := StandardMaterial3D.new()
 
@@ -21,9 +19,6 @@ func _init(zone_color: Color) -> void:
 	_zone_material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
 	_zone_material.specular_mode = BaseMaterial3D.SPECULAR_TOON
 	_zone_material.cull_mode = BaseMaterial3D.CULL_DISABLED
-	# Increment the zone id and use that as this zones id
-	FB_Globals.ZONE_ID += 1
-	zone_id = FB_Globals.ZONE_ID
 
 
 func _process(_delta: float) -> void:
@@ -50,19 +45,20 @@ func commit_zone() -> void:
 	_zone_is_committed = true
 
 
-func update_zone(refresh_collider: bool) -> void:
+func update_zone(refresh_collider: bool, use_existing_zone_vertices: bool = false) -> void:
 	mesh = null
 	
 	var got_y_level := false
 	
-	_zone_vertices.clear()
-	for zone_child in get_children():
-		if zone_child is not Area3D:
-			if not got_y_level:
-				_zone_y_level = zone_child.position.y
-				got_y_level = true
-			
-			_zone_vertices.push_back(Vector2(zone_child.position.x, zone_child.position.z))
+	if not use_existing_zone_vertices:
+		_zone_vertices.clear()
+		for zone_child in get_children():
+			if zone_child is not Area3D:
+				if not got_y_level:
+					_zone_y_level = zone_child.position.y
+					got_y_level = true
+				
+				_zone_vertices.push_back(Vector2(zone_child.position.x, zone_child.position.z))
 	
 	if _zone_vertices.size() < 3:
 		return
@@ -146,22 +142,54 @@ func update_zone(refresh_collider: bool) -> void:
 
 # Handle an object/body entering this zone
 func _on_body_entered_zone(body: Node3D):
-	var object_id: int
+	var zone_ID = FB_Globals.get_zone_ID_from_color(_zone_color)
+	if zone_ID < 0:
+		return
+	
+	var zone_color_name = FB_Globals.ZONE_ID_TO_COLOR_NAME[zone_ID]
+	var object_ID: int = 0
 	if (body is XRToolsPlayerBody):
-		object_id = 1
-	elif (body is FB_AssetBase):
-		object_id = body.object_id
-	zone_entered_or_exited.emit(
-		FB_Step.new(object_id, zone_id, FB_Globals.StepType.ZONE_ENTERED)
-	)
+		object_ID = 0 # (Player body always has ID = 0)
+	elif (body.get_parent() is FB_AssetBase):
+		object_ID = body.get_parent().object_ID
+	else:
+		return
+	
+	var object_name = "Player"
+	if object_ID > 0:
+		object_name = body.get_parent().asset_file_path.split('fb_')[1].split(".")[0].capitalize()
+	
+	var step := FB_Step.new(
+		object_ID, zone_ID, FB_Globals.StepType.ZONE_ENTERED,
+		"%s [%d] Enters %s Zone [%d]" % [object_name, object_ID, zone_color_name, zone_ID])
+	
+	get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	
+	print("<step debug> %s" % step.step_description)
 
 # Handle an object/body exiting this zone
 func _on_body_exited_zone(body: Node3D):
-	var object_id: int
+	var zone_ID = FB_Globals.get_zone_ID_from_color(_zone_color)
+	if zone_ID < 0:
+		return
+	
+	var zone_color_name = FB_Globals.ZONE_ID_TO_COLOR_NAME[zone_ID]
+	var object_ID: int = 0
 	if (body is XRToolsPlayerBody):
-		object_id = 1
-	elif (body is FB_AssetBase):
-		object_id = body.object_id
-	zone_entered_or_exited.emit(
-		FB_Step.new(object_id, zone_id, FB_Globals.StepType.ZONE_EXITED)
-	)
+		object_ID = 0 # (Player body always has ID = 0)
+	elif (body.get_parent() is FB_AssetBase):
+		object_ID = body.get_parent().object_ID
+	else:
+		return
+	
+	var object_name = "Player"
+	if object_ID > 0:
+		object_name = body.get_parent().asset_file_path.split('fb_')[1].split(".")[0].capitalize()
+	
+	var step := FB_Step.new(
+		object_ID, zone_ID, FB_Globals.StepType.ZONE_EXITED,
+		"%s [%d] Exits %s Zone [%d]" % [object_name, object_ID, zone_color_name, zone_ID])
+	
+	get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	
+	print("<step debug> %s" % step.step_description)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d4dx86hhw07pj"]
 
 [ext_resource type="PackedScene" uid="uid://dgdb1texynduw" path="res://addons/godot-xr-tools/objects/virtual_keyboard.tscn" id="1_cpcd5"]
-[ext_resource type="Script" path="res://Scripts/Interface/fb_prompt_creator.gd" id="1_yx4on"]
+[ext_resource type="Script" uid="uid://r7cjcghxydq6" path="res://Scripts/Interface/fb_prompt_creator.gd" id="1_yx4on"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_f7svg"]
 [ext_resource type="PackedScene" uid="uid://baiomms41aoey" path="res://Scenes/Interface/fb_prompt_display.tscn" id="3_qfkmi"]
 [ext_resource type="PackedScene" uid="uid://bdqn61ih82whj" path="res://Scenes/Interface/fb_text_edit_done_cancel.tscn" id="5_a0psh"]

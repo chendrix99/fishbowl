@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl1kc5qoj5dqo"]
 
-[ext_resource type="Script" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
+[ext_resource type="Script" uid="uid://cm0h2rss7yn2i" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4jkw2"]
 font_size = 22
