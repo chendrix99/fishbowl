@@ -4,7 +4,8 @@ class_name FB_PromptCreator extends Node3D
 # recording process.
 
 # Signal for when the user presses the done or cancel button
-signal user_pressed_done_cancel(prompt_text: String)
+signal user_pressed_done(prompt_text: String)
+signal user_pressed_cancel
 
 @onready var prompt_content := $FB_PromptDisplay.get_scene_instance() as Control
 @onready var prompt := prompt_content.get_child(1) as TextEdit
@@ -31,10 +32,29 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			prompt.insert_text_at_caret(String.chr(event.unicode).to_lower())
 
 func _on_cancel_button_pressed():
-	user_pressed_done_cancel.emit("")
+	user_pressed_cancel.emit()
 
 func _on_done_button_pressed():
-	user_pressed_done_cancel.emit(prompt.text)
+	user_pressed_done.emit(prompt.text)
 
 func set_header_text(text: String):
 	header.text = text
+
+func reset():
+	prompt.text = ""
+
+func enable():
+	$VirtualKeyboard.enabled = true
+	$FB_PromptDisplay.enabled = true
+	$DoneCancel.enabled = true
+
+func disable():
+	$VirtualKeyboard.enabled = false
+	$FB_PromptDisplay.enabled = false
+	$DoneCancel.enabled = false
+
+func disconnect_all():
+	for conn in user_pressed_done.get_connections():
+		user_pressed_done.disconnect(conn.callable)
+	for conn in user_pressed_cancel.get_connections():
+		user_pressed_cancel.disconnect(conn.callable)

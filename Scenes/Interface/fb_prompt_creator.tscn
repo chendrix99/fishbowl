@@ -11,14 +11,17 @@ script = ExtResource("1_yx4on")
 
 [node name="VirtualKeyboard" parent="." instance=ExtResource("1_cpcd5")]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
+screen_size = Vector2(0.75, 0.35)
 scene_properties_keys = PackedStringArray("virtual_keyboard_2d.gd")
 
 [node name="FB_PromptDisplay" parent="." instance=ExtResource("3_qfkmi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39056, -0.206607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.670312, -0.206607)
+screen_size = Vector2(1.5, 1)
 transparent = 0
 
 [node name="DoneCancel" parent="." instance=ExtResource("3_f7svg")]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, -0.0806726)
+screen_size = Vector2(1.5, 0.75)
 scene = ExtResource("5_a0psh")
 viewport_size = Vector2(1200, 800)
 transparent = 2

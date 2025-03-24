@@ -16,3 +16,6 @@ class_name FB_Level extends Resource
 
 ## The level's recorded steps.
 @export var steps : Array[FB_Step]
+
+## The level's initial description shown to the user
+@export var initial_prompt: FB_Prompt

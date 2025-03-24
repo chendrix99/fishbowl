@@ -30,6 +30,9 @@ func get_level_snapshot(display_name: StringName = "Untitled_Level") -> FB_Level
 	saved_level.template = _loaded_level.template
 	saved_level.steps = creator_manager.recorded_steps.duplicate(true)
 	
+	saved_level.initial_prompt = FB_Prompt.new()
+	saved_level.initial_prompt.prompt_text = creator_manager.level_description
+	
 	# Step 3. Find all assets in the scene & save them.
 	for cur_child_node in creator_manager.get_children():
 		if cur_child_node is FB_AssetBase:
@@ -73,6 +76,9 @@ func edit_level_directly(level: FB_Level) -> void:
 	creator_manager.saved_assets_to_load = level.saved_assets
 	creator_manager.saved_zones_to_load = level.saved_zones
 	creator_manager.recorded_steps = level.steps.duplicate(true)
+	
+	if not level.initial_prompt == null:
+		creator_manager.level_description = level.initial_prompt.prompt_text
 	
 	# Finally, re-pack the scene and load the level.
 	var packed_scene := PackedScene.new()

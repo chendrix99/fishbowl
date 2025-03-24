@@ -15,7 +15,7 @@ height = 0.2
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1owml"]
-size = Vector3(1.6, 0.5, 1.6)
+size = Vector3(1.6, 1, 1.6)
 
 [node name="FB_YellowPushButton" type="Node3D" node_paths=PackedStringArray("interaction_area", "animation_player", "animated_mesh", "pickable_object")]
 script = ExtResource("1_ce41o")
@@ -27,6 +27,7 @@ animated_mesh = NodePath("PickableObject/push_button/Cylinder_001")
 pickable_object = NodePath("PickableObject")
 
 [node name="PickableObject" parent="." instance=ExtResource("2_dw5x0")]
+collision_mask = 7
 
 [node name="push_button" parent="PickableObject" instance=ExtResource("3_nnsj2")]
 
@@ -46,7 +47,7 @@ collision_layer = 2
 collision_mask = 131072
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickableObject/ButtonPressArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00349022, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245936, 0)
 shape = SubResource("BoxShape3D_1owml")
 
 [editable path="PickableObject/push_button"]

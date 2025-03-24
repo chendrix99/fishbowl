@@ -3,4 +3,4 @@
 
 class_name FB_Prompt extends Resource
 
-var prompt_text: String = ""
+@export var prompt_text: String = ""

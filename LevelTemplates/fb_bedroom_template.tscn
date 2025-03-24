@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://b3ixj5rsg8kmn"]
 
-[ext_resource type="Script" uid="uid://ckbr3wulws4wd" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_7fgtb"]
+[ext_resource type="Script" uid="uid://c5qy7m02pt3od" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_7fgtb"]
 [ext_resource type="PackedScene" uid="uid://c3djli6x8xtmw" path="res://Models/RoomModels/FloorTile.glb" id="2_nr7j6"]
 [ext_resource type="PackedScene" uid="uid://dmil8ws38ujeg" path="res://Models/RoomModels/LeftCornerRoomWall.glb" id="3_amt2p"]
 [ext_resource type="PackedScene" uid="uid://xiy15fs2tn30" path="res://Models/RoomModels/RightCornerRoomWall.glb" id="4_wpu66"]

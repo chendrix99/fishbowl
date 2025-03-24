@@ -76,7 +76,23 @@ func _on_zones_button_pressed() -> void:
 
 
 func _on_save_level_button_pressed() -> void:
-	FB_LevelManagerInstance.save_level()
+	# We allow the user to input a file name
+	var creator_manager: FB_CreatorManager = get_tree().get_first_node_in_group("FB_CreatorManager_Group")
+	creator_manager.hide_menu_content()
+	
+	creator_manager.show_prompt_creator()
+	
+	var handle_done := func done(prompt_text: String):
+		if prompt_text == "":
+			prompt_text = "undefined"
+		FB_LevelManagerInstance.save_level(prompt_text)
+		creator_manager.reset_prompt_creator()
+	
+	var handle_cancel := func cancel():
+		creator_manager.reset_prompt_creator()
+	
+	creator_manager.prompt_creator.user_pressed_done.connect(handle_done)
+	creator_manager.prompt_creator.user_pressed_cancel.connect(handle_cancel)
 
 
 func _on_start_recording_button_pressed():

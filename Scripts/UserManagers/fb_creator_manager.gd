@@ -11,6 +11,8 @@ class_name FB_CreatorManager extends Node3D
 @onready var _creator_menu_viewport_in_3D := $CreatorMenuHolder/CreatorMenuViewportIn3D
 @onready var _creator_menu_content := _creator_menu_viewport_in_3D.get_scene_instance() as FB_CreatorMenuContent
 
+@onready var prompt_creator := $FB_PromptCreator as FB_PromptCreator
+
 var _placement_object: FB_AssetBase = null
 var _placement_zone: FB_Zone = null
 var _hovered_object: FB_AssetBase = null
@@ -23,6 +25,8 @@ var _hovered_zone_extrusion_data = null
 var _is_recording := false
 @export var recorded_steps: Array[FB_Step] = []
 var pre_recording_level_snapshot : FB_Level = null
+
+@export var level_description: String = ""
 
 
 func _ready() -> void:
@@ -37,8 +41,7 @@ func _ready() -> void:
 	
 	if not _creator_menu_content == null:
 		# By default, hide the creator menu.
-		_creator_menu_content.set_menu_visibility(false)
-		_creator_menu_viewport_in_3D.enabled = false
+		hide_menu_content()
 		
 		# Connect to signals from the creator menu.
 		_creator_menu_content.object_selected.connect(_begin_placing_object)
@@ -48,6 +51,11 @@ func _ready() -> void:
 		
 		# Set default tooltip.
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
+	
+	# Initially show the prompt creator so the user can set the level description
+	show_prompt_creator("Provide a Level Description:")
+	prompt_creator.prompt.text = level_description
+	prompt_creator.user_pressed_done.connect(_handle_initial_level_description)
 	
 	# Reset the object IDs for this session.
 	FB_Globals.reset_next_object_ID()
@@ -74,6 +82,8 @@ func _process(_delta: float) -> void:
 		# Position the creator menu in front of the user.
 		_creator_menu_holder.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
 		_creator_menu_holder.basis = Basis.looking_at(-1 * Plane.PLANE_XZ.project(_user.basis.z))
+		prompt_creator.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
+		prompt_creator.basis = Basis.looking_at(-1 * Plane.PLANE_XZ.project(_user.basis.z))
 	
 	if _is_recording:
 		return
@@ -163,6 +173,9 @@ func _begin_placing_object(asset_file_path: String) -> void:
 	# Initialize the object & set the file path (for save).
 	_placement_object = load(asset_file_path).instantiate()
 	_placement_object.asset_file_path = asset_file_path
+	
+	if (_placement_object is FB_AssetInteract):
+		_placement_object.object_interacted_with.connect(_handle_asset_interacted_with)
 	
 	if not _placement_object:
 		push_error("Failed to load object! (Does the asset inherit from FB_AssetBase?)")
@@ -310,6 +323,11 @@ func _start_recording() -> void:
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.RECORDING_TOOLTIP)
 	
 	pre_recording_level_snapshot = FB_LevelManagerInstance.get_level_snapshot()
+	
+	# For now, using this place to set the level prompt description
+	var prompt = FB_Prompt.new()
+	prompt.prompt_text = level_description
+	pre_recording_level_snapshot.initial_prompt = prompt
 
 
 func _end_recording() -> void:
@@ -328,6 +346,27 @@ func _end_recording() -> void:
 	FB_LevelManagerInstance.edit_level_directly(pre_recording_level_snapshot)
 
 
+# Function to fix a bug when freeing objects which have snap zones
+func _handle_object_removel(object: FB_AssetBase) -> void:
+	# drop all objects currently in the snap zones
+	for snap_zone in object.pickable_object.get_children():
+		if (snap_zone.has_method("is_xr_class") && snap_zone.is_xr_class("XRToolsSnapZone")):
+			snap_zone.enabled = false
+			snap_zone.drop_object()
+	object.queue_free()
+
+
+func _handle_asset_interacted_with(step: FB_Step) -> void:
+	if (_is_recording):
+		_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
+		recorded_steps.push_back(step)
+
+
+func _handle_initial_level_description(prompt_text: String) -> void:
+	level_description = prompt_text
+	reset_prompt_creator()
+
+
 func try_recording_step(step: FB_Step) -> void:
 	if not _is_recording:
 		return
@@ -336,14 +375,22 @@ func try_recording_step(step: FB_Step) -> void:
 	recorded_steps.push_back(step)
 
 
-# Function to fix a bug when freeing objects which have snap zones
-func _handle_object_removel(object: FB_AssetBase):
-	# drop all objects currently in the snap zones
-	for snap_zone in object.pickable_object.get_children():
-		if (snap_zone.has_method("is_xr_class") && snap_zone.is_xr_class("XRToolsSnapZone")):
-			snap_zone.enabled = false
-			snap_zone.drop_object()
-	object.queue_free()
+func hide_menu_content() -> void:
+	_creator_menu_content.set_menu_visibility(false)
+	_creator_menu_viewport_in_3D.enabled = false
+
+
+func show_prompt_creator(headerVal: String = "Enter a File Name:") -> void:
+	prompt_creator.set_header_text(headerVal)
+	prompt_creator.visible = true
+	prompt_creator.enable()
+
+
+func reset_prompt_creator() -> void:
+	prompt_creator.reset()
+	prompt_creator.visible = false
+	prompt_creator.disable()
+	prompt_creator.disconnect_all()
 
 
 static func align_with_normal(xform: Transform3D, normal: Vector3) -> Transform3D:
