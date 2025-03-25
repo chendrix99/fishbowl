@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://duc704cpu1chy"]
+[gd_scene load_steps=3 format=3 uid="uid://duc704cpu1chy"]
+
+[ext_resource type="Texture2D" uid="uid://bo76f6mgpmddp" path="res://Assets/LeftHand.png" id="1_l8dre"]
+[ext_resource type="Texture2D" uid="uid://cayd7gdntwqsh" path="res://Assets/RightHand.png" id="2_45nsa"]
 
 [node name="FB_SettingsMenuContent" type="Control"]
 layout_mode = 3
@@ -16,16 +19,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Container" type="Container" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="ToggleRightHand" type="CheckButton" parent="PanelContainer/Container"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Right Hand"
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+horizontal_alignment = 1
 
-[node name="Container2" type="Container" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="ToggleLeftHand" type="CheckButton" parent="PanelContainer/Container2"]
+[node name="LeftHandButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-text = "Left Hand"
+size_flags_vertical = 4
+icon = ExtResource("1_l8dre")
+expand_icon = true
+
+[node name="RightHandButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+icon = ExtResource("2_45nsa")
+expand_icon = true

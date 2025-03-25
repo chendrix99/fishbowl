@@ -38,7 +38,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = ExtResource("2_y0lwf")
 theme_override_styles/normal = ExtResource("2_8lowp")
-text = "PLAYER"
+text = "PLAY"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuVBox"]
 layout_mode = 2
@@ -49,6 +49,7 @@ layout_mode = 2
 ratio = 10.0
 
 [node name="SettingsButton" type="Button" parent="MainMenuVBox/VBoxContainer/SettingsAspectRatio"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 24
@@ -66,7 +67,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = ExtResource("2_y0lwf")
 theme_override_styles/normal = ExtResource("2_8lowp")
-text = "X"
+text = "Quit"
 
 [node name="CreatorAspectRatio" type="AspectRatioContainer" parent="MainMenuVBox"]
 layout_mode = 2
@@ -80,5 +81,5 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 24
 theme_override_styles/hover = ExtResource("2_y0lwf")
 theme_override_styles/normal = ExtResource("2_8lowp")
-text = "CREATOR
+text = "CREATE
 "
