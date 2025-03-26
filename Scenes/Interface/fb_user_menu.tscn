@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b0lojfytx2paa"]
+
+[node name="FbUserMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UserMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="TabBar" parent="UserMenu"]
+layout_mode = 2
+size_flags_vertical = 0
+current_tab = 0
+tab_count = 3
+tab_0/title = "Zones"
+tab_1/title = "Objects"
+tab_2/title = "Options"
