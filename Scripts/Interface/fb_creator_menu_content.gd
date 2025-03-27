@@ -12,11 +12,11 @@ signal start_recording
 @onready var _tooltip := $Tooltip
 @onready var _tooltip_label := $Tooltip/TooltipLabel
 @onready var _creator_menu := $CreatorMenu
-@onready var _objects_menu := $CreatorMenu/MarginContainer/Body/ObjectsMenu
-@onready var _zones_menu := $CreatorMenu/MarginContainer/Body/ZonesMenu
-@onready var _recording_menu := $RecordingMenu
-@onready var recorded_steps := $RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
-@onready var recorded_steps_icon := $RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer/RecordedStepsIcon
+@onready var _objects_menu := $CreatorMenu/MenuTabs/Objects
+@onready var _zones_menu := $CreatorMenu/MenuTabs/Zones
+@onready var _recording_menu := $CreatorMenu/MenuTabs/Record
+@onready var recorded_steps := $CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
+@onready var recorded_steps_icon := $CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer/RecordedStepsIcon
 
 const DEFAULT_TOOLTIP = "  (Press X to show/hide the menu.)  "
 const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place object.  \n  Press B to cancel.  \n"
@@ -41,9 +41,6 @@ func _ready() -> void:
 func set_menu_visibility(is_visible: bool) -> void:
 	_tooltip.visible = not is_visible
 	_creator_menu.visible = is_visible
-	
-	_objects_menu.visible = true
-	_zones_menu.visible = false
 
 
 func set_tooltip(tooltip: StringName) -> void:
@@ -63,17 +60,6 @@ func _on_zone_button_pressed(zone_number: int) -> void:
 func _on_quit_to_main_menu_button_pressed() -> void:
 	quit_to_main_menu.emit()
 	print("<debug> Quitting to main menu.")
-
-
-func _on_objects_button_pressed() -> void:
-	_objects_menu.visible = true
-	_zones_menu.visible = false
-
-
-func _on_zones_button_pressed() -> void:
-	_objects_menu.visible = false
-	_zones_menu.visible = true
-
 
 func _on_save_level_button_pressed() -> void:
 	# We allow the user to input a file name

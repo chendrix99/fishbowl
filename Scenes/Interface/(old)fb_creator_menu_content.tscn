@@ -1,0 +1,258 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfj8q52ayfova"]
+
+[ext_resource type="Texture2D" uid="uid://dno3xpkfugouk" path="res://Textures/zone_icon.png" id="2_1yhyn"]
+[ext_resource type="Texture2D" uid="uid://bpqg8ad8pxwl8" path="res://Textures/recording.png" id="3_lcgve"]
+
+[sub_resource type="Theme" id="Theme_ipehk"]
+
+[node name="FB_CreatorMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ipehk")
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TooltipLabel" type="Label" parent="Tooltip"]
+layout_mode = 2
+text = "  Press X to show/hide the menu.  "
+
+[node name="CreatorMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CreatorMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MenuTitle" type="Label" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Creation Menu
+(Press X to show/hide this menu.)"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="QuitToMainMenuButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+text = "Quit to Main Menu
+"
+
+[node name="SaveLevelButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_color = Color(0.706558, 0.957031, 0.81614, 1)
+text = "Save Level"
+
+[node name="StartRecordingButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Start Recording"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Category
+
+"
+
+[node name="ObjectsButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "Objects
+"
+
+[node name="ZonesButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "Zones"
+
+[node name="Body" type="CenterContainer" parent="CreatorMenu/MarginContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ObjectsMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
+layout_mode = 2
+columns = 4
+
+[node name="ZonesMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
+layout_mode = 2
+columns = 4
+
+[node name="ZoneButton0" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (White)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton1" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Gray)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton2" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Blue)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton3" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Green)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton4" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Orange)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton5" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Red)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton6" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Purple)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="ZoneButton7" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+focus_mode = 0
+text = "Zone (Black)"
+icon = ExtResource("2_1yhyn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="RecordingMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="RecordingMenu"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RecordingMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RecordingMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RecordedStepsTitle" type="Label" parent="RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Recorded Steps"
+
+[node name="RecordedStepsIcon" type="TextureRect" parent="RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+modulate = Color(1, 0.0117188, 0.0117188, 1)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("3_lcgve")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RecordedSteps" type="Label" parent="RecordingMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.675781, 0.675781, 0.675781, 1)
+
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/SaveLevelButton" to="." method="_on_save_level_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/StartRecordingButton" to="." method="_on_start_recording_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ObjectsButton" to="." method="_on_objects_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ZonesButton" to="." method="_on_zones_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton0" to="." method="_on_zone_button_pressed" binds= [0]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton1" to="." method="_on_zone_button_pressed" binds= [1]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton2" to="." method="_on_zone_button_pressed" binds= [2]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton3" to="." method="_on_zone_button_pressed" binds= [3]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton4" to="." method="_on_zone_button_pressed" binds= [4]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton5" to="." method="_on_zone_button_pressed" binds= [5]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton6" to="." method="_on_zone_button_pressed" binds= [6]]
+[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton7" to="." method="_on_zone_button_pressed" binds= [7]]

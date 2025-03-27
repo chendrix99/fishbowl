@@ -5,7 +5,7 @@ class_name FB_MainMenuContent extends Control
 # buttons/signals that can be connected to from the owning 3D scene.
 
 const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.tscn")
- 
+
 @onready var main_menu := $MainMenu
 @onready var create_level_menu := $CreateLevelMenu
 @onready var create_level_section := $CreateLevelMenu/LevelSection/VBoxContainer
@@ -13,6 +13,7 @@ const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.
 @onready var edit_level_section := $EditLevelMenu/LevelSection/VBoxContainer
 @onready var play_level_menu := $PlayLevelMenu
 @onready var play_level_section := $PlayLevelMenu/LevelSection/VBoxContainer
+
 
 
 func _ready() -> void:

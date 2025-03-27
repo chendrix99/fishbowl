@@ -53,7 +53,7 @@ func _ready() -> void:
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 	
 	# Initially show the prompt creator so the user can set the level description
-	show_prompt_creator("Provide a Level Description:")
+	#show_prompt_creator("Provide a Level Description:")
 	prompt_creator.prompt.text = level_description
 	prompt_creator.user_pressed_done.connect(_handle_initial_level_description)
 	
