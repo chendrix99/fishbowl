@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://6qi03xyuuvfn"]
+[gd_scene load_steps=4 format=3 uid="uid://6qi03xyuuvfn"]
 
+[ext_resource type="StyleBox" uid="uid://bef56smdjyfbh" path="res://Textures/Styles/ButtonHoverStyle.tres" id="1_16w5p"]
 [ext_resource type="Texture2D" uid="uid://dtfwhymdgqspi" path="res://Textures/object_icon.png" id="1_kapml"]
+[ext_resource type="StyleBox" uid="uid://1jiv3fxuqa28" path="res://Textures/Styles/ButtonStyle.tres" id="2_0eejl"]
 
 [node name="FB_CreatorMenuObjectButton" type="Button"]
-custom_minimum_size = Vector2(180, 180)
+custom_minimum_size = Vector2(400, 400)
 focus_mode = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("1_16w5p")
+theme_override_styles/hover = ExtResource("1_16w5p")
+theme_override_styles/pressed = ExtResource("1_16w5p")
+theme_override_styles/normal = ExtResource("2_0eejl")
 text = "ButtonName"
 icon = ExtResource("1_kapml")
 icon_alignment = 1

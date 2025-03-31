@@ -12,7 +12,7 @@ signal start_recording
 @onready var _tooltip := $Tooltip
 @onready var _tooltip_label := $Tooltip/TooltipLabel
 @onready var _creator_menu := $CreatorMenu
-@onready var _objects_menu := $CreatorMenu/MenuTabs/Objects
+@onready var _objects_menu := $CreatorMenu/MenuTabs/Objects/ObjectScroller/ObjectCenter/ObjectMargin/ObjectsMenu
 @onready var _zones_menu := $CreatorMenu/MenuTabs/Zones
 @onready var _recording_menu := $CreatorMenu/MenuTabs/Record
 @onready var recorded_steps := $CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
@@ -83,3 +83,4 @@ func _on_save_level_button_pressed() -> void:
 
 func _on_start_recording_button_pressed():
 	start_recording.emit()
+	

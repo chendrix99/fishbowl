@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3 uid="uid://47mwt31lvewb"]
+
+[ext_resource type="Theme" uid="uid://d5ebhwd2bgxq" path="res://Textures/Styles/MainTheme.tres" id="1_m0l83"]
+[ext_resource type="Script" uid="uid://crms2s48u1c02" path="res://Scripts/Interface/fb_player_menu_content.gd" id="2_51h0n"]
+[ext_resource type="StyleBox" uid="uid://moty07r1xq7y" path="res://Textures/Styles/TabBarFocusedStyle.tres" id="2_mnean"]
+[ext_resource type="StyleBox" uid="uid://d3iumik5mrefw" path="res://Textures/Styles/TabBarHoveredStyle.tres" id="3_51h0n"]
+[ext_resource type="StyleBox" uid="uid://bsgd2ncvpgpo0" path="res://Textures/Styles/TabBarBackgroundStyle.tres" id="4_mnean"]
+[ext_resource type="StyleBox" uid="uid://cq2786xfawh5c" path="res://Textures/Styles/TabBarSelectedStyle.tres" id="4_oll0i"]
+[ext_resource type="StyleBox" uid="uid://l5oq2ch881g3" path="res://Textures/Styles/TabBarUnselectedStyle.tres" id="5_nqi5e"]
+[ext_resource type="Texture2D" uid="uid://bp2ilfobub01s" path="res://Textures/exitIcon.png" id="7_q0kuw"]
+[ext_resource type="StyleBox" uid="uid://dts6wlkly5yqu" path="res://Textures/Styles/tabMenuStyle.tres" id="8_rvg71"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cf7i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hngt"]
+bg_color = Color(0.14902, 0.196078, 0.219608, 1)
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="FB_PlayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m0l83")
+script = ExtResource("2_51h0n")
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+offset_right = 2560.0
+offset_bottom = 1440.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4cf7i")
+
+[node name="TooltipLabel" type="Label" parent="Tooltip"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "  Press X to show/hide the menu.  "
+
+[node name="PlayerMenu" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(2560, 1440)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.156641
+anchor_bottom = 0.127778
+offset_right = 2159.0
+offset_bottom = 1256.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hngt")
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="PlayerMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/tab_focus = ExtResource("2_mnean")
+theme_override_styles/tabbar_background = ExtResource("4_mnean")
+theme_override_styles/panel = ExtResource("8_rvg71")
+theme_override_styles/tab_selected = ExtResource("4_oll0i")
+theme_override_styles/tab_hovered = ExtResource("3_51h0n")
+theme_override_styles/tab_unselected = ExtResource("5_nqi5e")
+current_tab = 0
+
+[node name="Level" type="CenterContainer" parent="PlayerMenu/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerMenu/TabContainer/Level"]
+layout_mode = 2
+
+[node name="LevelDescription" type="Label" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
+layout_mode = 2
+text = "Level description placeholder"
+
+[node name="LevelTitle" type="Label" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
+layout_mode = 2
+text = "level Title Place Holder"
+
+[node name="RestartLevel" type="Button" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="OptionHolder" type="HBoxContainer" parent="PlayerMenu"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerMenu/OptionHolder"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="QuitToMainMenuButton" type="Button" parent="PlayerMenu/OptionHolder/MarginContainer"]
+custom_minimum_size = Vector2(114, 114)
+layout_mode = 2
+tooltip_text = "Exit to Main Menu"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("2_mnean")
+theme_override_styles/hover = ExtResource("3_51h0n")
+theme_override_styles/pressed = ExtResource("4_oll0i")
+theme_override_styles/normal = ExtResource("5_nqi5e")
+icon = ExtResource("7_q0kuw")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="PlayerMenu/TabContainer/Level/VBoxContainer/RestartLevel" to="." method="_on_restart_level_pressed"]
+[connection signal="pressed" from="PlayerMenu/OptionHolder/MarginContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
