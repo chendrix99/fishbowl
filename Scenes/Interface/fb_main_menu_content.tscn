@@ -17,7 +17,6 @@ theme = ExtResource("1_sndvb")
 script = ExtResource("1_ehb0n")
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,7 +53,6 @@ theme_override_font_sizes/font_size = 30
 text = "Quit to Desktop"
 
 [node name="CreateLevelMenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,6 +101,7 @@ theme_override_font_sizes/font_size = 30
 text = " < Back "
 
 [node name="EditLevelMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,6 +200,7 @@ theme_override_font_sizes/font_size = 30
 text = " < Back "
 
 [node name="CreateMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

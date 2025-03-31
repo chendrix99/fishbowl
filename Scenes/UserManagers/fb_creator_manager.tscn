@@ -15,6 +15,7 @@ script = ExtResource("1_22wps")
 [node name="CreatorMenuHolder" type="Node3D" parent="."]
 
 [node name="CreatorMenuViewportIn3D" parent="CreatorMenuHolder" instance=ExtResource("2_3ogxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.160831)
 screen_size = Vector2(1.5, 1)
 collision_layer = 5242880
 scene = ExtResource("3_7cb0g")

@@ -32,6 +32,7 @@ theme = ExtResource("1_m0l83")
 script = ExtResource("2_51h0n")
 
 [node name="Tooltip" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 2560.0
 offset_bottom = 1440.0
 grow_horizontal = 2
@@ -73,17 +74,23 @@ metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerMenu/TabContainer/Level"]
 layout_mode = 2
-
-[node name="LevelDescription" type="Label" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
-layout_mode = 2
-text = "Level description placeholder"
+theme_override_constants/separation = 30
 
 [node name="LevelTitle" type="Label" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "level Title Place Holder"
+
+[node name="LevelDescription" type="Label" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Level description placeholder"
 
 [node name="RestartLevel" type="Button" parent="PlayerMenu/TabContainer/Level/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Restart Level"
 
 [node name="OptionHolder" type="HBoxContainer" parent="PlayerMenu"]
