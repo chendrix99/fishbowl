@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl1kc5qoj5dqo"]
+[gd_scene load_steps=4 format=3 uid="uid://dl1kc5qoj5dqo"]
 
 [ext_resource type="Script" uid="uid://cm0h2rss7yn2i" path="res://Scripts/Interface/fb_main_menu_content.gd" id="1_ehb0n"]
+[ext_resource type="Theme" uid="uid://d5ebhwd2bgxq" path="res://Textures/Styles/MainTheme.tres" id="1_sndvb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4jkw2"]
-font_size = 22
+font_size = 30
 
 [node name="FB_MainMenuContent" type="Control"]
 layout_mode = 3
@@ -12,10 +13,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_sndvb")
 script = ExtResource("1_ehb0n")
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,29 +31,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="CreateNewLevelButton" type="Button" parent="MainMenu"]
-custom_minimum_size = Vector2(600, 120)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 30
-text = "< CREATOR >
-Create a New Level"
-
-[node name="EditExistingLevelButton" type="Button" parent="MainMenu"]
-custom_minimum_size = Vector2(600, 120)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 30
-text = "< CREATOR >
-Edit an Existing Level"
-
 [node name="PlayLevelButton" type="Button" parent="MainMenu"]
 custom_minimum_size = Vector2(600, 120)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
-text = "< PLAYER >
-Play a Level"
+text = "Play"
+
+[node name="CreateMenuButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Create"
 
 [node name="QuitButton" type="Button" parent="MainMenu"]
 custom_minimum_size = Vector2(600, 120)
@@ -78,8 +69,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "
-Select a Template to Create a New Level."
+text = "Select a Template to Create a New Level."
 label_settings = SubResource("LabelSettings_4jkw2")
 
 [node name="LevelSection" type="ScrollContainer" parent="CreateLevelMenu"]
@@ -108,7 +98,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
-text = "< Back"
+text = " < Back "
 
 [node name="EditLevelMenu" type="Control" parent="."]
 visible = false
@@ -120,6 +110,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="EditLevelLabel" type="Label" parent="EditLevelMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -128,8 +119,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "
-Select an Existing Level to Edit."
+text = "Select an Existing Level to Edit."
 label_settings = SubResource("LabelSettings_4jkw2")
 
 [node name="LevelSection" type="ScrollContainer" parent="EditLevelMenu"]
@@ -158,7 +148,7 @@ offset_right = 102.0
 offset_bottom = 50.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
-text = "< Back"
+text = " < Back "
 
 [node name="PlayLevelMenu" type="Control" parent="."]
 visible = false
@@ -178,8 +168,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "
-Select a Level to Play."
+text = "Select a Level to Play."
 label_settings = SubResource("LabelSettings_4jkw2")
 
 [node name="LevelSection" type="ScrollContainer" parent="PlayLevelMenu"]
@@ -208,12 +197,60 @@ offset_right = 102.0
 offset_bottom = 50.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
-text = "< Back"
+text = " < Back "
 
-[connection signal="pressed" from="MainMenu/CreateNewLevelButton" to="." method="_on_create_level_button_pressed"]
-[connection signal="pressed" from="MainMenu/EditExistingLevelButton" to="." method="_on_edit_level_button_pressed"]
+[node name="CreateMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreateMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -130.0
+offset_right = 300.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="CreateNewLevelButton" type="Button" parent="CreateMenu/VBoxContainer"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Create a New Level"
+
+[node name="EditExistingLevelButton" type="Button" parent="CreateMenu/VBoxContainer"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Edit an Existing Level"
+
+[node name="BackButton" type="Button" parent="CreateMenu"]
+layout_mode = 0
+offset_right = 102.0
+offset_bottom = 50.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = " < Back "
+
 [connection signal="pressed" from="MainMenu/PlayLevelButton" to="." method="_on_play_level_button_pressed"]
+[connection signal="pressed" from="MainMenu/CreateMenuButton" to="." method="_on_create_menu_button_pressed"]
 [connection signal="pressed" from="MainMenu/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CreateLevelMenu/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="EditLevelMenu/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="PlayLevelMenu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CreateMenu/VBoxContainer/CreateNewLevelButton" to="." method="_on_create_level_button_pressed"]
+[connection signal="pressed" from="CreateMenu/VBoxContainer/EditExistingLevelButton" to="." method="_on_edit_level_button_pressed"]
+[connection signal="pressed" from="CreateMenu/BackButton" to="." method="_on_back_button_pressed"]

@@ -5,8 +5,9 @@ class_name FB_MainMenuContent extends Control
 # buttons/signals that can be connected to from the owning 3D scene.
 
 const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.tscn")
- 
+
 @onready var main_menu := $MainMenu
+@onready var create_menu := $CreateMenu
 @onready var create_level_menu := $CreateLevelMenu
 @onready var create_level_section := $CreateLevelMenu/LevelSection/VBoxContainer
 @onready var edit_level_menu := $EditLevelMenu
@@ -15,8 +16,10 @@ const LEVEL_BUTTON := preload("res://Scenes/Interface/fb_main_menu_level_button.
 @onready var play_level_section := $PlayLevelMenu/LevelSection/VBoxContainer
 
 
+
 func _ready() -> void:
 	main_menu.visible = true
+	create_menu.visible = false
 	create_level_menu.visible = false
 	edit_level_menu.visible = false
 	play_level_menu.visible = false
@@ -24,6 +27,7 @@ func _ready() -> void:
 
 func _on_create_level_button_pressed():
 	main_menu.visible = false
+	create_menu.visible = false
 	create_level_menu.visible = true
 	edit_level_menu.visible = false
 	play_level_menu.visible = false
@@ -41,6 +45,7 @@ func _on_create_level_button_pressed():
 
 func _on_edit_level_button_pressed():
 	main_menu.visible = false
+	create_menu.visible = false
 	create_level_menu.visible = false
 	edit_level_menu.visible = true
 	play_level_menu.visible = false
@@ -61,6 +66,7 @@ func _on_edit_level_button_pressed():
 
 func _on_play_level_button_pressed():
 	main_menu.visible = false
+	create_menu.visible = false
 	create_level_menu.visible = false
 	edit_level_menu.visible = false
 	play_level_menu.visible = true
@@ -84,7 +90,22 @@ func _on_quit_button_pressed():
 
 
 func _on_back_button_pressed():
-	main_menu.visible = true
+	if(edit_level_menu.visible == true or create_level_menu.visible == true):
+		main_menu.visible = false
+		create_menu.visible = true
+		edit_level_menu.visible = false
+		create_level_menu.visible = false
+		play_level_menu.visible = false
+	else:
+		main_menu.visible = true
+		create_menu.visible = false
+		create_level_menu.visible = false
+		edit_level_menu.visible = false
+		play_level_menu.visible = false
+		
+func _on_create_menu_button_pressed():
+	main_menu.visible = false
+	create_menu.visible = true
 	create_level_menu.visible = false
 	edit_level_menu.visible = false
 	play_level_menu.visible = false

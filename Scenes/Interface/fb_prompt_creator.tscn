@@ -20,7 +20,7 @@ screen_size = Vector2(1.5, 1)
 transparent = 0
 
 [node name="DoneCancel" parent="." instance=ExtResource("3_f7svg")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, -0.0806726)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0.0362507, -0.00415757)
 screen_size = Vector2(1.5, 0.75)
 scene = ExtResource("5_a0psh")
 viewport_size = Vector2(1200, 800)

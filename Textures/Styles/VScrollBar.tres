@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://pohoogov6ue0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keaeb"]
+content_margin_left = 1484.0
+
+[resource]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_keaeb")

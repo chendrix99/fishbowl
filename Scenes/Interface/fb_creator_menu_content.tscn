@@ -1,237 +1,376 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfj8q52ayfova"]
+[gd_scene load_steps=27 format=3 uid="uid://b2k2jdbamd7p0"]
 
 [ext_resource type="Texture2D" uid="uid://dno3xpkfugouk" path="res://Textures/zone_icon.png" id="1_7qm2r"]
 [ext_resource type="Script" uid="uid://ccndbp7uq226d" path="res://Scripts/Interface/fb_creator_menu_content.gd" id="1_rt25t"]
+[ext_resource type="StyleBox" uid="uid://moty07r1xq7y" path="res://Textures/Styles/TabBarFocusedStyle.tres" id="2_cwojc"]
+[ext_resource type="StyleBox" uid="uid://ds0bxdhrdmsdb" path="res://Textures/Styles/ZoneButtonNormalStyle.tres" id="2_gsqud"]
+[ext_resource type="StyleBox" uid="uid://c16c6s5b8s0hv" path="res://Textures/Styles/ZoneButtonHoverStyle.tres" id="2_mk7rw"]
 [ext_resource type="Texture2D" uid="uid://bpqg8ad8pxwl8" path="res://Textures/recording.png" id="3_6uts8"]
+[ext_resource type="StyleBox" uid="uid://bsgd2ncvpgpo0" path="res://Textures/Styles/TabBarBackgroundStyle.tres" id="3_i55wy"]
+[ext_resource type="StyleBox" uid="uid://cq2786xfawh5c" path="res://Textures/Styles/TabBarSelectedStyle.tres" id="3_keaeb"]
+[ext_resource type="Texture2D" uid="uid://ctc23ng5q30ap" path="res://Textures/save_icon.png" id="3_w46ts"]
+[ext_resource type="StyleBox" uid="uid://dts6wlkly5yqu" path="res://Textures/Styles/tabMenuStyle.tres" id="3_yv41j"]
+[ext_resource type="StyleBox" uid="uid://d3iumik5mrefw" path="res://Textures/Styles/TabBarHoveredStyle.tres" id="4_yv41j"]
+[ext_resource type="StyleBox" uid="uid://l5oq2ch881g3" path="res://Textures/Styles/TabBarUnselectedStyle.tres" id="5_i55wy"]
+[ext_resource type="Texture2D" uid="uid://bp2ilfobub01s" path="res://Textures/exitIcon.png" id="11_cwojc"]
 
-[sub_resource type="Theme" id="Theme_ipehk"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cwojc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nywh"]
+bg_color = Color(0.14902, 0.196078, 0.219608, 1)
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_keaeb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv41j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i55wy"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo3vh"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scl2k"]
+bg_color = Color(0.351563, 0.351563, 0.351563, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nngpq"]
+content_margin_left = 30.0
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_i55wy"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_i55wy")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_uo3vh")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_scl2k")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_nngpq")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i55wy"]
+
+[sub_resource type="Theme" id="Theme_opka3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkcu8"]
+bg_color = Color(0.215686, 0.278431, 0.309804, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.270588, 0.352941, 0.388235, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cwojc"]
+bg_color = Color(0.14902, 0.196078, 0.219608, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.270588, 0.352941, 0.392157, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="FB_CreatorMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_ipehk")
 script = ExtResource("1_rt25t")
 
 [node name="Tooltip" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+layout_mode = 2
+offset_right = 2560.0
+offset_bottom = 1440.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cwojc")
 
 [node name="TooltipLabel" type="Label" parent="Tooltip"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
 text = "  Press X to show/hide the menu.  "
 
 [node name="CreatorMenu" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(2560, 1440)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_right = 0.156641
+anchor_bottom = 0.127778
+offset_right = 1680.0
+offset_bottom = 945.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0nywh")
+metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CreatorMenu"]
+[node name="MenuTabs" type="TabContainer" parent="CreatorMenu"]
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_font_sizes/font_size = 40
+theme_override_styles/tab_focus = ExtResource("2_cwojc")
+theme_override_styles/tabbar_background = ExtResource("3_i55wy")
+theme_override_styles/panel = ExtResource("3_yv41j")
+theme_override_styles/tab_selected = ExtResource("3_keaeb")
+theme_override_styles/tab_hovered = ExtResource("4_yv41j")
+theme_override_styles/tab_unselected = ExtResource("5_i55wy")
+current_tab = 2
 
-[node name="MenuTitle" type="Label" parent="CreatorMenu/MarginContainer"]
+[node name="Zones" type="PanelContainer" parent="CreatorMenu/MenuTabs"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Creation Menu
-(Press X to show/hide this menu.)"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_keaeb")
+metadata/_tab_index = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
+[node name="ZoneCentering" type="CenterContainer" parent="CreatorMenu/MenuTabs/Zones"]
 layout_mode = 2
-size_flags_horizontal = 8
 
-[node name="QuitToMainMenuButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
+[node name="ZonesMenu" type="GridContainer" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-focus_mode = 0
-text = "Quit to Main Menu
-"
-
-[node name="SaveLevelButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-focus_mode = 0
-theme_override_colors/font_color = Color(0.706558, 0.957031, 0.81614, 1)
-text = "Save Level"
-
-[node name="StartRecordingButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Start Recording"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CreatorMenu/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="CreatorMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Category
-
-"
-
-[node name="ObjectsButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-focus_mode = 0
-text = "Objects
-"
-
-[node name="ZonesButton" type="Button" parent="CreatorMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-focus_mode = 0
-text = "Zones"
-
-[node name="Body" type="CenterContainer" parent="CreatorMenu/MarginContainer"]
-custom_minimum_size = Vector2(800, 500)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="ObjectsMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
-layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
 columns = 4
 
-[node name="ZonesMenu" type="GridContainer" parent="CreatorMenu/MarginContainer/Body"]
-layout_mode = 2
-columns = 4
-
-[node name="ZoneButton0" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
-custom_minimum_size = Vector2(180, 180)
+[node name="ZoneButton0" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 focus_mode = 0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (White)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton1" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
-custom_minimum_size = Vector2(180, 180)
+[node name="ZoneButton1" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_hover_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_normal_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_mk7rw")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Gray)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton2" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
-custom_minimum_size = Vector2(180, 180)
+[node name="ZoneButton2" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 1, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 1, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Blue)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton3" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
-custom_minimum_size = Vector2(180, 180)
+[node name="ZoneButton3" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Green)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton4" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
-custom_minimum_size = Vector2(180, 180)
+[node name="ZoneButton4" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(1, 0.647059, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0.647059, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0.647059, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 0.647059, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Orange)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton5" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+[node name="ZoneButton5" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Red)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton6" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+[node name="ZoneButton6" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0.627451, 0.12549, 0.941176, 1)
+theme_override_colors/icon_hover_color = Color(0.627451, 0.12549, 0.941176, 1)
+theme_override_colors/icon_pressed_color = Color(0.627451, 0.12549, 0.941176, 1)
+theme_override_colors/icon_normal_color = Color(0.627451, 0.12549, 0.941176, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Purple)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="ZoneButton7" type="Button" parent="CreatorMenu/MarginContainer/Body/ZonesMenu"]
+[node name="ZoneButton7" type="Button" parent="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu"]
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("2_gsqud")
+theme_override_styles/hover = ExtResource("2_mk7rw")
+theme_override_styles/pressed = ExtResource("2_gsqud")
+theme_override_styles/normal = ExtResource("2_gsqud")
 text = "Zone (Black)"
 icon = ExtResource("1_7qm2r")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="RecordingMenu" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="ZoneDirections" type="Label" parent="CreatorMenu/MenuTabs/Zones"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 40
+text = "Directions (to do)"
 
-[node name="MarginContainer" type="MarginContainer" parent="RecordingMenu"]
+[node name="Objects" type="PanelContainer" parent="CreatorMenu/MenuTabs"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yv41j")
+metadata/_tab_index = 1
+
+[node name="ObjectScroller" type="ScrollContainer" parent="CreatorMenu/MenuTabs/Objects"]
+z_index = 6
+layout_mode = 2
+theme = SubResource("Theme_i55wy")
+
+[node name="ObjectCenter" type="CenterContainer" parent="CreatorMenu/MenuTabs/Objects/ObjectScroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ObjectMargin" type="MarginContainer" parent="CreatorMenu/MenuTabs/Objects/ObjectScroller/ObjectCenter"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ObjectsMenu" type="GridContainer" parent="CreatorMenu/MenuTabs/Objects/ObjectScroller/ObjectCenter/ObjectMargin"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="Record" type="PanelContainer" parent="CreatorMenu/MenuTabs"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i55wy")
+metadata/_tab_index = 2
+
+[node name="RecordingMenu" type="CenterContainer" parent="CreatorMenu/MenuTabs/Record"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CreatorMenu/MenuTabs/Record/RecordingMenu"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = SubResource("Theme_opka3")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RecordingMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(2400, 1200)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RecordingMenu/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="RecordedStepsTitle" type="Label" parent="RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RecordedStepsTitle" type="Label" parent="CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Recorded Steps"
 
-[node name="RecordedStepsIcon" type="TextureRect" parent="RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RecordedStepsIcon" type="TextureRect" parent="CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
 modulate = Color(1, 0.0117188, 0.0117188, 1)
 custom_minimum_size = Vector2(24, 24)
@@ -241,20 +380,72 @@ texture = ExtResource("3_6uts8")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="RecordedSteps" type="Label" parent="RecordingMenu/MarginContainer/VBoxContainer"]
+[node name="RecordedSteps" type="Label" parent="CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.675781, 0.675781, 0.675781, 1)
+theme_override_font_sizes/font_size = 30
 
-[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/SaveLevelButton" to="." method="_on_save_level_button_pressed"]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer2/StartRecordingButton" to="." method="_on_start_recording_button_pressed"]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ObjectsButton" to="." method="_on_objects_button_pressed"]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/VBoxContainer/ZonesButton" to="." method="_on_zones_button_pressed"]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton0" to="." method="_on_zone_button_pressed" binds= [0]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton1" to="." method="_on_zone_button_pressed" binds= [1]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton2" to="." method="_on_zone_button_pressed" binds= [2]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton3" to="." method="_on_zone_button_pressed" binds= [3]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton4" to="." method="_on_zone_button_pressed" binds= [4]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton5" to="." method="_on_zone_button_pressed" binds= [5]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton6" to="." method="_on_zone_button_pressed" binds= [6]]
-[connection signal="pressed" from="CreatorMenu/MarginContainer/Body/ZonesMenu/ZoneButton7" to="." method="_on_zone_button_pressed" binds= [7]]
+[node name="StartRecordingButton" type="Button" parent="CreatorMenu/MenuTabs/Record"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_wkcu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cwojc")
+text = "Start Recording"
+
+[node name="RecordDirections" type="Label" parent="CreatorMenu/MenuTabs/Record"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 40
+text = "Recording How to (to do)"
+
+[node name="OptionHolder" type="HBoxContainer" parent="CreatorMenu"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="SaveLevelButton" type="Button" parent="CreatorMenu/OptionHolder"]
+custom_minimum_size = Vector2(114, 114)
+layout_mode = 2
+tooltip_text = "Save Level"
+theme_override_styles/focus = ExtResource("2_cwojc")
+theme_override_styles/hover = ExtResource("4_yv41j")
+theme_override_styles/pressed = ExtResource("3_keaeb")
+theme_override_styles/normal = ExtResource("5_i55wy")
+icon = ExtResource("3_w46ts")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CreatorMenu/OptionHolder"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="QuitToMainMenuButton" type="Button" parent="CreatorMenu/OptionHolder/MarginContainer"]
+custom_minimum_size = Vector2(114, 114)
+layout_mode = 2
+tooltip_text = "Exit to Main Menu"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("2_cwojc")
+theme_override_styles/hover = ExtResource("4_yv41j")
+theme_override_styles/pressed = ExtResource("3_keaeb")
+theme_override_styles/normal = ExtResource("5_i55wy")
+icon = ExtResource("11_cwojc")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton0" to="." method="_on_zone_button_pressed" binds= [0]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton1" to="." method="_on_zone_button_pressed" binds= [1]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton2" to="." method="_on_zone_button_pressed" binds= [2]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton3" to="." method="_on_zone_button_pressed" binds= [3]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton4" to="." method="_on_zone_button_pressed" binds= [4]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton5" to="." method="_on_zone_button_pressed" binds= [5]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton6" to="." method="_on_zone_button_pressed" binds= [6]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Zones/ZoneCentering/ZonesMenu/ZoneButton7" to="." method="_on_zone_button_pressed" binds= [7]]
+[connection signal="pressed" from="CreatorMenu/MenuTabs/Record/StartRecordingButton" to="." method="_on_start_recording_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/OptionHolder/SaveLevelButton" to="." method="_on_save_level_button_pressed"]
+[connection signal="pressed" from="CreatorMenu/OptionHolder/MarginContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]

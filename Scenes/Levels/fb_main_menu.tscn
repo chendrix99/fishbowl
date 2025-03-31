@@ -1,6 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://dpn0xbqquai6c"]
+[gd_scene load_steps=31 format=3 uid="uid://dpn0xbqquai6c"]
 
-[ext_resource type="Script" uid="uid://c5qy7m02pt3od" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_lgyu6"]
+[ext_resource type="Script" uid="uid://csyogka57numh" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_lgyu6"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ld6jy"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_xrag8"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_0gmrk"]
@@ -9,9 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_lpix4"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="8_px70l"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_p5kgj"]
-[ext_resource type="Script" uid="uid://clqbajkddovew" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_hnh1g"]
+[ext_resource type="Script" uid="uid://b5qx2w6uio587" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="10_hnh1g"]
+[ext_resource type="Shader" uid="uid://bnk6mcind60nd" path="res://Textures/Shaders/skyShader.gdshader" id="10_krxjd"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="12_cq2mb"]
 [ext_resource type="PackedScene" uid="uid://dl1kc5qoj5dqo" path="res://Scenes/Interface/fb_main_menu_content.tscn" id="13_n4wdy"]
+[ext_resource type="PackedScene" uid="uid://cgmki0j0agy5b" path="res://Scenes/waterPlane.tscn" id="13_njs22"]
+[ext_resource type="Texture2D" uid="uid://dqyqcgko31a7e" path="res://Textures/Sun.png" id="15_hqijl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x56l6"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -27,36 +30,73 @@ albedo_color = Color(0.676758, 0.727684, 0.75, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pc0rv"]
 material = SubResource("StandardMaterial3D_k2p8u")
-size = Vector3(10, 0.1, 12)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08vp3"]
-transparency = 4
-shading_mode = 0
-albedo_color = Color(1, 0.854333, 0.54, 0.588235)
-
-[sub_resource type="SphereMesh" id="SphereMesh_dee2j"]
-material = SubResource("StandardMaterial3D_08vp3")
-radial_segments = 16
-rings = 8
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_gqghk"]
-top_radius = 0.05
-bottom_radius = 0.1
-height = 30.0
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="Environment" id="Environment_cq43f"]
-background_mode = 1
-background_color = Color(0.34375, 0.34375, 0.34375, 1)
+size = Vector3(5, 0.1, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v2ad2"]
 size = Vector3(30, 4, 30)
+
+[sub_resource type="Curve" id="Curve_8amsb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.211055, 1), 0.0, 0.0, 0, 0, Vector2(0.949749, 0.853933), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xwlcn"]
+curve = SubResource("Curve_8amsb")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vfkho"]
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fjsg1"]
+seamless = true
+noise = SubResource("FastNoiseLite_vfkho")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k5qnw"]
+seamless = true
+noise = SubResource("FastNoiseLite_vfkho")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_enokl"]
+seamless = true
+noise = SubResource("FastNoiseLite_vfkho")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21hqj"]
+shader = ExtResource("10_krxjd")
+shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_k5qnw")
+shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_fjsg1")
+shader_parameter/cloud_curves = SubResource("CurveTexture_xwlcn")
+shader_parameter/clouds_samples = 8
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.3
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_smoothness = 0.03
+shader_parameter/clouds_light_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_shadow_intensity = 1.0
+shader_parameter/high_clouds_sampler = SubResource("NoiseTexture2D_enokl")
+shader_parameter/high_clouds_density = 0.1
+shader_parameter/top_color = Color(0.34902, 0.588235, 1, 1)
+shader_parameter/bottom_color = Color(0, 0.329412, 0.968627, 1)
+shader_parameter/sun_scatter = Color(0.298039, 0.298039, 0.298039, 1)
+shader_parameter/astro_tint = Color(0.905882, 0.788235, 0.627451, 1)
+shader_parameter/astro_sampler = ExtResource("15_hqijl")
+shader_parameter/astro_scale = 3.5
+shader_parameter/astro_intensity = 1.0
+shader_parameter/stars_intensity = 0.0
+shader_parameter/shooting_stars_intensity = 0.0
+shader_parameter/shooting_star_tint = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_2mwi6"]
+sky_material = SubResource("ShaderMaterial_21hqj")
+
+[sub_resource type="Environment" id="Environment_aqv4w"]
+background_mode = 2
+sky = SubResource("Sky_2mwi6")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
 
 [node name="FB_MainMenu" type="Node3D"]
 script = ExtResource("1_lgyu6")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.03851)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -108,26 +148,8 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_dpvka")
 
 [node name="FloorMesh" type="MeshInstance3D" parent="MainMenuLevel/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.364929, 0)
 mesh = SubResource("BoxMesh_pc0rv")
-
-[node name="HangingLamp" type="OmniLight3D" parent="MainMenuLevel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -4)
-light_color = Color(1, 0.957275, 0.890625, 1)
-light_energy = 6.0
-shadow_enabled = true
-omni_range = 20.0
-omni_attenuation = 1.25
-
-[node name="LampBulbMesh" type="MeshInstance3D" parent="MainMenuLevel/HangingLamp"]
-mesh = SubResource("SphereMesh_dee2j")
-
-[node name="LampChainMesh" type="MeshInstance3D" parent="MainMenuLevel/HangingLamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.45, 0)
-mesh = SubResource("CylinderMesh_gqghk")
-skeleton = NodePath("../LampBulbMesh")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="MainMenuLevel"]
-environment = SubResource("Environment_cq43f")
 
 [node name="Killbox" type="Area3D" parent="MainMenuLevel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
@@ -135,6 +157,9 @@ script = ExtResource("10_hnh1g")
 
 [node name="KillboxShape" type="CollisionShape3D" parent="MainMenuLevel/Killbox"]
 shape = SubResource("BoxShape3D_v2ad2")
+
+[node name="WaterPlane" parent="MainMenuLevel" instance=ExtResource("13_njs22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0473175, -0.258591, 0.16333)
 
 [node name="MainMenuHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
@@ -145,3 +170,10 @@ screen_size = Vector2(4.5, 3)
 scene = ExtResource("13_n4wdy")
 viewport_size = Vector2(1200, 800)
 scene_properties_keys = PackedStringArray("fb_main_menu_content.gd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aqv4w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.927184, 0.264887, -0.264887, 0, 0.707107, 0.707107, 0.374607, -0.655618, 0.655618, 46.7927, 73.4888, 56.0379)
+directional_shadow_mode = 0
