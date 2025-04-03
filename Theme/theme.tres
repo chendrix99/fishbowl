@@ -1,0 +1,70 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ipat370en8u4"]
+
+[ext_resource type="FontFile" uid="uid://cx7mj3nxnndo0" path="res://Theme/Fonts/Inter_28pt-SemiBold.ttf" id="1_jpedm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sndvb"]
+bg_color = Color(0.14902, 0.196078, 0.219608, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.539719, 0.606873, 0.636719, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be74n"]
+bg_color = Color(0.257202, 0.340941, 0.382813, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.539719, 0.606873, 0.636719, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f510q"]
+bg_color = Color(0.14902, 0.196078, 0.219608, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.539719, 0.606873, 0.636719, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4tac"]
+bg_color = Color(0.327454, 0.411233, 0.453125, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.539719, 0.606873, 0.636719, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0.121948, 0.137004, 0.144531, 1)
+Button/constants/outline_size = 16
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_jpedm")
+Button/styles/focus = SubResource("StyleBoxFlat_sndvb")
+Button/styles/hover = SubResource("StyleBoxFlat_be74n")
+Button/styles/normal = SubResource("StyleBoxFlat_f510q")
+Button/styles/pressed = SubResource("StyleBoxFlat_s4tac")
+Label/font_sizes/font_size = 36
+Label/fonts/font = ExtResource("1_jpedm")

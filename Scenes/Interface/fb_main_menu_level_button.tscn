@@ -1,7 +1,9 @@
-[gd_scene format=3 uid="uid://dugh7icviwfqf"]
+[gd_scene load_steps=2 format=3 uid="uid://dugh7icviwfqf"]
+
+[ext_resource type="Theme" uid="uid://ipat370en8u4" path="res://Theme/theme.tres" id="1_p6our"]
 
 [node name="FB_MainMenuLevelButton" type="Button"]
 size_flags_horizontal = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 30
+theme = ExtResource("1_p6our")
 text = "Test Text"

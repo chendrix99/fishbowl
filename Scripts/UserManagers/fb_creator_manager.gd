@@ -26,8 +26,6 @@ var _is_recording := false
 @export var recorded_steps: Array[FB_Step] = []
 var pre_recording_level_snapshot : FB_Level = null
 
-@export var level_description: String = ""
-
 
 func _ready() -> void:
 	add_to_group("FB_CreatorManager_Group")
@@ -52,10 +50,8 @@ func _ready() -> void:
 		# Set default tooltip.
 		_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 	
-	# Initially show the prompt creator so the user can set the level description
-	#show_prompt_creator("Provide a Level Description:")
-	prompt_creator.prompt.text = level_description
-	prompt_creator.user_pressed_done.connect(_handle_initial_level_description)
+	# Hide prompt creator until it's needed.
+	reset_prompt_creator()
 	
 	# Reset the object IDs for this session.
 	FB_Globals.reset_next_object_ID()
@@ -72,9 +68,9 @@ func _ready() -> void:
 		add_child(zone)
 	
 	# Update the UI to show all the steps.
-	_creator_menu_content.recorded_steps.text = ""
+	_creator_menu_content.recorded_steps.text = "<No Recorded Steps>" if recorded_steps.is_empty() else ""
 	for step in recorded_steps:
-		_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
+		_creator_menu_content.recorded_steps.text += "\n" + step.step_description
 
 
 func _process(_delta: float) -> void:
@@ -104,12 +100,13 @@ func _on_left_hand_button_pressed(button_name: String) -> void:
 	# (Cannot enter the menu while placing an object or a zone.)
 	if button_name == "ax_button":
 		if not _creator_menu_content == null and _placement_object == null and _placement_zone == null:
-			var menu_is_visible = _creator_menu_viewport_in_3D.enabled
-			_creator_menu_content.set_menu_visibility(not menu_is_visible)
-			_creator_menu_viewport_in_3D.enabled = not menu_is_visible
+			if _creator_menu_viewport_in_3D.enabled:
+				hide_menu_content()
+			else:
+				show_menu_content()
 
 
-func _on_left_hand_button_released(button_name: String) -> void:
+func _on_left_hand_button_released(_button_name: String) -> void:
 	return # (Does nothing for now.)
 
 
@@ -166,16 +163,12 @@ func _on_right_hand_button_released(button_name: String) -> void:
 
 func _begin_placing_object(asset_file_path: String) -> void:
 	# Hide the menu & add object placement tooltip.
-	_creator_menu_content.set_menu_visibility(false)
-	_creator_menu_viewport_in_3D.enabled = false
+	hide_menu_content()
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.OBJECT_PLACEMENT_TOOLTIP)
 	
 	# Initialize the object & set the file path (for save).
 	_placement_object = load(asset_file_path).instantiate()
 	_placement_object.asset_file_path = asset_file_path
-	
-	if (_placement_object is FB_AssetInteract):
-		_placement_object.object_interacted_with.connect(_handle_asset_interacted_with)
 	
 	if not _placement_object:
 		push_error("Failed to load object! (Does the asset inherit from FB_AssetBase?)")
@@ -212,8 +205,7 @@ func _try_placing_object() -> void:
 
 func _begin_placing_zone(zone_index: int) -> void:
 	# Hide the menu & add zone placement tooltip.
-	_creator_menu_content.set_menu_visibility(false)
-	_creator_menu_viewport_in_3D.enabled = false
+	hide_menu_content()
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.ZONE_PLACEMENT_TOOLTIP)
 	
 	# Add the placement zone and the first marker.
@@ -306,7 +298,7 @@ func _update_hovered_objects_and_zones() -> void:
 				_pointer_raycast.global_position.y - _hovered_zone_extrusion_data.x)
 			_hovered_zone.update_zone(true)
 
- 
+
 func _quit_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
@@ -314,20 +306,14 @@ func _quit_to_main_menu() -> void:
 func _start_recording() -> void:
 	_is_recording = true
 	recorded_steps = []
-	_creator_menu_content.recorded_steps.text = ""
+	_creator_menu_content.recorded_steps.text = "<No Recorded Steps>"
 	_creator_menu_content.recorded_steps_icon.visible = true
 	
 	# Hide the menu & add default tooltip.
-	_creator_menu_content.set_menu_visibility(false)
-	_creator_menu_viewport_in_3D.enabled = false
+	hide_menu_content()
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.RECORDING_TOOLTIP)
 	
 	pre_recording_level_snapshot = FB_LevelManagerInstance.get_level_snapshot()
-	
-	# For now, using this place to set the level prompt description
-	var prompt = FB_Prompt.new()
-	prompt.prompt_text = level_description
-	pre_recording_level_snapshot.initial_prompt = prompt
 
 
 func _end_recording() -> void:
@@ -335,8 +321,7 @@ func _end_recording() -> void:
 	_creator_menu_content.recorded_steps_icon.visible = false
 	
 	# Hide the menu & add default tooltip.
-	_creator_menu_content.set_menu_visibility(false)
-	_creator_menu_viewport_in_3D.enabled = false
+	hide_menu_content()
 	_creator_menu_content.set_tooltip(FB_CreatorMenuContent.DEFAULT_TOOLTIP)
 	
 	# We've recorded some steps. Move these over to the level snapshot we
@@ -356,23 +341,20 @@ func _handle_object_removel(object: FB_AssetBase) -> void:
 	object.queue_free()
 
 
-func _handle_asset_interacted_with(step: FB_Step) -> void:
-	if (_is_recording):
-		_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
-		recorded_steps.push_back(step)
-
-
-func _handle_initial_level_description(prompt_text: String) -> void:
-	level_description = prompt_text
-	reset_prompt_creator()
-
-
 func try_recording_step(step: FB_Step) -> void:
 	if not _is_recording:
 		return
 	
-	_creator_menu_content.recorded_steps.text += "\n  * " + step.step_description
+	if _creator_menu_content.recorded_steps.text == "<No Recorded Steps>":
+		_creator_menu_content.recorded_steps.text = ""
+	
+	_creator_menu_content.recorded_steps.text += "\n" + step.step_description
 	recorded_steps.push_back(step)
+
+
+func show_menu_content() -> void:
+	_creator_menu_content.set_menu_visibility(true)
+	_creator_menu_viewport_in_3D.enabled = true
 
 
 func hide_menu_content() -> void:
@@ -384,6 +366,9 @@ func show_prompt_creator(headerVal: String = "Enter a File Name:") -> void:
 	prompt_creator.set_header_text(headerVal)
 	prompt_creator.visible = true
 	prompt_creator.enable()
+	
+	# Also completely hide the creator menu.
+	_creator_menu_content.visible = false
 
 
 func reset_prompt_creator() -> void:
@@ -391,6 +376,9 @@ func reset_prompt_creator() -> void:
 	prompt_creator.visible = false
 	prompt_creator.disable()
 	prompt_creator.disconnect_all()
+	
+	# Show the creator menu again.
+	_creator_menu_content.visible = true
 
 
 static func align_with_normal(xform: Transform3D, normal: Vector3) -> Transform3D:

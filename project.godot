@@ -22,14 +22,9 @@ XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
 FB_Globals="*res://Scripts/AssetBehaviors/fb_globals.gd"
 FB_LevelManagerInstance="*res://Scripts/SaveLoad/fb_level_manager.gd"
 
-[display]
-
-window/size/viewport_width=2560
-window/size/viewport_height=1440
-
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 [layer_names]
 

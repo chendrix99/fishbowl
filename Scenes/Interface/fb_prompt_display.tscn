@@ -7,13 +7,13 @@
 resource_local_to_scene = true
 size = Vector2(3, 2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_hu6vv"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_wt5mo"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_neke2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wt5mo"]
 transparency = 1
 cull_mode = 2
-albedo_texture = SubResource("ViewportTexture_hu6vv")
+albedo_texture = SubResource("ViewportTexture_wt5mo")
 texture_filter = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7v14l"]
@@ -23,14 +23,13 @@ size = Vector3(3, 2, 0.02)
 [node name="FB_PromptDisplay" instance=ExtResource("1_0wmwa")]
 scene = ExtResource("2_h7ogi")
 viewport_size = Vector2(1200, 800)
-scene_properties_keys = PackedStringArray()
 
 [node name="Viewport" parent="." index="0"]
 size = Vector2i(1200, 800)
 
 [node name="Screen" parent="." index="1"]
 mesh = SubResource("QuadMesh_r8csy")
-surface_material_override/0 = SubResource("StandardMaterial3D_neke2")
+surface_material_override/0 = SubResource("StandardMaterial3D_wt5mo")
 
 [node name="StaticBody3D" parent="." index="2"]
 viewport_size = Vector2(1200, 800)

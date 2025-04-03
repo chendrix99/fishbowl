@@ -14,6 +14,9 @@ const LEVEL_SAVES_DIRECTORY := "user://LevelSaves/"
 # snapshot of the level before recording, so that we can revert to it after the
 # recording is ended. This is also used for save to disk.
 func get_level_snapshot(display_name: StringName = "Untitled_Level") -> FB_Level:
+	if display_name == "":
+		display_name = "Untitled_Level"
+	
 	if _loaded_level == null:
 		push_error("Cannot save level! No level is loaded!")
 		return null
@@ -27,11 +30,9 @@ func get_level_snapshot(display_name: StringName = "Untitled_Level") -> FB_Level
 	# Step 2. Set up basic level information.
 	var saved_level := FB_Level.new()
 	saved_level.display_name = display_name
+	saved_level.description = _loaded_level.description
 	saved_level.template = _loaded_level.template
 	saved_level.steps = creator_manager.recorded_steps.duplicate(true)
-	
-	saved_level.initial_prompt = FB_Prompt.new()
-	saved_level.initial_prompt.prompt_text = creator_manager.level_description
 	
 	# Step 3. Find all assets in the scene & save them.
 	for cur_child_node in creator_manager.get_children():
@@ -77,9 +78,6 @@ func edit_level_directly(level: FB_Level) -> void:
 	creator_manager.saved_zones_to_load = level.saved_zones
 	creator_manager.recorded_steps = level.steps.duplicate(true)
 	
-	if not level.initial_prompt == null:
-		creator_manager.level_description = level.initial_prompt.prompt_text
-	
 	# Finally, re-pack the scene and load the level.
 	var packed_scene := PackedScene.new()
 	packed_scene.pack(level_template_instance)
@@ -104,10 +102,9 @@ func play_level_directly(level: FB_Level) -> void:
 	var player_manager = PLAYER_MANAGER.instantiate()
 	level_template_instance.add_child(player_manager)
 	player_manager.owner = level_template_instance
-	
-	# Now instantiate all assets/zones under the player manager.
-	for saved_asset in level.saved_assets:
-		player_manager.add_child(FB_SavedAsset.deserialize_asset(saved_asset))
+	player_manager.saved_assets_to_load = level.saved_assets
+	player_manager.saved_zones_to_load = level.saved_zones
+	player_manager.recorded_steps = level.steps.duplicate(true)
 	
 	# Finally, re-pack the scene and load the level.
 	var packed_scene := PackedScene.new()

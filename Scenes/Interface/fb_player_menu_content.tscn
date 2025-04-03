@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://dia022wdxdype"]
+
+[ext_resource type="Theme" uid="uid://dun6qsaaoo5an" path="res://Theme/theme_creator_and_player_menu.tres" id="1_d4xbs"]
+[ext_resource type="Script" uid="uid://bjpgkn0ogem1k" path="res://Scripts/Interface/fb_player_menu_content.gd" id="1_fwpu2"]
+[ext_resource type="Texture2D" uid="uid://bl4cgf2i25ugv" path="res://Textures/compress-solid (1).svg" id="3_0gbp4"]
+[ext_resource type="FontFile" uid="uid://bhp3mcauwpxgj" path="res://Theme/Fonts/Inter_28pt-Regular.ttf" id="3_5mi6h"]
+[ext_resource type="FontFile" uid="uid://cx7mj3nxnndo0" path="res://Theme/Fonts/Inter_28pt-SemiBold.ttf" id="3_h2pyr"]
+[ext_resource type="Texture2D" uid="uid://bdla5epk60bt" path="res://Textures/arrows-rotate-solid.svg" id="3_woo0q"]
+[ext_resource type="Texture2D" uid="uid://b7a8tkj14sc6d" path="res://Textures/door-open-solid.svg" id="4_0gbp4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tkscj"]
+font = ExtResource("3_h2pyr")
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_ehqll"]
+font = ExtResource("3_5mi6h")
+font_size = 18
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.486275)
+
+[node name="FB_PlayerMenuContent" type="Control"]
+custom_minimum_size = Vector2(340, 600)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 340.0
+offset_bottom = 200.0
+theme = ExtResource("1_d4xbs")
+script = ExtResource("1_fwpu2")
+
+[node name="PlaybackMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -76.0
+offset_right = 154.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PlaybackMenu"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlaybackMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlaybackMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="NameLabel" type="Label" parent="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Block Tower"
+label_settings = SubResource("LabelSettings_tkscj")
+
+[node name="CompressButton" type="Button" parent="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+tooltip_text = "Show More/Less"
+focus_mode = 0
+icon = ExtResource("3_0gbp4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="RestartButton" type="Button" parent="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+tooltip_text = "Restart Level"
+focus_mode = 0
+icon = ExtResource("3_woo0q")
+icon_alignment = 1
+expand_icon = true
+
+[node name="QuitButton" type="Button" parent="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+tooltip_text = "Quit to Main Menu"
+focus_mode = 0
+icon = ExtResource("4_0gbp4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="OtherDetails" type="VBoxContainer" parent="PlaybackMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="PlaybackMenu/MarginContainer/VBoxContainer/OtherDetails"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="PlaybackMenu/MarginContainer/VBoxContainer/OtherDetails"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Place blocks on top of one another to create a small tower."
+label_settings = SubResource("LabelSettings_ehqll")
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PlaybackMenu/MarginContainer/VBoxContainer/OtherDetails"]
+layout_mode = 2
+
+[node name="StepsLabel" type="RichTextLabel" parent="PlaybackMenu/MarginContainer/VBoxContainer/OtherDetails"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_5mi6h")
+theme_override_fonts/bold_font = ExtResource("3_h2pyr")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+text = "<No Recorded Steps>"
+fit_content = true
+
+[connection signal="pressed" from="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer/CompressButton" to="." method="_on_compress_button_pressed"]
+[connection signal="pressed" from="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PlaybackMenu/MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

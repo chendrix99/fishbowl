@@ -5,6 +5,9 @@ class_name FB_Level extends Resource
 ## The level's user-facing title.
 @export var display_name : StringName
 
+## The level's description.
+@export var description : StringName
+
 ## The level "template" is a packed scene containing the player (XROrigin3D) and environment.
 @export var template : PackedScene
 
@@ -16,6 +19,3 @@ class_name FB_Level extends Resource
 
 ## The level's recorded steps.
 @export var steps : Array[FB_Step]
-
-## The level's initial description shown to the user
-@export var initial_prompt: FB_Prompt

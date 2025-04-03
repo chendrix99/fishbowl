@@ -11,6 +11,8 @@ func reset_next_object_ID() -> void:
 	NEXT_OBJECT_ID = 1
 
 enum StepType {
+	INVALID = 0,
+	
 	ZONE_ENTERED,
 	ZONE_EXITED,
 	OBJECT_INTERACT

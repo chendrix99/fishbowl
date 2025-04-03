@@ -1,6 +1,5 @@
 @tool class_name FB_Zone extends MeshInstance3D
 
-signal zone_entered_or_exited(step)
 
 var zone_height := 0.25
 var _zone_vertices := PackedVector2Array()
@@ -155,15 +154,19 @@ func _on_body_entered_zone(body: Node3D):
 	else:
 		return
 	
-	var object_name = "Player"
+	var object_name = "[color=orangered]Player[/color]"
 	if object_ID > 0:
 		object_name = body.get_parent().asset_file_path.split('fb_')[1].split(".")[0].capitalize()
+		object_name = "[color=lightblue]" + object_name + "[/color]"
 	
 	var step := FB_Step.new(
 		object_ID, zone_ID, FB_Globals.StepType.ZONE_ENTERED,
-		"%s [%d] Enters %s Zone [%d]" % [object_name, object_ID, zone_color_name, zone_ID])
+		"  -  %s (%d) enters [color=lightblue]%s Zone[/color]" % [object_name, object_ID, zone_color_name])
 	
-	get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	if get_tree().get_first_node_in_group("FB_CreatorManager_Group") != null:
+		get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	else:
+		get_tree().get_first_node_in_group("FB_PlayerManager_Group").try_completing_step(step)
 	
 	print("<step debug> %s" % step.step_description)
 
@@ -182,14 +185,18 @@ func _on_body_exited_zone(body: Node3D):
 	else:
 		return
 	
-	var object_name = "Player"
+	var object_name = "[color=orangered]Player[/color]"
 	if object_ID > 0:
 		object_name = body.get_parent().asset_file_path.split('fb_')[1].split(".")[0].capitalize()
+		object_name = "[color=lightblue]" + object_name + "[/color]"
 	
 	var step := FB_Step.new(
 		object_ID, zone_ID, FB_Globals.StepType.ZONE_EXITED,
-		"%s [%d] Exits %s Zone [%d]" % [object_name, object_ID, zone_color_name, zone_ID])
+		"  -  %s (%d) exits [color=lightblue]%s Zone[/color]" % [object_name, object_ID, zone_color_name])
 	
-	get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	if get_tree().get_first_node_in_group("FB_CreatorManager_Group") != null:
+		get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+	else:
+		get_tree().get_first_node_in_group("FB_PlayerManager_Group").try_completing_step(step)
 	
 	print("<step debug> %s" % step.step_description)

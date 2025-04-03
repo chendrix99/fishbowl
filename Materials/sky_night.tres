@@ -1,0 +1,62 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://blqybo0kjgnq2"]
+
+[ext_resource type="Shader" uid="uid://dypeo3l443wp6" path="res://Materials/Shaders/sky.gdshader" id="1_gcshd"]
+
+[sub_resource type="Gradient" id="Gradient_qlmjf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fox3c"]
+gradient = SubResource("Gradient_qlmjf")
+
+[sub_resource type="Curve" id="Curve_krxjd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hqijl"]
+curve = SubResource("Curve_krxjd")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8amsb"]
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xwlcn"]
+width = 1028
+height = 1028
+seamless = true
+seamless_blend_skirt = 0.215
+noise = SubResource("FastNoiseLite_8amsb")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vfkho"]
+seed = 465
+frequency = 0.0015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fjsg1"]
+width = 1028
+height = 1028
+seamless = true
+seamless_blend_skirt = 0.207
+noise = SubResource("FastNoiseLite_vfkho")
+
+[resource]
+shader = ExtResource("1_gcshd")
+shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_fjsg1")
+shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_xwlcn")
+shader_parameter/cloud_curves = SubResource("CurveTexture_hqijl")
+shader_parameter/clouds_samples = 16
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.5
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_smoothness = 0.035
+shader_parameter/clouds_light_color = Color(0.414276, 0.501188, 0.707031, 1)
+shader_parameter/clouds_shadow_intensity = 1.0
+shader_parameter/high_clouds_density = 0.0
+shader_parameter/top_color = Color(0.128719, 0.109268, 0.300781, 1)
+shader_parameter/bottom_color = Color(0.0341949, 0.0795112, 0.324219, 1)
+shader_parameter/sun_scatter = Color(0.37851, 0.470217, 0.613281, 1)
+shader_parameter/astro_tint = Color(0, 0, 0, 1)
+shader_parameter/astro_sampler = SubResource("GradientTexture1D_fox3c")
+shader_parameter/astro_scale = 1.0
+shader_parameter/astro_intensity = 1.0
+shader_parameter/stars_intensity = 0.0
+shader_parameter/shooting_stars_intensity = 0.0
+shader_parameter/shooting_star_tint = Color(0, 0, 0, 1)

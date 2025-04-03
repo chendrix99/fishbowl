@@ -1,7 +1,0 @@
-[gd_resource type="QuadMesh" format=3 uid="uid://chqhivyyfrxw3"]
-
-[resource]
-size = Vector2(150, 150)
-subdivide_width = 200
-subdivide_depth = 200
-orientation = 1

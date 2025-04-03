@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bnmhbp4edmy4e"]
+
+[ext_resource type="FontFile" uid="uid://cx7mj3nxnndo0" path="res://Theme/Fonts/Inter_28pt-SemiBold.ttf" id="1_5niub"]
+
+[resource]
+font = ExtResource("1_5niub")
+font_size = 36
+outline_size = 16
+outline_color = Color(0.121569, 0.137255, 0.145098, 1)

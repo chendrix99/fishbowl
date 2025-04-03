@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bel4fjx756vl8" path="res://Scripts/UserManagers/fb_player_manager.gd" id="1_dmfci"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_th16s"]
-[ext_resource type="PackedScene" uid="uid://47mwt31lvewb" path="res://Scenes/Interface/fb_player_menu.tscn" id="3_5l1ol"]
+[ext_resource type="PackedScene" uid="uid://dia022wdxdype" path="res://Scenes/Interface/fb_player_menu_content.tscn" id="3_th16s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkjjw"]
 transparency = 4
@@ -14,9 +14,10 @@ script = ExtResource("1_dmfci")
 [node name="PlayerMenuHolder" type="Node3D" parent="."]
 
 [node name="PlayerMenuViewportIn3D" parent="PlayerMenuHolder" instance=ExtResource("2_th16s")]
-screen_size = Vector2(1.5, 1)
+transform = Transform3D(0.961295, 0, -0.27552, 0, 1, 0, 0.27552, 0, 0.961295, 1.1479, 0.832834, -0.100546)
+screen_size = Vector2(0.68, 1.2)
 collision_layer = 5242880
-scene = ExtResource("3_5l1ol")
-viewport_size = Vector2(2560, 1440)
+scene = ExtResource("3_th16s")
+viewport_size = Vector2(340, 600)
 material = SubResource("StandardMaterial3D_hkjjw")
 scene_properties_keys = PackedStringArray("fb_player_menu_content.gd")

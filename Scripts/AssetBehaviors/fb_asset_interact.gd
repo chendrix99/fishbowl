@@ -1,7 +1,5 @@
 class_name FB_AssetInteract extends FB_AssetBase
 
-signal object_interacted_with(step: FB_Step)
-
 @export var interaction_area: Area3D
 @export var animation_interaction: bool
 @export var animation_player: AnimationPlayer
@@ -26,20 +24,21 @@ func _process(delta: float) -> void:
 	if (pickable_object.freeze):
 		pickable_object.freeze = true
 
-func _on_body_entered_interaction_area(body: Node3D) -> void:
+func _on_body_entered_interaction_area(_body: Node3D) -> void:
 	if (animation_interaction):
 		animated_mesh.get_surface_override_material(0).set_emission_energy_multiplier(4.0)
 		animation_player.play(animation_name)
 	var object_name = asset_file_path.split('fb_')[1].split(".")[0].capitalize()
 	if _allow_step:
-		object_interacted_with.emit(
-			FB_Step.new(
-				object_ID,
-				-1,
-				FB_Globals.StepType.OBJECT_INTERACT,
-				"%s [%d] Interacted with by Player [0]" % [object_name, object_ID]
-			)
+		var step := FB_Step.new(
+			object_ID, -1, FB_Globals.StepType.OBJECT_INTERACT,
+			"  -  [color=orangered]Player[/color] interacts with [color=lightblue]%s[/color] (%d)" % [object_name, object_ID]
 		)
+		if get_tree().get_first_node_in_group("FB_CreatorManager_Group") != null:
+			get_tree().get_first_node_in_group("FB_CreatorManager_Group").try_recording_step(step)
+		else:
+			get_tree().get_first_node_in_group("FB_PlayerManager_Group").try_completing_step(step)
+		
 		_allow_step = false
 		step_timer.start()
 

@@ -12,11 +12,10 @@ signal start_recording
 @onready var _tooltip := $Tooltip
 @onready var _tooltip_label := $Tooltip/TooltipLabel
 @onready var _creator_menu := $CreatorMenu
-@onready var _objects_menu := $CreatorMenu/MenuTabs/Objects/ObjectScroller/ObjectCenter/ObjectMargin/ObjectsMenu
-@onready var _zones_menu := $CreatorMenu/MenuTabs/Zones
-@onready var _recording_menu := $CreatorMenu/MenuTabs/Record
-@onready var recorded_steps := $CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
-@onready var recorded_steps_icon := $CreatorMenu/MenuTabs/Record/RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer/RecordedStepsIcon
+@onready var _objects_menu := $"CreatorMenu/CreatorMenuMarginBox/MainTabs/Object Placement/ObjectsMenu"
+@onready var _zones_menu := $"CreatorMenu/CreatorMenuMarginBox/MainTabs/Zone Placement/ZonesMenu"
+@onready var recorded_steps := $RecordingMenu/MarginContainer/VBoxContainer/RecordedSteps
+@onready var recorded_steps_icon := $RecordingMenu/MarginContainer/VBoxContainer/HBoxContainer/RecordedStepsIcon
 
 const DEFAULT_TOOLTIP = "  (Press X to show/hide the menu.)  "
 const OBJECT_PLACEMENT_TOOLTIP = "  Press R. TRIGGER to place object.  \n  Press B to cancel.  \n"
@@ -38,9 +37,9 @@ func _ready() -> void:
 		_zones_menu.get_child(zone_button_idx).modulate = FB_Globals.ZONE_ID_TO_COLOR[zone_button_idx]
 
 
-func set_menu_visibility(is_visible: bool) -> void:
-	_tooltip.visible = not is_visible
-	_creator_menu.visible = is_visible
+func set_menu_visibility(new_is_visible: bool) -> void:
+	_tooltip.visible = not new_is_visible
+	_creator_menu.visible = new_is_visible
 
 
 func set_tooltip(tooltip: StringName) -> void:
@@ -61,26 +60,36 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 	quit_to_main_menu.emit()
 	print("<debug> Quitting to main menu.")
 
+
 func _on_save_level_button_pressed() -> void:
-	# We allow the user to input a file name
 	var creator_manager: FB_CreatorManager = get_tree().get_first_node_in_group("FB_CreatorManager_Group")
+	
 	creator_manager.hide_menu_content()
 	
-	creator_manager.show_prompt_creator()
-	
-	var handle_done := func done(prompt_text: String):
-		if prompt_text == "":
-			prompt_text = "undefined"
-		FB_LevelManagerInstance.save_level(prompt_text)
+	var handle_cancel := func():
 		creator_manager.reset_prompt_creator()
 	
-	var handle_cancel := func cancel():
+	var handle_name_done := func(level_name: String):
+		
+		var handle_description_done := func(level_description: String):
+			FB_LevelManagerInstance._loaded_level.description = level_description
+			FB_LevelManagerInstance.save_level(level_name)
+			creator_manager.reset_prompt_creator()
+		
 		creator_manager.reset_prompt_creator()
+		creator_manager.show_prompt_creator("Enter a Level Description")
+		creator_manager.prompt_creator.user_pressed_done.connect(handle_description_done)
+		creator_manager.prompt_creator.user_pressed_cancel.connect(handle_cancel)
 	
-	creator_manager.prompt_creator.user_pressed_done.connect(handle_done)
+	creator_manager.show_prompt_creator("Enter a Level Name")
+	creator_manager.prompt_creator.user_pressed_done.connect(handle_name_done)
 	creator_manager.prompt_creator.user_pressed_cancel.connect(handle_cancel)
 
 
 func _on_start_recording_button_pressed():
 	start_recording.emit()
-	
+
+
+func _on_back_button_pressed():
+	var creator_manager: FB_CreatorManager = get_tree().get_first_node_in_group("FB_CreatorManager_Group")
+	creator_manager.hide_menu_content()
