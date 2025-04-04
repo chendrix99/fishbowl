@@ -53,9 +53,9 @@ func _on_edit_level_button_pressed():
 	
 	for level_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_SAVES_DIRECTORY):
 		var level_button := LEVEL_BUTTON.instantiate() as Button
-		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".tres").capitalize()
+		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".remap").trim_suffix(".tres").capitalize()
 		level_button.pressed.connect(
-			FB_LevelManagerInstance.edit_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name))
+			FB_LevelManagerInstance.edit_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name.trim_suffix(".remap")))
 		edit_level_section.add_child(level_button)
 
 
@@ -73,10 +73,15 @@ func _on_play_level_button_pressed():
 	
 	for level_file_name in DirAccess.get_files_at(FB_LevelManager.LEVEL_SAVES_DIRECTORY):
 		var level_button := LEVEL_BUTTON.instantiate() as Button
-		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".tres").capitalize()
+		level_button.text = level_file_name.trim_prefix("fb_").trim_suffix(".remap").trim_suffix(".tres").capitalize()
 		level_button.pressed.connect(
-			FB_LevelManagerInstance.play_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name))
+			FB_LevelManagerInstance.play_level.bind(FB_LevelManager.LEVEL_SAVES_DIRECTORY + level_file_name.trim_suffix(".remap")))
 		play_level_section.add_child(level_button)
+
+
+func _on_tutorial_button_pressed():
+	var level_file_name = "fb_bedroom.tscn"
+	FB_LevelManagerInstance.play_tutorial_level(FB_LevelManager.LEVEL_TEMPLATE_DIRECTORY + level_file_name.trim_suffix(".remap"))
 
 
 func _on_quit_button_pressed():

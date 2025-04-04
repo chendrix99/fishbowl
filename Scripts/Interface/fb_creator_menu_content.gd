@@ -64,6 +64,10 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 func _on_save_level_button_pressed() -> void:
 	var creator_manager: FB_CreatorManager = get_tree().get_first_node_in_group("FB_CreatorManager_Group")
 	
+	# If this is the tutorial manager, don't allow saving
+	if creator_manager is FB_TutorialManager:
+		return
+	
 	creator_manager.hide_menu_content()
 	
 	var handle_cancel := func():

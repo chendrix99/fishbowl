@@ -1,0 +1,322 @@
+[gd_scene load_steps=32 format=3 uid="uid://cwbe5k8e6auhb"]
+
+[ext_resource type="Script" uid="uid://c5qy7m02pt3od" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_xcy5v"]
+[ext_resource type="PackedScene" uid="uid://c3djli6x8xtmw" path="res://Models/RoomModels/FloorTile.glb" id="2_mpwjk"]
+[ext_resource type="PackedScene" uid="uid://dmil8ws38ujeg" path="res://Models/RoomModels/LeftCornerRoomWall.glb" id="3_8l8kt"]
+[ext_resource type="PackedScene" uid="uid://xiy15fs2tn30" path="res://Models/RoomModels/RightCornerRoomWall.glb" id="4_5y6ud"]
+[ext_resource type="PackedScene" uid="uid://b8tj1a5pa54oi" path="res://Models/RoomModels/WindowWall.glb" id="5_o3g3u"]
+[ext_resource type="PackedScene" uid="uid://d3u2ksy4s368a" path="res://Models/RoomModels/RoomWall.glb" id="6_e8r2s"]
+[ext_resource type="PackedScene" uid="uid://davqmqrnkqorc" path="res://Models/RoomModels/OpenWindow.glb" id="7_sqrss"]
+[ext_resource type="PackedScene" uid="uid://bee7nf8nksl7f" path="res://Models/RoomModels/CornerCounter.glb" id="8_8sxd3"]
+[ext_resource type="PackedScene" uid="uid://d18go58qiun32" path="res://Models/RoomModels/CornerHangingCabinet.glb" id="9_djkeo"]
+[ext_resource type="PackedScene" uid="uid://ci84l31yooorm" path="res://Models/RoomModels/Counter.glb" id="10_h2fno"]
+[ext_resource type="PackedScene" uid="uid://crbefojk57fni" path="res://Models/RoomModels/Fridge.glb" id="11_brled"]
+[ext_resource type="PackedScene" uid="uid://boym3n21w6q08" path="res://Models/RoomModels/HangingCabinet.glb" id="12_lkal5"]
+[ext_resource type="PackedScene" uid="uid://b6u4b2jwmo2wh" path="res://Models/RoomModels/Oven.glb" id="13_tjvlc"]
+[ext_resource type="PackedScene" uid="uid://cpmvb56gt1ybx" path="res://Models/RoomModels/Sink.glb" id="14_a7r7v"]
+[ext_resource type="PackedScene" uid="uid://bogpd1clnup3y" path="res://Models/RoomModels/SingleHangingCabinetLeft.glb" id="15_ud6sy"]
+[ext_resource type="PackedScene" uid="uid://cjwhynxa6udqc" path="res://Models/RoomModels/Table.glb" id="16_ub7tt"]
+[ext_resource type="Material" uid="uid://dlc6ix1pqj2kx" path="res://Materials/sky_day.tres" id="17_cakc5"]
+[ext_resource type="PackedScene" uid="uid://bdwmserhqai5h" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_physics_hand_low.tscn" id="18_jwiri"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="19_nst2m"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="20_6mpra"]
+[ext_resource type="PackedScene" uid="uid://btf05hjpw6k05" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_physics_hand_low.tscn" id="21_tx08y"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="22_u22kd"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="23_ok2pl"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="24_54md2"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="25_066q1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2amac"]
+size = Vector3(8, 0.04, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mi18q"]
+size = Vector3(8, 0.04, 8)
+
+[sub_resource type="Sky" id="Sky_8popp"]
+sky_material = ExtResource("17_cakc5")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_xcy5v"]
+background_mode = 2
+background_color = Color(0.34375, 0.34375, 0.34375, 1)
+sky = SubResource("Sky_8popp")
+ambient_light_source = 2
+ambient_light_color = Color(0.541458, 0.569431, 0.589844, 1)
+glow_bloom = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fnbjg"]
+albedo_color = Color(0.443137, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vaka0"]
+albedo_color = Color(0.169245, 0.169245, 0.169245, 1)
+
+[node name="FB_KitchenTemplate" type="Node3D"]
+script = ExtResource("1_xcy5v")
+metadata/_custom_type_script = "uid://c5qy7m02pt3od"
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="FloorBody" type="StaticBody3D" parent="Level"]
+
+[node name="Floor" type="Node3D" parent="Level/FloorBody"]
+
+[node name="FloorTile1" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+
+[node name="FloorTile2" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
+
+[node name="FloorTile3" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="FloorTile4" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="FloorTile5" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
+
+[node name="FloorTile6" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="FloorTile7" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="FloorTile8" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="FloorTile9" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="FloorTile10" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="FloorTile11" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="FloorTile12" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+
+[node name="FloorTile13" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="FloorTile14" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
+
+[node name="FloorTile15" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+
+[node name="FloorTile16" parent="Level/FloorBody/Floor" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/FloorBody"]
+shape = SubResource("BoxShape3D_2amac")
+
+[node name="CeilingBody" type="StaticBody3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
+
+[node name="Ceiling" type="Node3D" parent="Level/CeilingBody"]
+
+[node name="FloorTile1" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+
+[node name="FloorTile2" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
+
+[node name="FloorTile3" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="FloorTile4" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="FloorTile5" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
+
+[node name="FloorTile6" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="FloorTile7" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="FloorTile8" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+
+[node name="FloorTile9" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="FloorTile10" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="FloorTile11" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="FloorTile12" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+
+[node name="FloorTile13" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="FloorTile14" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
+
+[node name="FloorTile15" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+
+[node name="FloorTile16" parent="Level/CeilingBody/Ceiling" instance=ExtResource("2_mpwjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/CeilingBody"]
+shape = SubResource("BoxShape3D_mi18q")
+
+[node name="Walls" type="Node3D" parent="Level"]
+
+[node name="LeftCornerRoomWall" parent="Level/Walls" instance=ExtResource("3_8l8kt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3, 0, -4.3)
+
+[node name="RightCornerRoomWall" parent="Level/Walls" instance=ExtResource("4_5y6ud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 0, -4.3)
+
+[node name="LeftCornerRoomWall2" parent="Level/Walls" instance=ExtResource("3_8l8kt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.3, 0, 4.3)
+
+[node name="RightCornerRoomWall2" parent="Level/Walls" instance=ExtResource("4_5y6ud")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.3, 0, 4.3)
+
+[node name="WindowWall" parent="Level/Walls" instance=ExtResource("5_o3g3u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.3, 0, 0.4)
+
+[node name="WindowWall2" parent="Level/Walls" instance=ExtResource("5_o3g3u")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.32, 0, 4.3)
+
+[node name="RoomWall" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.3, 0, -2.3)
+
+[node name="RoomWall2" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -4.3)
+
+[node name="RoomWall3" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, -4.3)
+
+[node name="RoomWall4" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3, 0, -1.3)
+
+[node name="RoomWall5" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3, 0, 0.7)
+
+[node name="RoomWall6" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3, 0, 2.3)
+
+[node name="RoomWall9" parent="Level/Walls" instance=ExtResource("6_e8r2s")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.3, 0, 4.3)
+
+[node name="OpenWindow" parent="Level/Walls" instance=ExtResource("7_sqrss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, -4.3)
+
+[node name="Decor" type="Node3D" parent="Level"]
+
+[node name="CornerCounter" parent="Level/Decor" instance=ExtResource("8_8sxd3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.35, 0, -3.35)
+
+[node name="CornerCounter2" parent="Level/Decor" instance=ExtResource("8_8sxd3")]
+transform = Transform3D(0.6, 0, 0, 0, 1, 0, 0, 0, 1, 3.56483, 0, -3.35)
+
+[node name="CornerHangingCabinet" parent="Level/Decor" instance=ExtResource("9_djkeo")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.35, 2.7, -3.35)
+
+[node name="CornerHangingCabinet2" parent="Level/Decor" instance=ExtResource("9_djkeo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.34554, 2.7, -3.35)
+
+[node name="Counter2" parent="Level/Decor" instance=ExtResource("10_h2fno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2834, 0, -3.35)
+
+[node name="Counter4" parent="Level/Decor" instance=ExtResource("10_h2fno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74815, 0, -3.35)
+
+[node name="Counter5" parent="Level/Decor" instance=ExtResource("10_h2fno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7483, 0, -3.35)
+
+[node name="Counter3" parent="Level/Decor" instance=ExtResource("10_h2fno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32413, 0, -3.35)
+
+[node name="Fridge2" parent="Level/Decor" instance=ExtResource("11_brled")]
+transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, -3.35, 2.2, -2.079)
+
+[node name="HangingCabinet3" parent="Level/Decor" instance=ExtResource("12_lkal5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72653, 2.7, -3.35)
+
+[node name="HangingCabinet4" parent="Level/Decor" instance=ExtResource("12_lkal5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73748, 2.7, -3.35)
+
+[node name="Oven2" parent="Level/Decor" instance=ExtResource("13_tjvlc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.733739, 0, -3.35)
+
+[node name="Sink" parent="Level/Decor" instance=ExtResource("14_a7r7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, -3.35)
+
+[node name="SingleHangingCabinetLeft" parent="Level/Decor" instance=ExtResource("15_ud6sy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.335, 2.7, -3.35)
+
+[node name="SingleHangingCabinetLeft2" parent="Level/Decor" instance=ExtResource("15_ud6sy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.7, -3.35)
+
+[node name="SingleHangingCabinetLeft3" parent="Level/Decor" instance=ExtResource("15_ud6sy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72794, 2.7, -3.35)
+
+[node name="Table2" parent="Level/Decor" instance=ExtResource("16_ub7tt")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -0.00295866, 0, 1.30526)
+
+[node name="Effects" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42687, 0)
+light_energy = 2.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Effects"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="Effects"]
+environment = SubResource("Environment_xcy5v")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08791, 0, 1.95049)
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+far = 300.0
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="LeftPhysicsHand" parent="XROrigin3D/LeftHand" instance=ExtResource("18_jwiri")]
+
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("19_nst2m")]
+strafe = true
+
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("20_6mpra")]
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="RightPhysicsHand" parent="XROrigin3D/RightHand" instance=ExtResource("21_tx08y")]
+
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("20_6mpra")]
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("22_u22kd")]
+laser_length = 1
+laser_material = SubResource("StandardMaterial3D_fnbjg")
+show_target = true
+target_radius = 0.01
+target_material = SubResource("StandardMaterial3D_vaka0")
+collision_mask = 5242881
+collide_with_areas = true
+
+[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("23_ok2pl")]
+turn_mode = 2
+
+[node name="MovementJump" parent="XROrigin3D/RightHand" instance=ExtResource("24_54md2")]
+jump_button_action = "ax_button"
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("25_066q1")]
+push_rigid_bodies = false

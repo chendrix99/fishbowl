@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bdqn61ih82whj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmfjd"]
-bg_color = Color(0.0605303, 0.0605304, 0.0605303, 1)
+[ext_resource type="PackedScene" uid="uid://dugh7icviwfqf" path="res://Scenes/Interface/fb_main_menu_level_button.tscn" id="1_wl8ge"]
 
 [node name="FB_TextEditDoneCancel" type="Control"]
 layout_mode = 3
@@ -15,15 +14,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Background" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vmfjd")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -34,12 +24,10 @@ grow_vertical = 2
 theme_override_constants/separation = 800
 alignment = 1
 
-[node name="CancelButton" type="Button" parent="HBoxContainer"]
+[node name="CancelButton" parent="HBoxContainer" instance=ExtResource("1_wl8ge")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Cancel"
 
-[node name="DoneButton" type="Button" parent="HBoxContainer"]
+[node name="DoneButton" parent="HBoxContainer" instance=ExtResource("1_wl8ge")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Done"

@@ -15,7 +15,6 @@ theme = ExtResource("1_be74n")
 script = ExtResource("1_ehb0n")
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,6 +28,13 @@ offset_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
+
+[node name="TutorialButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(600, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "Tutorial: Start Here"
 
 [node name="PlayLevelButton" type="Button" parent="MainMenu"]
 custom_minimum_size = Vector2(600, 120)
@@ -202,6 +208,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 30
 text = "< Back"
 
+[connection signal="pressed" from="MainMenu/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="MainMenu/PlayLevelButton" to="." method="_on_play_level_button_pressed"]
 [connection signal="pressed" from="MainMenu/CreateNewLevelButton" to="." method="_on_create_level_button_pressed"]
 [connection signal="pressed" from="MainMenu/EditExistingLevelButton" to="." method="_on_edit_level_button_pressed"]

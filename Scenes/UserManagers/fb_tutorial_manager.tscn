@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsj6py44f7i24"]
+
+[ext_resource type="Script" uid="uid://cwxxhhepvdaks" path="res://Scripts/UserManagers/fb_tutorial_manager.gd" id="1_cfkcf"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_ckdf5"]
+[ext_resource type="PackedScene" uid="uid://dfj8q52ayfova" path="res://Scenes/Interface/fb_creator_menu_content.tscn" id="3_nlflp"]
+[ext_resource type="PackedScene" uid="uid://d4dx86hhw07pj" path="res://Scenes/Interface/fb_prompt_creator.tscn" id="4_d0pmk"]
+[ext_resource type="PackedScene" uid="uid://boeiciodnqp2b" path="res://Scenes/Interface/fb_tutorial_prompt.tscn" id="5_n0a1j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ragbh"]
+transparency = 4
+shading_mode = 0
+
+[node name="FB_TutorialManager" type="Node3D"]
+script = ExtResource("1_cfkcf")
+
+[node name="CreatorMenuHolder" type="Node3D" parent="."]
+
+[node name="CreatorMenuViewportIn3D" parent="CreatorMenuHolder" instance=ExtResource("2_ckdf5")]
+screen_size = Vector2(1.5, 1)
+collision_layer = 5242880
+scene = ExtResource("3_nlflp")
+viewport_size = Vector2(1200, 800)
+material = SubResource("StandardMaterial3D_ragbh")
+scene_properties_keys = PackedStringArray("fb_creator_menu_content.gd")
+
+[node name="FB_PromptCreator" parent="." instance=ExtResource("4_d0pmk")]
+
+[node name="FB_TutorialPrompt" parent="." instance=ExtResource("5_n0a1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.655164, 0)

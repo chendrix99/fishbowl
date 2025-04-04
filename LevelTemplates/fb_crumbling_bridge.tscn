@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=4 uid="uid://drlungud6du37"]
 
-[ext_resource type="Script" uid="uid://ckbr3wulws4wd" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_ycsr6"]
+[ext_resource type="Script" uid="uid://c5qy7m02pt3od" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_ycsr6"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_3xhq0"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_tque7"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_hvnrt"]
@@ -12,7 +12,7 @@
 [ext_resource type="Material" uid="uid://blqybo0kjgnq2" path="res://Materials/sky_night.tres" id="10_nvflp"]
 [ext_resource type="Shader" uid="uid://qqhcdx55fx7h" path="res://Materials/Shaders/water.gdshader" id="11_28t7g"]
 [ext_resource type="Texture2D" uid="uid://bo8fgmgwm2lv2" path="res://Textures/wave.jpeg" id="12_fjgqo"]
-[ext_resource type="Script" uid="uid://b5qx2w6uio587" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="13_kuero"]
+[ext_resource type="Script" uid="uid://clqbajkddovew" path="res://Scripts/AssetBehaviors/fb_killbox.gd" id="13_kuero"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcyk8"]
 albedo_color = Color(0.443137, 1, 1, 1)
@@ -50,6 +50,8 @@ material = SubResource("ShaderMaterial_11015")
 top_radius = 400.0
 bottom_radius = 400.0
 height = 1.0
+radial_segments = 32
+cap_bottom = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvcgk"]
 resource_name = "Bridge_Surface"

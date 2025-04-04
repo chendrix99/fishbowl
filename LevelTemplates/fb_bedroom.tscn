@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://b3ixj5rsg8kmn"]
 
-[ext_resource type="Script" uid="uid://ckbr3wulws4wd" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_8popp"]
+[ext_resource type="Script" uid="uid://c5qy7m02pt3od" path="res://addons/godot-xr-tools/staging/scene_base.gd" id="1_8popp"]
 [ext_resource type="PackedScene" uid="uid://c3djli6x8xtmw" path="res://Models/RoomModels/FloorTile.glb" id="2_5x0dp"]
 [ext_resource type="PackedScene" uid="uid://dmil8ws38ujeg" path="res://Models/RoomModels/LeftCornerRoomWall.glb" id="3_ifmy8"]
 [ext_resource type="PackedScene" uid="uid://xiy15fs2tn30" path="res://Models/RoomModels/RightCornerRoomWall.glb" id="4_qjpuh"]
@@ -29,16 +29,16 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2n4oe"]
 size = Vector3(8, 0.04, 8)
 
-[sub_resource type="Sky" id="Sky_enokl"]
+[sub_resource type="Sky" id="Sky_8popp"]
 sky_material = ExtResource("17_foj5p")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_bdig3"]
 background_mode = 2
 background_color = Color(0.34375, 0.34375, 0.34375, 1)
-sky = SubResource("Sky_enokl")
+sky = SubResource("Sky_8popp")
 ambient_light_source = 2
 ambient_light_color = Color(0.541458, 0.569431, 0.589844, 1)
-glow_enabled = true
 glow_bloom = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cboh0"]

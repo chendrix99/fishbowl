@@ -12,8 +12,8 @@ signal user_pressed_cancel
 @onready var header := prompt_content.get_child(3) as RichTextLabel
 
 @onready var done_cancel_content := $DoneCancel.get_scene_instance() as Control
-@onready var cancel_button := done_cancel_content.get_child(1).get_child(0) as Button
-@onready var done_button := done_cancel_content.get_child(1).get_child(1) as Button
+@onready var cancel_button := done_cancel_content.get_child(0).get_child(0) as Button
+@onready var done_button := done_cancel_content.get_child(0).get_child(1) as Button
 
 func _ready() -> void:
 	prompt.set_caret_blink_enabled(true)

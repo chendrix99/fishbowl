@@ -4,6 +4,7 @@ var _loaded_level : FB_Level = null
 
 const CREATOR_MANAGER := preload("res://Scenes/UserManagers/fb_creator_manager.tscn")
 const PLAYER_MANAGER := preload("res://Scenes/UserManagers/fb_player_manager.tscn")
+const TUTORIAL_MANAGER := preload("res://Scenes/UserManagers/fb_tutorial_manager.tscn")
 
 const LEVEL_TEMPLATE_DIRECTORY := "res://LevelTemplates/"
 const LEVEL_SAVES_DIRECTORY := "user://LevelSaves/"
@@ -130,3 +131,15 @@ func save_level(display_name: StringName = "Untitled_Level") -> void:
 	# (Ensure that the user level directory exists before attempting to save.)
 	DirAccess.make_dir_recursive_absolute(LEVEL_SAVES_DIRECTORY)
 	ResourceSaver.save(saved_level, file_path + ".tres")
+
+
+func play_tutorial_level(level_file_path: String) -> void:
+	var level_template_instance = load(level_file_path).instantiate()
+	
+	var tutorial_manager = TUTORIAL_MANAGER.instantiate()
+	level_template_instance.add_child(tutorial_manager)
+	tutorial_manager.owner = level_template_instance
+	
+	var packed_scene := PackedScene.new()
+	packed_scene.pack(level_template_instance)
+	get_tree().change_scene_to_packed(packed_scene)

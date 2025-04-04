@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://boeiciodnqp2b"]
+
+[ext_resource type="PackedScene" uid="uid://baiomms41aoey" path="res://Scenes/Interface/fb_prompt_display.tscn" id="1_qy7d5"]
+[ext_resource type="Script" uid="uid://g8l7x87yea4p" path="res://Scripts/Interface/fb_tutorial_prompt.gd" id="1_x2pqu"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_x2pqu"]
+[ext_resource type="PackedScene" uid="uid://defrp17uyyx3f" path="res://Scenes/Interface/fb_prompt_ok.tscn" id="3_7k1wk"]
+
+[node name="FB_TutorialPrompt" type="Node3D"]
+script = ExtResource("1_x2pqu")
+
+[node name="FB_PromptDisplay" parent="." instance=ExtResource("1_qy7d5")]
+screen_size = Vector2(1.5, 1)
+
+[node name="Okay" parent="." instance=ExtResource("2_x2pqu")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, -0.625223, 0.0516126)
+screen_size = Vector2(0.5, 0.25)
+scene = ExtResource("3_7k1wk")
+viewport_size = Vector2(400, 200)
+scene_properties_keys = PackedStringArray()

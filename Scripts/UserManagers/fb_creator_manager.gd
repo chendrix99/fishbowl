@@ -76,9 +76,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not _user == null:
 		# Position the creator menu in front of the user.
-		_creator_menu_holder.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
+		_creator_menu_holder.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP*1.5
 		_creator_menu_holder.basis = Basis.looking_at(-1 * Plane.PLANE_XZ.project(_user.basis.z))
-		prompt_creator.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP
+		prompt_creator.position = _user.position - Plane.PLANE_XZ.project(_user.basis.z) * 1.25 + Vector3.UP*1.5
 		prompt_creator.basis = Basis.looking_at(-1 * Plane.PLANE_XZ.project(_user.basis.z))
 	
 	if _is_recording:
