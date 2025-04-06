@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://uwhqkwp8f86g" path="res://Models/screw.glb" id="3_ly5f2"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_htpi0"]
 [ext_resource type="Animation" uid="uid://dhjb0e334tfwl" path="res://addons/godot-xr-tools/hands/animations/left/Pinch Flat.res" id="5_xrhhh"]
-[ext_resource type="Script" uid="uid://5f5scqebid6q" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_rfj60"]
+[ext_resource type="Script" uid="uid://cllhibewqnn28" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_rfj60"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_bvycg"]
 [ext_resource type="Animation" uid="uid://dg4v7rqiaje2h" path="res://addons/godot-xr-tools/hands/animations/right/Pinch Flat.res" id="8_ujwk3"]
-[ext_resource type="Script" uid="uid://c612my5k8ecty" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="9_bxl36"]
+[ext_resource type="Script" uid="uid://8oiq4y1jpjj4" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="9_bxl36"]
 [ext_resource type="Material" uid="uid://b8cu68l1qs31n" path="res://Materials/asset_highlighter.tres" id="10_yqbdq"]
 
 [sub_resource type="Resource" id="Resource_bhbid"]
@@ -34,6 +34,7 @@ script = ExtResource("1_ccvxn")
 pickable_object = NodePath("PickableObject")
 
 [node name="PickableObject" parent="." groups=["ACScrew"] instance=ExtResource("2_aqaq8")]
+collision_mask = 7
 picked_up_layer = 0
 ranged_grab_method = 0
 second_hand_grab = 1

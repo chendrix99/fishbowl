@@ -327,4 +327,5 @@ turn_mode = 2
 jump_button_action = "ax_button"
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("25_uilg7")]
+collision_mask = 1019
 push_rigid_bodies = false

@@ -1,0 +1,67 @@
+[gd_scene load_steps=18 format=3 uid="uid://b8ni33aedpvx1"]
+
+[ext_resource type="Script" uid="uid://dkaadsgxiy1h1" path="res://Scripts/AssetBehaviors/fb_asset_base.gd" id="1_phsle"]
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="2_475bq"]
+[ext_resource type="PackedScene" uid="uid://dsiacagol34x4" path="res://Models/basketball_FBX.fbx" id="3_sxtve"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_hchyi"]
+[ext_resource type="Animation" uid="uid://bediglpx0rj7i" path="res://addons/godot-xr-tools/hands/animations/left/Grip 5.res" id="5_c8ytt"]
+[ext_resource type="Animation" uid="uid://dlxa6f6hwurka" path="res://addons/godot-xr-tools/hands/animations/left/Default pose.res" id="6_asw2u"]
+[ext_resource type="Script" uid="uid://cllhibewqnn28" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_4nh3j"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="8_4nh3j"]
+[ext_resource type="Animation" uid="uid://s1vqcxyqcvea" path="res://addons/godot-xr-tools/hands/animations/right/Grip 5.res" id="9_o2m41"]
+[ext_resource type="Animation" uid="uid://ky28birj4su6" path="res://addons/godot-xr-tools/hands/animations/right/Default pose.res" id="10_1fhky"]
+[ext_resource type="Script" uid="uid://8oiq4y1jpjj4" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="11_1fhky"]
+[ext_resource type="Material" uid="uid://b8cu68l1qs31n" path="res://Materials/asset_highlighter.tres" id="12_mnmf4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hchyi"]
+bounce = 0.8
+
+[sub_resource type="Resource" id="Resource_o2m41"]
+script = ExtResource("7_4nh3j")
+open_pose = ExtResource("6_asw2u")
+closed_pose = ExtResource("5_c8ytt")
+
+[sub_resource type="Resource" id="Resource_mnmf4"]
+script = ExtResource("7_4nh3j")
+open_pose = ExtResource("10_1fhky")
+closed_pose = ExtResource("9_o2m41")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4nh3j"]
+radius = 0.14
+
+[sub_resource type="SphereMesh" id="SphereMesh_c6gv5"]
+material = ExtResource("12_mnmf4")
+flip_faces = true
+radius = 0.14
+height = 0.28
+
+[node name="FB_Basketball" type="Node3D" node_paths=PackedStringArray("pickable_object")]
+script = ExtResource("1_phsle")
+pickable_object = NodePath("PickableObject")
+
+[node name="PickableObject" parent="." instance=ExtResource("2_475bq")]
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_hchyi")
+second_hand_grab = 2
+
+[node name="basketball_FBX" parent="PickableObject" instance=ExtResource("3_sxtve")]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0, 0, 0)
+
+[node name="GrabPointHandLeft" parent="PickableObject" instance=ExtResource("4_hchyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14684, 0.0552915, -0.0653366)
+visible = true
+hand_pose = SubResource("Resource_o2m41")
+
+[node name="GrabPointHandRight" parent="PickableObject" instance=ExtResource("8_4nh3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130729, 0.055, -0.065)
+visible = true
+hand_pose = SubResource("Resource_mnmf4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
+shape = SubResource("SphereShape3D_4nh3j")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="PickableObject"]
+script = ExtResource("11_1fhky")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject/XRToolsHighlightVisible"]
+mesh = SubResource("SphereMesh_c6gv5")
